@@ -1,0 +1,65 @@
+{
+  "entities": {
+    "SupportMessage": {
+      "title": "SupportMessage",
+      "description": "A message sent by a visitor via the live chat widget.",
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "The email address of the visitor."
+        },
+        "message": {
+          "type": "string",
+          "description": "The content of the message."
+        },
+        "createdAt": {
+          "type": "timestamp",
+          "description": "The time the message was sent."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["new", "read", "replied"],
+          "description": "The status of the message."
+        }
+      },
+      "required": ["email", "message", "createdAt", "status"]
+    },
+    "ResourceDownload": {
+      "title": "ResourceDownload",
+      "description": "A record of a user downloading a resource.",
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "The company email of the user downloading the resource."
+        },
+        "resourceTitle": {
+          "type": "string",
+          "description": "The title of the downloaded resource."
+        },
+        "createdAt": {
+          "type": "timestamp",
+          "description": "The time the resource was downloaded."
+        }
+      },
+      "required": ["email", "resourceTitle", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/support_messages/{messageId}": {
+      "schema": {
+        "$ref": "SupportMessage"
+      },
+      "description": "Collection of support messages from visitors."
+    },
+    "/resource_downloads/{downloadId}": {
+      "schema": {
+        "$ref": "ResourceDownload"
+      },
+      "description": "Collection of resource download records."
+    }
+  }
+}

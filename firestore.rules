@@ -1,0 +1,77 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    //
+    // Collection: support_messages
+    // Document ID: auto-generated
+    // Fields:
+    //   - email: string (required, valid email) - The email address of the visitor.
+    //   - message: string (required, max 5000 chars) - The content of the message.
+    //   - createdAt: timestamp (required) - The time the message was sent.
+    //   - status: string (required, 'new'|'read'|'replied') - The status of the message.
+    //
+    // ===============================================================
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && request.auth.token.email == "bao.ngo@convertx.biz" && request.auth.token.email_verified == true;
+    }
+
+    function hasOnlyAllowedFields(fields) {
+      return request.resource.data.keys().hasOnly(fields);
+    }
+
+    function isValidEmail(email) {
+      return email is string &&
+        email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+    }
+
+    function isValidSupportMessage(data) {
+      return hasOnlyAllowedFields(['email', 'message', 'createdAt', 'status']) &&
+             data.email is string && isValidEmail(data.email) && data.email.size() <= 100 &&
+             data.message is string && data.message.size() > 0 && data.message.size() <= 5000 &&
+             data.createdAt is timestamp &&
+             data.status in ['new', 'read', 'replied'];
+    }
+
+    function isValidResourceDownload(data) {
+      return hasOnlyAllowedFields(['email', 'resourceTitle', 'createdAt']) &&
+             data.email is string && isValidEmail(data.email) && data.email.size() <= 100 &&
+             data.resourceTitle is string && data.resourceTitle.size() > 0 && data.resourceTitle.size() <= 200 &&
+             data.createdAt is timestamp;
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+
+    match /support_messages/{messageId} {
+      // Anyone can create a support message (public contact form)
+      allow create: if isValidSupportMessage(request.resource.data) && request.resource.data.status == 'new';
+      
+      // Only admins can read, update, or delete support messages
+      allow read, delete: if isAdmin();
+      allow update: if isAdmin() && isValidSupportMessage(request.resource.data);
+    }
+
+    match /resource_downloads/{downloadId} {
+      // Anyone can create a resource download record
+      allow create: if isValidResourceDownload(request.resource.data);
+      
+      // Only admins can read, update, or delete resource download records
+      allow read, delete: if isAdmin();
+      allow update: if isAdmin() && isValidResourceDownload(request.resource.data);
+    }
+  }
+}
