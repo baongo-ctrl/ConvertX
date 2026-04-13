@@ -383,7 +383,7 @@ export default function Webinar() {
           <div className="bg-white rounded-3xl shadow-xl border border-slate-200 p-8 md:p-12">
             <div className="text-center mb-10">
               <h2 className="text-3xl font-bold text-slate-900 mb-4">Đăng ký tham dự miễn phí</h2>
-              <p className="text-slate-600">Số lượng giới hạn 500 người tham dự để đảm bảo chất lượng Q&A.</p>
+              <p className="text-slate-600">Số lượng giới hạn 50 người tham dự để đảm bảo chất lượng Q&A.</p>
             </div>
 
             {formStatus === 'success' ? (
