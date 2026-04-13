@@ -269,9 +269,9 @@ export default function Webinar() {
               <div>
                 <h3 className="text-slate-900 font-bold text-lg mb-2">Phần 2: Chiến thuật Growth Engine & Tối ưu hành trình khách hàng</h3>
                 <ul className="text-slate-600 space-y-2 text-sm">
-                  <li>• Chia sẻ kinh nghiệm chuyên sâu về kết hợp giữa Marketing Planning, ROI, và Phân tích Cohort.</li>
-                  <li>• Tư duy Tăng trưởng dựa trên dữ liệu (Data-driven Insights): Cách sử dụng dữ liệu để thấu hiểu "điểm rơi" của khách hàng trong phễu B2B.</li>
-                  <li>• Case study thực tế đã triển khai ở các Startup B2B, B2B Tech company.</li>
+                  <li>• Chia sẻ kinh nghiệm B2B Growth kết hợp giữa xây dựng Định vị truyền thông, Kế hoạch truyền thông và Vòng lặp tăng trưởng bền vững.</li>
+                  <li>• Khung Tăng trưởng dựa trên dữ liệu (Data-driven Insights): Cách sử dụng dữ liệu để thấu hiểu "điểm rơi" của khách hàng trong phễu B2B.</li>
+                  <li>• Case study đã triển khai ở tech startup</li>
                 </ul>
               </div>
             </div>
