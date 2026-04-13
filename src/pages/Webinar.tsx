@@ -174,7 +174,7 @@ export default function Webinar() {
                   </div>
                   <div>
                     <p className="text-sm text-slate-500 font-medium">Đối tượng</p>
-                    <p className="font-bold">Founders, C-levels, Sales & Marketing</p>
+                    <p className="font-bold">Founders, CEO, Sales & Marketing Manager B2B</p>
                   </div>
                 </div>
               </div>
@@ -187,7 +187,7 @@ export default function Webinar() {
                   </div>
                   <div>
                     <p className="text-sm text-slate-500 font-medium mb-2">Đơn vị đồng hành</p>
-                    <p className="font-bold text-slate-900">MoodBiz, InCard</p>
+                    <p className="font-bold text-slate-900">K7 coffee, InCard</p>
                   </div>
                 </div>
               </div>
@@ -229,9 +229,9 @@ export default function Webinar() {
               <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500 to-teal-400 rounded-3xl transform rotate-3 scale-105 opacity-20 blur-2xl"></div>
               <div className="relative rounded-3xl shadow-2xl overflow-hidden">
                 <img 
-                  src="https://i.ibb.co/My0WTfn6/Event-Page-Webinar-1200-x-628-px.png" 
+                  src="https://i.ibb.co/hFwgZKzr/z7721614486946-ae73f1cc7fb887c85fd3db8fd18f2457.jpg" 
                   alt="Webinar Banner" 
-                  className="w-full h-auto object-cover"
+                  className="w-full h-auto"
                   referrerPolicy="no-referrer"
                 />
               </div>
@@ -313,7 +313,7 @@ export default function Webinar() {
             </div>
             <h2 className="text-3xl font-bold text-slate-900 mb-6">Quà tặng độc quyền</h2>
             <p className="text-xl text-slate-700 leading-relaxed mb-8">
-              Khi tham gia event anh chị sẽ được gửi tặng 02 tài liệu độc quyền được chuẩn hóa và biên soạn đang áp dụng cho hệ thống của mình:
+              Khi tham gia event anh chị sẽ được gửi tặng các phần quà độc quyền sau:
             </p>
             <div className="grid sm:grid-cols-2 gap-6 text-left">
               <div className="bg-white p-6 rounded-2xl shadow-sm border border-emerald-100 flex items-start gap-4">
@@ -321,7 +321,7 @@ export default function Webinar() {
                   <CheckCircle2 className="w-5 h-5 text-emerald-600" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 text-lg">Tài liệu B2B Growth Blueprint</h3>
+                  <h3 className="font-bold text-slate-900 text-lg">Tài liệu Report về Ứng dụng AI Go-to-market cho Startup B2B</h3>
                 </div>
               </div>
               <div className="bg-white p-6 rounded-2xl shadow-sm border border-emerald-100 flex items-start gap-4">
@@ -329,7 +329,7 @@ export default function Webinar() {
                   <CheckCircle2 className="w-5 h-5 text-emerald-600" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 text-lg">ContentB2B_AI_Prompt_Playbook</h3>
+                  <h3 className="font-bold text-slate-900 text-lg">Voucher giảm giá khi mua K7 cafe</h3>
                 </div>
               </div>
             </div>
