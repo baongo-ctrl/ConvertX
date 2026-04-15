@@ -337,46 +337,6 @@ export default function Webinar() {
         </div>
       </section>
 
-      {/* Các webinar đã diễn ra */}
-      <section className="py-24 bg-white border-y border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Các webinar đã diễn ra</h2>
-            <p className="text-lg text-slate-600">Xem lại các sự kiện trực tuyến chất lượng từ ConvertX.</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Link to="/webinar/xay-dung-co-may-tang-truong-b2b" className="group flex flex-col bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-xl hover:border-emerald-200 transition-all">
-              <div className="relative aspect-[1200/628] overflow-hidden">
-                <img 
-                  src="https://i.ibb.co/My0WTfn6/Event-Page-Webinar-1200-x-628-px.png" 
-                  alt="Xây Dựng Cỗ Máy Tăng Trưởng B2B" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition-colors duration-300"></div>
-                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                  <PlayCircle className="w-4 h-4 text-emerald-500" />
-                  Xem lại
-                </div>
-              </div>
-              <div className="p-6 flex-1 flex flex-col">
-                <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-emerald-600 transition-colors line-clamp-2">
-                  Xây Dựng Cỗ Máy Tăng Trưởng B2B
-                </h3>
-                <p className="text-slate-600 text-sm mb-6 line-clamp-3 flex-1">
-                  Từ chiến lược Marketing đến tự động hóa bằng AI. Khám phá cách tạo Inbound Lead và tự động hóa quy trình bán hàng.
-                </p>
-                <div className="flex items-center text-emerald-600 font-semibold text-sm mt-auto">
-                  Xem chi tiết
-                  <ArrowRight className="w-4 h-4 ml-1.5 group-hover:translate-x-1 transition-transform" />
-                </div>
-              </div>
-            </Link>
-          </div>
-        </div>
-      </section>
-
       {/* Registration Form */}
       <section id="register" className="py-24 bg-slate-50 relative">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -506,6 +466,46 @@ export default function Webinar() {
                 </p>
               </form>
             )}
+          </div>
+        </div>
+      </section>
+
+      {/* Các webinar đã diễn ra */}
+      <section className="py-24 bg-white border-y border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Các webinar đã diễn ra</h2>
+            <p className="text-lg text-slate-600">Xem lại các sự kiện trực tuyến chất lượng từ ConvertX.</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <Link to="/webinar/xay-dung-co-may-tang-truong-b2b" className="group flex flex-col bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-xl hover:border-emerald-200 transition-all">
+              <div className="relative aspect-[1200/628] overflow-hidden">
+                <img 
+                  src="https://i.ibb.co/My0WTfn6/Event-Page-Webinar-1200-x-628-px.png" 
+                  alt="Xây Dựng Cỗ Máy Tăng Trưởng B2B" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition-colors duration-300"></div>
+                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                  <PlayCircle className="w-4 h-4 text-emerald-500" />
+                  Xem lại
+                </div>
+              </div>
+              <div className="p-6 flex-1 flex flex-col">
+                <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-emerald-600 transition-colors line-clamp-2">
+                  Xây Dựng Cỗ Máy Tăng Trưởng B2B
+                </h3>
+                <p className="text-slate-600 text-sm mb-6 line-clamp-3 flex-1">
+                  Từ chiến lược Marketing đến tự động hóa bằng AI. Khám phá cách tạo Inbound Lead và tự động hóa quy trình bán hàng.
+                </p>
+                <div className="flex items-center text-emerald-600 font-semibold text-sm mt-auto">
+                  Xem chi tiết
+                  <ArrowRight className="w-4 h-4 ml-1.5 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </div>
+            </Link>
           </div>
         </div>
       </section>
