@@ -187,7 +187,7 @@ export default function Webinar() {
                   </div>
                   <div>
                     <p className="text-sm text-slate-500 font-medium mb-2">Đơn vị đồng hành</p>
-                    <p className="font-bold text-slate-900">K7 coffee, InCard</p>
+                    <p className="font-bold text-slate-900">K7 CAPHE, InCard</p>
                   </div>
                 </div>
               </div>
@@ -329,7 +329,7 @@ export default function Webinar() {
                   <CheckCircle2 className="w-5 h-5 text-emerald-600" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 text-lg">Voucher giảm giá khi mua K7 cafe</h3>
+                  <h3 className="font-bold text-slate-900 text-lg">Voucher giảm giá khi mua K7 CAPHE</h3>
                 </div>
               </div>
             </div>
