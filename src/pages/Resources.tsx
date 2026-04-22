@@ -7,6 +7,15 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const resources = [
   {
+    id: 5,
+    title: 'Báo cáo xu hướng ứng dụng AI vào GTM cho B2B SaaS',
+    description: 'Cập nhật những xu hướng mới nhất và cách thức ứng dụng AI để tối ưu hóa chiến lược Go-to-Market cho các doanh nghiệp B2B SaaS.',
+    type: 'Report',
+    icon: <Presentation className="w-6 h-6 text-emerald-600" />,
+    image: 'https://i.ibb.co/YFP5T9ZK/Screenshot-2026-04-22-at-11-03-44.png',
+    link: 'https://drive.google.com/file/d/1HIsxsqFIjGl-ZF9PbidlRRCbXxIOZ93h/view?usp=sharing'
+  },
+  {
     id: 1,
     title: 'Báo cáo Toàn cảnh: Kỷ nguyên AI trong Sales & Marketing',
     description: 'Từ Tối ưu hóa Cục bộ đến Tái cấu trúc Toàn diện. Tổng hợp dữ liệu thực chứng từ hơn 200 dự án B2B toàn cầu.',
