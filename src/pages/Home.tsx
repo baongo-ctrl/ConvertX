@@ -773,7 +773,7 @@ export default function Home() {
               <a href="#case-studies" className="text-slate-600 hover:text-emerald-600 font-medium transition-colors">{t.nav.caseStudies}</a>
               <a href="#testimonials" className="text-slate-600 hover:text-emerald-600 font-medium transition-colors">{t.nav.testimonials}</a>
               <Link to="/resources" className="text-slate-600 hover:text-emerald-600 font-medium transition-colors">{t.nav.resources}</Link>
-              <Link to="/webinar" className="text-slate-600 hover:text-emerald-600 font-medium transition-colors">Webinar</Link>
+              <Link to="/webinar" className="text-slate-600 hover:text-emerald-600 font-medium transition-colors">{lang === 'vi' ? 'Sự kiện' : 'Events'}</Link>
               
               <button 
                 onClick={toggleLang}
@@ -814,7 +814,7 @@ export default function Home() {
               <a href="#case-studies" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-slate-600 font-medium hover:text-emerald-600 hover:bg-slate-50 rounded-md">{t.nav.caseStudies}</a>
               <a href="#testimonials" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-slate-600 font-medium hover:text-emerald-600 hover:bg-slate-50 rounded-md">{t.nav.testimonials}</a>
               <Link to="/resources" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-slate-600 font-medium hover:text-emerald-600 hover:bg-slate-50 rounded-md">{t.nav.resources}</Link>
-              <Link to="/webinar" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-slate-600 font-medium hover:text-emerald-600 hover:bg-slate-50 rounded-md">Webinar</Link>
+              <Link to="/webinar" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-slate-600 font-medium hover:text-emerald-600 hover:bg-slate-50 rounded-md">{lang === 'vi' ? 'Sự kiện' : 'Events'}</Link>
               <button 
                 onClick={() => { toggleLang(); setIsMenuOpen(false); }}
                 className="w-full text-left px-3 py-2 text-slate-600 font-medium hover:text-emerald-600 hover:bg-slate-50 rounded-md flex items-center gap-2"

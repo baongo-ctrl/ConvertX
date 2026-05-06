@@ -110,7 +110,7 @@ export default function Resources() {
                 Trang chủ
               </Link>
               <Link to="/webinar" className="text-slate-600 hover:text-emerald-600 font-medium transition-colors">
-                Webinar
+                Sự kiện
               </Link>
               <a href="#resources-list" className="bg-emerald-500 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-emerald-600 transition-colors shadow-lg shadow-emerald-500/30">
                 Khám phá ngay

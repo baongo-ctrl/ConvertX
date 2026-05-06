@@ -46,8 +46,8 @@ export default function WebinarB2B() {
     submitData.append('email', formData.get('email') as string);
     submitData.append('phone', formData.get('phone') as string || 'N/A');
     submitData.append('company', formData.get('company') as string);
-    submitData.append('challenge', `Role: ${role} - Webinar B2B Materials`);
-    submitData.append('formType', 'webinar_b2b_materials');
+    submitData.append('challenge', `Role: ${role} - Tải tài liệu Webinar Xây Dựng Cỗ Máy Tăng Trưởng B2B`);
+    submitData.append('formType', 'webinar_b2b_document_download');
     
     try {
       const GOOGLE_SCRIPT_URL: string = 'https://script.google.com/macros/s/AKfycbxW029oCCiUgriRu-v988S6HPVnc6T5pVqgrChFnTop4qDLoBvcepn93ZldaePe5Dqg/exec'; 
@@ -87,7 +87,7 @@ export default function WebinarB2B() {
                 Trang chủ
               </Link>
               <a href="#register" className="bg-emerald-500 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-emerald-600 transition-colors shadow-lg shadow-emerald-500/30">
-                Đăng ký ngay
+                Tải tài liệu Webinar
               </a>
             </div>
           </div>
@@ -268,7 +268,8 @@ export default function WebinarB2B() {
                   <CheckCircle2 className="w-10 h-10 text-emerald-600" />
                 </div>
                 <h3 className="text-2xl font-bold text-slate-900 mb-2">Đăng ký thành công!</h3>
-                <p className="text-slate-600 mb-8">Tài liệu đã được mở trong tab mới. Chúng tôi cũng đã gửi link tham dự webinar và tài liệu vào email của bạn. Vui lòng kiểm tra hộp thư (kể cả thư mục Spam).</p>
+                <p className="text-slate-600 mb-3">Tài liệu đã được mở trong một thẻ mới.</p>
+                <p className="text-slate-600 mb-8">Nếu trình duyệt chặn popup, bạn có thể <a href="https://drive.google.com/drive/folders/1R-gdtBwWqs5BHkp4G8gwRcRqvng8137c?usp=sharing" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline font-semibold">bấm vào đây để tải</a>.</p>
                 <button 
                   onClick={() => setFormStatus('idle')}
                   className="text-emerald-600 font-medium hover:text-emerald-700"
@@ -370,7 +371,7 @@ export default function WebinarB2B() {
                       Đang xử lý...
                     </span>
                   ) : (
-                    'Đăng ký nhận tài liệu ngay'
+                    'Tải tài liệu Webinar'
                   )}
                 </button>
                 <p className="text-xs text-slate-500 text-center mt-4">
@@ -404,6 +405,74 @@ export default function WebinarB2B() {
                 <p className="text-slate-700 font-medium text-lg pt-1.5">{item}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Các sự kiện đã diễn ra */}
+      <section className="py-24 bg-white border-y border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Các sự kiện đã diễn ra</h2>
+            <p className="text-lg text-slate-600">Xem lại các sự kiện trực tuyến chất lượng từ ConvertX.</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <Link to="/webinar/xay-dung-co-may-tang-truong-b2b" className="group flex flex-col bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-xl hover:border-emerald-200 transition-all">
+              <div className="relative aspect-[1200/628] overflow-hidden">
+                <img 
+                  src="https://i.ibb.co/My0WTfn6/Event-Page-Webinar-1200-x-628-px.png" 
+                  alt="Xây Dựng Cỗ Máy Tăng Trưởng B2B" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition-colors duration-300"></div>
+                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                  <PlayCircle className="w-4 h-4 text-emerald-500" />
+                  Xem lại
+                </div>
+              </div>
+              <div className="p-6 flex-1 flex flex-col">
+                <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-emerald-600 transition-colors line-clamp-2">
+                  Xây Dựng Cỗ Máy Tăng Trưởng B2B
+                </h3>
+                <p className="text-slate-600 text-sm mb-6 line-clamp-3 flex-1">
+                  Từ chiến lược Marketing đến tự động hóa bằng AI. Khám phá cách tạo Inbound Lead và tự động hóa quy trình bán hàng.
+                </p>
+                <div className="flex items-center text-emerald-600 font-semibold text-sm mt-auto">
+                  Xem chi tiết
+                  <ArrowRight className="w-4 h-4 ml-1.5 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </div>
+            </Link>
+
+            <Link to="/webinar/growth-cho-b2b-startup" className="group flex flex-col bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-xl hover:border-emerald-200 transition-all">
+              <div className="relative aspect-[1200/628] overflow-hidden">
+                <img 
+                  src="https://i.ibb.co/hFwgZKzr/z7721614486946-ae73f1cc7fb887c85fd3db8fd18f2457.jpg" 
+                  alt="Growth Cho B2B Startup" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition-colors duration-300"></div>
+                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                  <PlayCircle className="w-4 h-4 text-emerald-500" />
+                  Xem lại
+                </div>
+              </div>
+              <div className="p-6 flex-1 flex flex-col">
+                <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-emerald-600 transition-colors line-clamp-2">
+                  Growth Cho B2B Startup
+                </h3>
+                <p className="text-slate-600 text-sm mb-6 line-clamp-3 flex-1">
+                  Từ chiến thuật đến tự động hoá với Agentic AI. Cung cấp tư duy xây dựng phễu tăng trưởng liền mạch.
+                </p>
+                <div className="flex items-center text-emerald-600 font-semibold text-sm mt-auto">
+                  Xem chi tiết
+                  <ArrowRight className="w-4 h-4 ml-1.5 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </div>
+            </Link>
           </div>
         </div>
       </section>

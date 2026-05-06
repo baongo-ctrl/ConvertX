@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Calendar, Clock, Users, CheckCircle2, ArrowRight, PlayCircle, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-export default function Webinar() {
+export default function WebinarGrowth() {
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [notification, setNotification] = useState<{ name: string, time: string } | null>(null);
@@ -71,8 +71,8 @@ export default function Webinar() {
     submitData.append('email', formData.get('email') as string);
     submitData.append('phone', formData.get('phone') as string || 'N/A');
     submitData.append('company', formData.get('company') as string);
-    submitData.append('challenge', `Role: ${role} - Webinar Registration`);
-    submitData.append('formType', 'webinar_registration');
+    submitData.append('challenge', `Role: ${role} - Tải tài liệu Webinar Growth Cho B2B Startup`);
+    submitData.append('formType', 'webinar_growth_document_download');
     
     try {
       const GOOGLE_SCRIPT_URL: string = 'https://script.google.com/macros/s/AKfycbxW029oCCiUgriRu-v988S6HPVnc6T5pVqgrChFnTop4qDLoBvcepn93ZldaePe5Dqg/exec'; 
@@ -89,9 +89,11 @@ export default function Webinar() {
         console.log("Webinar Form data ready to be sent to Google Sheets:", Object.fromEntries(submitData.entries()));
       }
       
+      window.open('https://drive.google.com/drive/folders/121AT2NnLx9ICV5q2Ew3CA29sZKhbLE3h?usp=sharing', '_blank');
       setFormStatus('success');
     } catch (error) {
       console.error('Error submitting form:', error);
+      window.open('https://drive.google.com/drive/folders/121AT2NnLx9ICV5q2Ew3CA29sZKhbLE3h?usp=sharing', '_blank');
       setFormStatus('success'); 
     }
   };
@@ -110,7 +112,7 @@ export default function Webinar() {
                 Trang chủ
               </Link>
               <a href="#register" className="bg-emerald-500 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-emerald-600 transition-colors shadow-lg shadow-emerald-500/30">
-                Đăng ký ngay
+                Tải tài liệu Webinar
               </a>
             </div>
           </div>
@@ -138,7 +140,7 @@ export default function Webinar() {
               </div>
               
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.1] mb-6">
-                Xây Dựng <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-600">Cỗ Máy Tăng Trưởng Cho B2B Startup</span>
+                Growth <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-600">Cho B2B Startup</span>
               </h1>
               
               <p className="text-2xl font-bold text-slate-800 mb-4">
@@ -214,7 +216,7 @@ export default function Webinar() {
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <a href="#register" className="inline-flex justify-center items-center gap-2 bg-emerald-500 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-emerald-600 transition-all shadow-xl shadow-emerald-500/30 hover:-translate-y-1">
-                  Giữ chỗ ngay miễn phí
+                  Tải tài liệu Webinar
                   <ArrowRight className="w-5 h-5" />
                 </a>
               </div>
@@ -236,70 +238,6 @@ export default function Webinar() {
                 />
               </div>
             </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Timeline sự kiện */}
-      <section className="py-24 bg-white border-y border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Khung chương trình chi tiết</h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            <div className="flex items-start gap-4 p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-emerald-200 hover:shadow-md transition-all">
-              <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
-                <span className="font-bold text-emerald-600">1</span>
-              </div>
-              <div>
-                <h3 className="text-slate-900 font-bold text-lg mb-2">Phần 1: Khởi động & Nhận diện "Lỗ hổng" tăng trưởng</h3>
-                <ul className="text-slate-600 space-y-2 text-sm">
-                  <li>• Thực trạng: Tăng trưởng B2B không chết vì thiếu cơ hội, mà chết vì đứt gãy quy trình vận hành.</li>
-                  <li>• Khoảng trống doanh thu: Phân tích sự chênh lệch giữa lượng Lead từ Marketing và cơ hội bán hàng thực tế do phản hồi chậm hoặc không có hệ thống nuôi dưỡng.</li>
-                  <li>• Chi phí ẩn: Minh họa chi phí của việc bỏ lỡ lead (ví dụ: mất 5 lead/ngày tương đương lãng phí ngân sách Marketing cho 150 lead/tháng).</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4 p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-emerald-200 hover:shadow-md transition-all">
-              <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
-                <span className="font-bold text-emerald-600">2</span>
-              </div>
-              <div>
-                <h3 className="text-slate-900 font-bold text-lg mb-2">Phần 2: Chiến thuật Growth Engine & Tối ưu hành trình khách hàng</h3>
-                <ul className="text-slate-600 space-y-2 text-sm">
-                  <li>• Chia sẻ kinh nghiệm B2B Growth kết hợp giữa xây dựng Định vị truyền thông, Kế hoạch truyền thông và Vòng lặp tăng trưởng bền vững.</li>
-                  <li>• Khung Tăng trưởng dựa trên dữ liệu (Data-driven Insights): Cách sử dụng dữ liệu để thấu hiểu "điểm rơi" của khách hàng trong phễu B2B.</li>
-                  <li>• Case study đã triển khai ở tech startup</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4 p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-emerald-200 hover:shadow-md transition-all">
-              <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
-                <span className="font-bold text-emerald-600">3</span>
-              </div>
-              <div>
-                <h3 className="text-slate-900 font-bold text-lg mb-2">Phần 3: Tự động hóa Phễu B2B bằng Agentic AI</h3>
-                <ul className="text-slate-600 space-y-2 text-sm">
-                  <li>• Giải pháp Agentic AI: AI không thay thế con người mà giải phóng Sales khỏi các công việc lặp lại (trả lời FAQ, thu thập thông tin cơ bản).</li>
-                  <li>• Demo Thực tế: Trình diễn luồng xử lý lead tự động: Khách vào website → AI tư vấn & qualify → Đặt lịch họp → Chuyển dữ liệu về CRM.</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4 p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-emerald-200 hover:shadow-md transition-all">
-              <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
-                <span className="font-bold text-emerald-600">4</span>
-              </div>
-              <div>
-                <h3 className="text-slate-900 font-bold text-lg mb-2">Phần 4: Q&A</h3>
-                <p className="text-slate-600 text-sm">
-                  Giải đáp thắc mắc trực tiếp từ người tham dự và hướng dẫn các bước tiếp theo để áp dụng vào doanh nghiệp.
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -342,7 +280,7 @@ export default function Webinar() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-3xl shadow-xl border border-slate-200 p-8 md:p-12">
             <div className="text-center mb-10">
-              <h2 className="text-3xl font-bold text-slate-900 mb-4">Đăng ký tham dự miễn phí</h2>
+              <h2 className="text-3xl font-bold text-slate-900 mb-4">Đăng ký nhận bộ tài liệu độc quyền của Webinar miễn phí</h2>
               <p className="text-slate-600">Số lượng giới hạn 50 người tham dự để đảm bảo chất lượng Q&A.</p>
             </div>
 
@@ -356,7 +294,8 @@ export default function Webinar() {
                   <CheckCircle2 className="w-10 h-10 text-emerald-600" />
                 </div>
                 <h3 className="text-2xl font-bold text-slate-900 mb-2">Đăng ký thành công!</h3>
-                <p className="text-slate-600 mb-8">Chúng tôi đã gửi link tham dự webinar vào email của bạn. Vui lòng kiểm tra hộp thư (kể cả thư mục Spam).</p>
+                <p className="text-slate-600 mb-3">Tài liệu đã được mở trong một thẻ mới.</p>
+                <p className="text-slate-600 mb-8">Nếu trình duyệt chặn popup, bạn có thể <a href="https://drive.google.com/drive/folders/121AT2NnLx9ICV5q2Ew3CA29sZKhbLE3h?usp=sharing" target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline font-semibold">bấm vào đây để tải</a>.</p>
                 <button 
                   onClick={() => setFormStatus('idle')}
                   className="text-emerald-600 font-medium hover:text-emerald-700"
@@ -458,7 +397,7 @@ export default function Webinar() {
                       Đang xử lý...
                     </span>
                   ) : (
-                    'Đăng ký tham dự ngay'
+                    'Tải tài liệu Webinar'
                   )}
                 </button>
                 <p className="text-xs text-slate-500 text-center mt-4">
@@ -466,6 +405,70 @@ export default function Webinar() {
                 </p>
               </form>
             )}
+          </div>
+        </div>
+      </section>
+
+      {/* Timeline sự kiện */}
+      <section className="py-24 bg-white border-y border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Khung chương trình chi tiết</h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <div className="flex items-start gap-4 p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-emerald-200 hover:shadow-md transition-all">
+              <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
+                <span className="font-bold text-emerald-600">1</span>
+              </div>
+              <div>
+                <h3 className="text-slate-900 font-bold text-lg mb-2">Phần 1: Khởi động & Nhận diện "Lỗ hổng" tăng trưởng</h3>
+                <ul className="text-slate-600 space-y-2 text-sm">
+                  <li>• Thực trạng: Tăng trưởng B2B không chết vì thiếu cơ hội, mà chết vì đứt gãy quy trình vận hành.</li>
+                  <li>• Khoảng trống doanh thu: Phân tích sự chênh lệch giữa lượng Lead từ Marketing và cơ hội bán hàng thực tế do phản hồi chậm hoặc không có hệ thống nuôi dưỡng.</li>
+                  <li>• Chi phí ẩn: Minh họa chi phí của việc bỏ lỡ lead (ví dụ: mất 5 lead/ngày tương đương lãng phí ngân sách Marketing cho 150 lead/tháng).</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4 p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-emerald-200 hover:shadow-md transition-all">
+              <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
+                <span className="font-bold text-emerald-600">2</span>
+              </div>
+              <div>
+                <h3 className="text-slate-900 font-bold text-lg mb-2">Phần 2: Chiến thuật Growth Engine & Tối ưu hành trình khách hàng</h3>
+                <ul className="text-slate-600 space-y-2 text-sm">
+                  <li>• Chia sẻ kinh nghiệm B2B Growth kết hợp giữa xây dựng Định vị truyền thông, Kế hoạch truyền thông và Vòng lặp tăng trưởng bền vững.</li>
+                  <li>• Khung Tăng trưởng dựa trên dữ liệu (Data-driven Insights): Cách sử dụng dữ liệu để thấu hiểu "điểm rơi" của khách hàng trong phễu B2B.</li>
+                  <li>• Case study đã triển khai ở tech startup</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4 p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-emerald-200 hover:shadow-md transition-all">
+              <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
+                <span className="font-bold text-emerald-600">3</span>
+              </div>
+              <div>
+                <h3 className="text-slate-900 font-bold text-lg mb-2">Phần 3: Tự động hóa Phễu B2B bằng Agentic AI</h3>
+                <ul className="text-slate-600 space-y-2 text-sm">
+                  <li>• Giải pháp Agentic AI: AI không thay thế con người mà giải phóng Sales khỏi các công việc lặp lại (trả lời FAQ, thu thập thông tin cơ bản).</li>
+                  <li>• Demo Thực tế: Trình diễn luồng xử lý lead tự động: Khách vào website → AI tư vấn & qualify → Đặt lịch họp → Chuyển dữ liệu về CRM.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4 p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-emerald-200 hover:shadow-md transition-all">
+              <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
+                <span className="font-bold text-emerald-600">4</span>
+              </div>
+              <div>
+                <h3 className="text-slate-900 font-bold text-lg mb-2">Phần 4: Q&A</h3>
+                <p className="text-slate-600 text-sm">
+                  Giải đáp thắc mắc trực tiếp từ người tham dự và hướng dẫn các bước tiếp theo để áp dụng vào doanh nghiệp.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
