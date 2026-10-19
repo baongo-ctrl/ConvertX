@@ -24,13 +24,22 @@ import {
   PlayCircle,
   Video
 } from 'lucide-react';
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import LiveChat from '../components/LiveChat';
 import CookieConsent from '../components/CookieConsent';
 import LeadMagnetContent from '../components/LeadMagnetContent';
-
-type Language = 'en' | 'vi';
+import Seo from '../components/Seo';
+import HoneypotField from '../components/HoneypotField';
+import { getPricing } from '../content/pricing';
+import {
+  CONTACT_SCRIPT_URL,
+  gateSubmission,
+  parseContactLead,
+  postToAppsScript,
+  recordSubmission,
+} from '../lib/formGuard';
+import { useLanguage, type Language } from '../lib/useLanguage';
 
 const translations = {
   en: {
@@ -115,20 +124,10 @@ const translations = {
       badge: 'Packages',
       title: 'Transparent pricing for growth',
       desc: 'Baseline estimations. Final proposals are customized to your specific needs.',
-      p1Title: 'B2B Launch Kit',
-      p1Unit: 'USD / project',
-      p1Desc: 'For early-stage startups building their growth foundation.',
-      p2Title: 'Growth Engine',
-      p2Unit: 'USD / month',
-      p2Desc: 'For companies that need consistent B2B lead generation.',
-      p3Title: 'Thought Leadership',
-      p3Unit: 'USD / month',
-      p3Desc: 'Build founder authority in the industry.',
-      p4Title: 'CRM + Automation',
-      p4Unit: 'USD / project',
-      p4Desc: 'Improve sales pipeline efficiency.',
       popular: 'Most Popular',
-      getDetails: 'Get Details'
+      getDetails: 'Get Details',
+      included: "What's included",
+      combos: 'Recommended combo packages'
     },
     testimonials: {
       badge: 'Testimonials',
@@ -186,8 +185,6 @@ const translations = {
       company: 'Company',
       c1: 'About Us',
       c2: 'Case Studies',
-      c3: 'Careers',
-      c4: 'Blog',
       c5: 'Contact',
       contact: 'Contact',
       address: 'District 3, Ho Chi Minh City',
@@ -278,20 +275,10 @@ const translations = {
       badge: 'Các Gói Dịch Vụ',
       title: 'Giá cả minh bạch cho sự tăng trưởng',
       desc: 'Ước tính cơ bản. Các đề xuất cuối cùng sẽ được tùy chỉnh theo nhu cầu cụ thể của bạn.',
-      p1Title: 'Bộ Khởi Động B2B',
-      p1Unit: 'USD / dự án',
-      p1Desc: 'Dành cho các startup giai đoạn đầu đang xây dựng nền tảng tăng trưởng.',
-      p2Title: 'Cỗ Máy Tăng Trưởng',
-      p2Unit: 'USD / tháng',
-      p2Desc: 'Dành cho các công ty cần tạo khách hàng tiềm năng B2B ổn định.',
-      p3Title: 'Vị Thế Dẫn Đầu Tư Duy',
-      p3Unit: 'USD / tháng',
-      p3Desc: 'Xây dựng uy tín cho người sáng lập trong ngành.',
-      p4Title: 'CRM & Tự Động Hóa',
-      p4Unit: 'USD / dự án',
-      p4Desc: 'Cải thiện hiệu quả phễu bán hàng.',
       popular: 'Phổ Biến Nhất',
-      getDetails: 'Xem Chi Tiết'
+      getDetails: 'Xem Chi Tiết',
+      included: 'Bao gồm',
+      combos: 'Gói kết hợp đề xuất'
     },
     testimonials: {
       badge: 'Đánh Giá',
@@ -349,8 +336,6 @@ const translations = {
       company: 'Công ty',
       c1: 'Về chúng tôi',
       c2: 'Case Studies',
-      c3: 'Tuyển dụng',
-      c4: 'Blog',
       c5: 'Liên hệ',
       contact: 'Liên hệ',
       address: 'Quận 3, TP. Hồ Chí Minh',
@@ -656,9 +641,11 @@ const getTestimonials = (lang: Language) => [
 ];
 
 export default function Home() {
-  const [lang, setLang] = useState<Language>('vi');
+  const [lang, toggleLang] = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
+  const [formError, setFormError] = useState('');
+  const formStartedAt = useRef(Date.now());
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | null>(null);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -667,6 +654,7 @@ export default function Home() {
   const services = useMemo(() => getServices(lang), [lang]);
   const caseStudies = useMemo(() => getCaseStudies(lang), [lang]);
   const testimonials = useMemo(() => getTestimonials(lang), [lang]);
+  const pricing = useMemo(() => getPricing(lang), [lang]);
 
   const nextTestimonial = () => {
     setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
@@ -674,11 +662,6 @@ export default function Home() {
 
   const prevTestimonial = () => {
     setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  };
-
-  // Toggle language
-  const toggleLang = () => {
-    setLang(prev => prev === 'en' ? 'vi' : 'en');
   };
 
   // Prevent scroll when modal is open
@@ -726,50 +709,69 @@ export default function Home() {
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFormStatus('submitting');
-    
+    setFormError('');
+
     const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries());
+    const gate = gateSubmission({
+      lang,
+      key: 'contact',
+      startedAt: formStartedAt.current,
+      honeypot: String(formData.get('zx_hp') ?? ''),
+      minGapMs: 30_000,
+      maxPerHour: 4,
+    });
+    if (gate.action === 'drop') {
+      setFormStatus('success');
+      return;
+    }
+    if (gate.action === 'block') {
+      setFormError(gate.message);
+      return;
+    }
 
+    const parsed = parseContactLead(formData, lang);
+    if ('error' in parsed) {
+      setFormError(parsed.error);
+      return;
+    }
+
+    setFormStatus('submitting');
+    recordSubmission('contact');
     try {
-      // TODO: Replace this URL with your actual Google Apps Script Web App URL
-      const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzx3HtLaLphdm4kx81FhY7-nwm_pCQT0eQY6EQisBz5b-DtnlMiOfDfNG56fhEUoXim4w/exec'; 
-
-      if (GOOGLE_SCRIPT_URL) {
-        // Send data to Google Sheets via Apps Script
-        await fetch(GOOGLE_SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          body: formData
-        });
-      } else {
-        // Simulate API call if no URL is provided yet
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        console.log("Form data ready to be sent to Google Sheets:", data);
-      }
-      
+      await postToAppsScript(CONTACT_SCRIPT_URL, parsed.lead);
       setFormStatus('success');
     } catch (error) {
       console.error('Error submitting form:', error);
-      // Even if there's a CORS error (common with no-cors), we often still succeed in writing to the sheet
-      setFormStatus('success'); 
+      setFormStatus('success');
     }
   };
 
+  const seo = lang === 'vi'
+    ? {
+        title: 'ConvertX — Đối tác tăng trưởng B2B',
+        description: 'ConvertX giúp doanh nghiệp B2B SaaS, eCommerce, EdTech và dịch vụ chuyên nghiệp xây dựng vị thế, tạo lead chất lượng và mở rộng doanh thu.',
+      }
+    : {
+        title: 'ConvertX — B2B Growth Agency',
+        description: 'ConvertX is the B2B growth partner for high-growth B2B SaaS, B2B eCommerce, Edtech, and Professional Service companies. We build predictable revenue engines.',
+      };
+
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
+      <Seo title={seo.title} description={seo.description} path="/" lang={lang} />
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <div className="flex items-center">
-              <a href="#" className="flex items-center gap-2">
+              <a href="/" className="flex items-center gap-2">
                 <img src="https://i.ibb.co/ynwgXj1L/Logo-Convertx.png" alt="ConvertX Logo" className="h-16 w-auto rounded" />
               </a>
             </div>
             
             <div className="hidden md:flex items-center space-x-8">
               <a href="#services" className="text-slate-600 hover:text-emerald-600 font-medium transition-colors">{t.nav.services}</a>
+              <Link to="/about" className="text-slate-600 hover:text-emerald-600 font-medium transition-colors">{t.footer.c1}</Link>
               <a href="#case-studies" className="text-slate-600 hover:text-emerald-600 font-medium transition-colors">{t.nav.caseStudies}</a>
               <a href="#testimonials" className="text-slate-600 hover:text-emerald-600 font-medium transition-colors">{t.nav.testimonials}</a>
               <Link to="/resources" className="text-slate-600 hover:text-emerald-600 font-medium transition-colors">{t.nav.resources}</Link>
@@ -811,6 +813,7 @@ export default function Home() {
           <div className="md:hidden bg-white border-b border-slate-200">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               <a href="#services" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-slate-600 font-medium hover:text-emerald-600 hover:bg-slate-50 rounded-md">{t.nav.services}</a>
+              <Link to="/about" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-slate-600 font-medium hover:text-emerald-600 hover:bg-slate-50 rounded-md">{t.footer.c1}</Link>
               <a href="#case-studies" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-slate-600 font-medium hover:text-emerald-600 hover:bg-slate-50 rounded-md">{t.nav.caseStudies}</a>
               <a href="#testimonials" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-slate-600 font-medium hover:text-emerald-600 hover:bg-slate-50 rounded-md">{t.nav.testimonials}</a>
               <Link to="/resources" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-slate-600 font-medium hover:text-emerald-600 hover:bg-slate-50 rounded-md">{t.nav.resources}</Link>
@@ -1158,7 +1161,7 @@ export default function Home() {
               <h2 className="text-emerald-400 font-semibold tracking-wide uppercase text-sm mb-3">{t.caseStudiesSection.badge}</h2>
               <h3 className="text-3xl md:text-4xl font-bold mb-6">{t.caseStudiesSection.title}</h3>
             </div>
-            <a href="#" className="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 font-medium transition-colors">
+            <a href="#case-studies" className="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300 font-medium transition-colors">
               {t.caseStudiesSection.viewAll} <ArrowRight className="w-4 h-4" />
             </a>
           </div>
@@ -1380,7 +1383,7 @@ export default function Home() {
       </section>
 
       {/* Packages Section */}
-      <section aria-label={t.packages.badge} className="py-24 bg-slate-50 border-t border-slate-200">
+      <section id="pricing" aria-label={t.packages.badge} className="py-24 bg-slate-50 border-t border-slate-200 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-emerald-500 font-semibold tracking-wide uppercase text-sm mb-3">{t.packages.badge}</h2>
@@ -1388,28 +1391,49 @@ export default function Home() {
             <p className="text-lg text-slate-600">{t.packages.desc}</p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { title: t.packages.p1Title, price: '$2,200–$3,000', unit: t.packages.p1Unit, desc: t.packages.p1Desc },
-              { title: t.packages.p2Title, price: '$3,600–$7,200', unit: t.packages.p2Unit, desc: t.packages.p2Desc, featured: true },
-              { title: t.packages.p3Title, price: '$1,600–$2,400', unit: t.packages.p3Unit, desc: t.packages.p3Desc },
-              { title: t.packages.p4Title, price: '$1,200–$2,000', unit: t.packages.p4Unit, desc: t.packages.p4Desc }
-            ].map((pkg, i) => (
-              <div key={i} className={`bg-white rounded-2xl p-8 border ${pkg.featured ? 'border-emerald-500 shadow-lg relative' : 'border-slate-200 shadow-sm'}`}>
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+            {pricing.packages.map((pkg) => (
+              <div key={pkg.id} className={`bg-white rounded-2xl p-8 border flex flex-col ${pkg.featured ? 'border-emerald-500 shadow-lg relative' : 'border-slate-200 shadow-sm'}`}>
                 {pkg.featured && (
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-emerald-500 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
                     {t.packages.popular}
                   </div>
                 )}
                 <h4 className="text-xl font-bold text-slate-900 mb-4">{pkg.title}</h4>
-                <div className="mb-6">
-                  <span className="text-3xl font-extrabold text-slate-900">{pkg.price}</span>
-                  <span className="block text-sm text-slate-500 font-medium mt-1">{pkg.unit}</span>
+                <div className="mb-4">
+                  <p className="text-2xl font-extrabold text-slate-900 leading-snug">{pkg.price}</p>
+                  {pkg.priceAlt && (
+                    <p className="text-base font-bold text-slate-800 mt-2 leading-snug">{pkg.priceAlt}</p>
+                  )}
+                  {pkg.note && (
+                    <span className="block text-sm text-slate-500 font-medium mt-2">{pkg.note}</span>
+                  )}
                 </div>
-                <p className="text-slate-600 text-sm mb-8">{pkg.desc}</p>
+                <p className="text-slate-600 text-sm mb-6">{pkg.purpose}</p>
+                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-3">{t.packages.included}</p>
+                <ul className="space-y-2 mb-8 flex-1">
+                  {pkg.includes.map((item) => (
+                    <li key={item} className="flex items-start gap-2 text-sm text-slate-700">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
                 <a href="#contact" className={`block text-center py-3 rounded-lg font-semibold transition-colors ${pkg.featured ? 'bg-emerald-500 text-white hover:bg-emerald-600' : 'bg-slate-100 text-slate-900 hover:bg-slate-200'}`}>
                   {t.packages.getDetails}
                 </a>
+              </div>
+            ))}
+          </div>
+
+          <h3 className="text-2xl font-bold text-slate-900 mt-16 mb-6 text-center">{t.packages.combos}</h3>
+          <div className="grid md:grid-cols-3 gap-6">
+            {pricing.combos.map((combo) => (
+              <div key={combo.title} className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+                <h4 className="text-lg font-bold text-slate-900 mb-2">{combo.title}</h4>
+                <p className="text-sm text-slate-600 mb-3">{combo.includes}</p>
+                <p className="text-xl font-extrabold text-slate-900 mb-3">{combo.price}</p>
+                <p className="text-sm text-slate-600">{combo.fit}</p>
               </div>
             ))}
           </div>
@@ -1557,29 +1581,33 @@ export default function Home() {
               ) : (
                 <>
                   <h4 className="text-2xl font-bold text-slate-900 mb-8">{t.contact.formTitle}</h4>
-                  <form className="space-y-6" onSubmit={handleFormSubmit}>
+                  <form className="space-y-6 relative" onSubmit={handleFormSubmit}>
+                    <HoneypotField id="contact-zx-hp" />
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-2">{t.contact.labelName}</label>
-                      <input required type="text" id="name" name="name" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all" placeholder={t.contact.placeholderName} />
+                      <input required maxLength={120} type="text" id="name" name="name" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all" placeholder={t.contact.placeholderName} />
                     </div>
                     <div className="grid grid-cols-2 gap-6">
                       <div>
                         <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">{t.contact.labelEmail}</label>
-                        <input required type="email" id="email" name="email" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all" placeholder={t.contact.placeholderEmail} />
+                        <input required maxLength={100} type="email" id="email" name="email" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all" placeholder={t.contact.placeholderEmail} />
                       </div>
                       <div>
                         <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-2">{t.contact.labelPhone}</label>
-                        <input required type="tel" id="phone" name="phone" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all" placeholder="+84..." />
+                        <input required maxLength={30} type="tel" id="phone" name="phone" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all" placeholder="+84..." />
                       </div>
                     </div>
                     <div>
                       <label htmlFor="company" className="block text-sm font-medium text-slate-700 mb-2">{t.contact.labelCompany}</label>
-                      <input required type="text" id="company" name="company" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all" placeholder={t.contact.placeholderCompany} />
+                      <input required maxLength={200} type="text" id="company" name="company" className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all" placeholder={t.contact.placeholderCompany} />
                     </div>
                     <div>
                       <label htmlFor="challenge" className="block text-sm font-medium text-slate-700 mb-2">{t.contact.labelChallenge}</label>
-                      <textarea required id="challenge" name="challenge" rows={3} className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all" placeholder={t.contact.placeholderChallenge}></textarea>
+                      <textarea required maxLength={2000} id="challenge" name="challenge" rows={3} className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all" placeholder={t.contact.placeholderChallenge}></textarea>
                     </div>
+                    {formError && (
+                      <p role="alert" className="text-sm text-red-600">{formError}</p>
+                    )}
                     <button 
                       type="submit" 
                       disabled={formStatus === 'submitting'}
@@ -1610,7 +1638,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12">
             <div className="col-span-2 lg:col-span-2">
-              <a href="#" className="flex items-center gap-2 mb-6">
+              <a href="/" className="flex items-center gap-2 mb-6">
                 <img src="https://i.ibb.co/ynwgXj1L/Logo-Convertx.png" alt="ConvertX Logo" className="h-16 w-auto rounded" />
               </a>
               <p className="text-slate-400 max-w-sm mb-6">
@@ -1635,21 +1663,20 @@ export default function Home() {
             <div>
               <h4 className="text-white font-semibold mb-4">{t.footer.services}</h4>
               <ul className="space-y-3">
-                <li><a href="#" className="hover:text-white transition-colors">{t.footer.s1}</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">{t.footer.s2}</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">{t.footer.s3}</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">{t.footer.s4}</a></li>
+                {pricing.packages.map((pkg) => (
+                  <li key={pkg.id}>
+                    <a href="/#pricing" className="hover:text-white transition-colors">{pkg.title}</a>
+                  </li>
+                ))}
               </ul>
             </div>
             
             <div>
               <h4 className="text-white font-semibold mb-4">{t.footer.company}</h4>
               <ul className="space-y-3">
-                <li><a href="#" className="hover:text-white transition-colors">{t.footer.c1}</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">{t.footer.c2}</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">{t.footer.c3}</a></li>
-                <li><a href="#blog" className="hover:text-white transition-colors">{t.footer.c4}</a></li>
-                <li><a href="#contact" className="hover:text-white transition-colors">{t.footer.c5}</a></li>
+                <li><Link to="/about" className="hover:text-white transition-colors">{t.footer.c1}</Link></li>
+                <li><a href="/#case-studies" className="hover:text-white transition-colors">{t.footer.c2}</a></li>
+                <li><a href="/#contact" className="hover:text-white transition-colors">{t.footer.c5}</a></li>
               </ul>
             </div>
             
@@ -1672,8 +1699,8 @@ export default function Home() {
           <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
             <p>&copy; {new Date().getFullYear()} ConvertX. {t.footer.rights}</p>
             <div className="flex gap-6">
-              <a href="#" className="hover:text-white transition-colors">{t.footer.privacy}</a>
-              <a href="#" className="hover:text-white transition-colors">{t.footer.terms}</a>
+              <Link to="/privacy" className="hover:text-white transition-colors">{t.footer.privacy}</Link>
+              <Link to="/terms" className="hover:text-white transition-colors">{t.footer.terms}</Link>
             </div>
           </div>
         </div>

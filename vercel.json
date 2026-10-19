@@ -1,8 +1,12 @@
 {
+  "trailingSlash": false,
   "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
+    { "source": "/about", "destination": "/index.html" },
+    { "source": "/privacy", "destination": "/index.html" },
+    { "source": "/terms", "destination": "/index.html" },
+    { "source": "/webinar", "destination": "/index.html" },
+    { "source": "/webinar/growth-cho-b2b-startup", "destination": "/index.html" },
+    { "source": "/webinar/xay-dung-co-may-tang-truong-b2b", "destination": "/index.html" },
+    { "source": "/resources", "destination": "/index.html" }
   ]
 }

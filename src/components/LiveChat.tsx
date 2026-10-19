@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { MessageCircle, X, Send } from 'lucide-react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
+import HoneypotField from './HoneypotField';
+import { gateSubmission, parseChat, recordSubmission } from '../lib/formGuard';
 
 export default function LiveChat() {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,7 +11,9 @@ export default function LiveChat() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState('');
   const [email, setEmail] = useState('');
+  const [formError, setFormError] = useState('');
   const [showNotification, setShowNotification] = useState(false);
+  const formStartedAt = useRef(Date.now());
 
   // Show a little notification dot after a few seconds to draw attention
   useEffect(() => {
@@ -21,14 +25,42 @@ export default function LiveChat() {
     return () => clearTimeout(timer);
   }, [isOpen]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  useEffect(() => {
+    if (isOpen) formStartedAt.current = Date.now();
+  }, [isOpen]);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (message.trim() && email.trim()) {
+    setFormError('');
+    const honeypot = String(new FormData(e.currentTarget).get('zx_hp') ?? '');
+    const gate = gateSubmission({
+      lang: 'en',
+      key: 'chat',
+      startedAt: formStartedAt.current,
+      honeypot,
+      minGapMs: 15_000,
+      maxPerHour: 5,
+    });
+    if (gate.action === 'drop') {
+      setIsSent(true);
+      return;
+    }
+    if (gate.action === 'block') {
+      setFormError(gate.message);
+      return;
+    }
+    const parsed = parseChat(email, message, 'en');
+    if ('error' in parsed) {
+      setFormError(parsed.error);
+      return;
+    }
+    if (parsed.email && parsed.message) {
       setIsSubmitting(true);
+      recordSubmission('chat');
       try {
         await addDoc(collection(db, 'support_messages'), {
-          email: email.trim(),
-          message: message.trim(),
+          email: parsed.email,
+          message: parsed.message,
           createdAt: serverTimestamp(),
           status: 'new'
         });
@@ -119,19 +151,25 @@ export default function LiveChat() {
 
         {/* Input Area */}
         {!isSent && (
-          <form onSubmit={handleSubmit} className="p-4 bg-white border-t border-slate-100">
+          <form onSubmit={handleSubmit} className="p-4 bg-white border-t border-slate-100 relative">
+            <HoneypotField id="chat-zx-hp" />
             <input 
               type="email" 
               placeholder="Your email address" 
               required
+              maxLength={100}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full text-sm px-4 py-2 border border-slate-200 rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-shadow"
             />
+            {formError && (
+              <p role="alert" className="text-xs text-red-600 mb-2">{formError}</p>
+            )}
             <div className="relative flex items-end gap-2">
               <textarea 
                 placeholder="Type your message..." 
                 required
+                maxLength={2000}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 className="w-full text-sm px-4 py-3 border border-slate-200 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-shadow min-h-[44px] max-h-32"
