@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { FileText, Download, ArrowRight, BookOpen, FileSpreadsheet, Presentation, X, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { db } from '../firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import Seo from '../components/Seo';
+import HoneypotField from '../components/HoneypotField';
+import { gateSubmission, parseResourceEmail, recordSubmission } from '../lib/formGuard';
 
 const resources = [
   {
@@ -58,37 +61,69 @@ export default function Resources() {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [formError, setFormError] = useState('');
+  const formStartedAt = useRef(Date.now());
 
   const handleDownloadClick = (e: React.MouseEvent, resource: typeof resources[0]) => {
     e.preventDefault();
     setSelectedResource(resource);
     setIsSuccess(false);
     setEmail('');
+    setFormError('');
+    formStartedAt.current = Date.now();
   };
 
-  const handleFormSubmit = async (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!selectedResource || !email) return;
+    setFormError('');
+
+    const honeypot = String(new FormData(e.currentTarget).get('zx_hp') ?? '');
+    const gate = gateSubmission({
+      lang: 'vi',
+      key: 'resource-download',
+      startedAt: formStartedAt.current,
+      honeypot,
+      minGapMs: 8_000,
+      maxPerHour: 10,
+    });
+    if (gate.action === 'drop') {
+      setIsSuccess(true);
+      return;
+    }
+    if (gate.action === 'block') {
+      setFormError(gate.message);
+      return;
+    }
+    const parsed = parseResourceEmail(email, 'vi');
+    if ('error' in parsed) {
+      setFormError(parsed.error);
+      return;
+    }
+    const resourceTitle = selectedResource.title.trim();
+    if (!resourceTitle || resourceTitle.length > 200) {
+      window.open(selectedResource.link, '_blank', 'noopener,noreferrer');
+      setSelectedResource(null);
+      return;
+    }
 
     setIsSubmitting(true);
+    recordSubmission('resource-download');
     try {
       await addDoc(collection(db, 'resource_downloads'), {
-        email,
-        resourceTitle: selectedResource.title,
+        email: parsed.email,
+        resourceTitle,
         createdAt: serverTimestamp()
       });
       
       setIsSuccess(true);
-      // Open the link in a new tab
       window.open(selectedResource.link, '_blank', 'noopener,noreferrer');
       
-      // Close modal after a short delay
       setTimeout(() => {
         setSelectedResource(null);
       }, 3000);
     } catch (error) {
       console.error('Error recording download:', error);
-      // Still open the link even if tracking fails so user isn't blocked
       window.open(selectedResource.link, '_blank', 'noopener,noreferrer');
       setSelectedResource(null);
     } finally {
@@ -98,6 +133,12 @@ export default function Resources() {
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-emerald-200 selection:text-emerald-900">
+      <Seo
+        title="Thư viện tài nguyên tăng trưởng B2B | ConvertX"
+        description="Báo cáo, playbook và framework miễn phí của ConvertX cho doanh nghiệp B2B muốn tối ưu phễu khách hàng và mở rộng quy mô."
+        path="/resources"
+        lang="vi"
+      />
       {/* Navigation */}
       <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -269,7 +310,8 @@ export default function Resources() {
                       </p>
                     </div>
 
-                    <form onSubmit={handleFormSubmit} className="space-y-4">
+                    <form onSubmit={handleFormSubmit} className="space-y-4 relative">
+                      <HoneypotField id="resource-zx-hp" />
                       <div>
                         <label htmlFor="companyEmail" className="block text-sm font-medium text-slate-700 mb-1">
                           Email công ty <span className="text-red-500">*</span>
@@ -278,12 +320,16 @@ export default function Resources() {
                           type="email"
                           id="companyEmail"
                           required
+                          maxLength={100}
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="name@company.com"
                           className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
                         />
                       </div>
+                      {formError && (
+                        <p role="alert" className="text-sm text-red-600">{formError}</p>
+                      )}
                       <button
                         type="submit"
                         disabled={isSubmitting || !email}

@@ -1,10 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Calendar, Clock, Users, CheckCircle2, ArrowRight, PlayCircle, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Seo from '../components/Seo';
+import HoneypotField from '../components/HoneypotField';
+import {
+  EVENT_SCRIPT_URL,
+  gateSubmission,
+  parseEventLead,
+  postToAppsScript,
+  recordSubmission,
+} from '../lib/formGuard';
 
 export default function WebinarGrowth() {
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
+  const [formError, setFormError] = useState('');
+  const formStartedAt = useRef(Date.now());
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [notification, setNotification] = useState<{ name: string, time: string } | null>(null);
 
@@ -57,49 +68,61 @@ export default function WebinarGrowth() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFormStatus('submitting');
-    
+    setFormError('');
     const formData = new FormData(e.currentTarget);
-    
-    // Map fields to match the expected format in Google Apps Script
-    const submitData = new FormData();
-    const firstName = formData.get('firstName') as string;
-    const lastName = formData.get('lastName') as string;
-    const role = formData.get('role') as string;
-    
-    submitData.append('name', `${firstName} ${lastName}`.trim());
-    submitData.append('email', formData.get('email') as string);
-    submitData.append('phone', formData.get('phone') as string || 'N/A');
-    submitData.append('company', formData.get('company') as string);
-    submitData.append('challenge', `Role: ${role} - Tải tài liệu Webinar Growth Cho B2B Startup`);
-    submitData.append('formType', 'webinar_growth_document_download');
-    
-    try {
-      const GOOGLE_SCRIPT_URL: string = 'https://script.google.com/macros/s/AKfycbxW029oCCiUgriRu-v988S6HPVnc6T5pVqgrChFnTop4qDLoBvcepn93ZldaePe5Dqg/exec'; 
+    const gate = gateSubmission({
+      lang: 'vi',
+      key: 'event-growth',
+      startedAt: formStartedAt.current,
+      honeypot: String(formData.get('zx_hp') ?? ''),
+      minGapMs: 30_000,
+      maxPerHour: 4,
+    });
+    if (gate.action === 'drop') {
+      setFormStatus('success');
+      return;
+    }
+    if (gate.action === 'block') {
+      setFormError(gate.message);
+      return;
+    }
+    const parsed = parseEventLead(formData, 'vi');
+    if ('error' in parsed) {
+      setFormError(parsed.error);
+      return;
+    }
 
-      if (GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL !== 'YOUR_NEW_GOOGLE_SCRIPT_URL_HERE') {
-        await fetch(GOOGLE_SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          body: submitData
-        });
-      } else {
-        // Simulate API call if no URL is provided yet
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        console.log("Webinar Form data ready to be sent to Google Sheets:", Object.fromEntries(submitData.entries()));
-      }
-      
+    const openMaterials = () => {
       window.open('https://drive.google.com/drive/folders/121AT2NnLx9ICV5q2Ew3CA29sZKhbLE3h?usp=sharing', '_blank');
+    };
+    setFormStatus('submitting');
+    recordSubmission('event-growth');
+    try {
+      await postToAppsScript(EVENT_SCRIPT_URL, {
+        name: parsed.lead.name,
+        email: parsed.lead.email,
+        phone: parsed.lead.phone,
+        company: parsed.lead.company,
+        challenge: `Role: ${parsed.lead.role} - Tải tài liệu Webinar Growth Cho B2B Startup`,
+        formType: 'webinar_growth_document_download',
+      });
+      openMaterials();
       setFormStatus('success');
     } catch (error) {
       console.error('Error submitting form:', error);
-      window.open('https://drive.google.com/drive/folders/121AT2NnLx9ICV5q2Ew3CA29sZKhbLE3h?usp=sharing', '_blank');
-      setFormStatus('success'); 
+      openMaterials();
+      setFormStatus('success');
     }
   };
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-emerald-200 selection:text-emerald-900">
+      <Seo
+        title="Growth cho B2B Startup | ConvertX"
+        description="Sự kiện ConvertX về phễu tăng trưởng cho B2B startup và cách dùng Agentic AI để thu thập, đánh giá và chuyển giao lead."
+        path="/webinar/growth-cho-b2b-startup"
+        lang="vi"
+      />
       {/* Navigation */}
       <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -304,7 +327,8 @@ export default function WebinarGrowth() {
                 </button>
               </motion.div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6 relative">
+                <HoneypotField id="event-growth-zx-hp" />
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="firstName" className="block text-sm font-medium text-slate-700 mb-2">Họ và tên đệm</label>
@@ -312,7 +336,8 @@ export default function WebinarGrowth() {
                       type="text" 
                       id="firstName" 
                       name="firstName"
-                      required 
+                      required
+                      maxLength={80} 
                       className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
                       placeholder="Nguyễn Văn"
                     />
@@ -323,7 +348,8 @@ export default function WebinarGrowth() {
                       type="text" 
                       id="lastName" 
                       name="lastName"
-                      required 
+                      required
+                      maxLength={80} 
                       className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
                       placeholder="A"
                     />
@@ -337,7 +363,8 @@ export default function WebinarGrowth() {
                       type="email" 
                       id="email" 
                       name="email"
-                      required 
+                      required
+                      maxLength={100} 
                       className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
                       placeholder="name@company.com"
                     />
@@ -348,7 +375,8 @@ export default function WebinarGrowth() {
                       type="tel" 
                       id="phone" 
                       name="phone"
-                      required 
+                      required
+                      maxLength={30} 
                       className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
                       placeholder="+84..."
                     />
@@ -361,7 +389,8 @@ export default function WebinarGrowth() {
                     type="text" 
                     id="company" 
                     name="company"
-                    required 
+                    required
+                    maxLength={200} 
                     className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
                     placeholder="Công ty TNHH ABC"
                   />
@@ -383,6 +412,9 @@ export default function WebinarGrowth() {
                   </select>
                 </div>
 
+                {formError && (
+                  <p role="alert" className="text-sm text-red-600">{formError}</p>
+                )}
                 <button 
                   type="submit" 
                   disabled={formStatus === 'submitting'}
