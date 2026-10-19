@@ -874,8 +874,7 @@ export default function Home() {
               {[
                 { name: 'ClassIn', logo: 'https://i.ibb.co/YBWK4q9n/Class-In200.webp' },
                 { name: 'Geek Up', logo: 'https://i.ibb.co/KpHM9R3N/gu-logo-general.png' },
-                { name: 'Buymed', logo: 'https://i.ibb.co/Kz2bN7ds/1680581461122-buymed-horizontal-green-1.png' },
-                { name: 'Zimlog', logo: 'https://i.ibb.co/Pv3tzBLJ/zyirklz8kotyzog8nqzy.png' }
+                { name: 'Buymed', logo: 'https://i.ibb.co/Kz2bN7ds/1680581461122-buymed-horizontal-green-1.png' }
               ].map((company, i) => (
                 <img 
                   key={i}
@@ -923,7 +922,6 @@ export default function Home() {
                   { name: 'ClassIn', logo: 'https://i.ibb.co/YBWK4q9n/Class-In200.webp' },
                   { name: 'Geek Up', logo: 'https://i.ibb.co/KpHM9R3N/gu-logo-general.png' },
                   { name: 'Buymed', logo: 'https://i.ibb.co/Kz2bN7ds/1680581461122-buymed-horizontal-green-1.png' },
-                  { name: 'Zimlog', logo: 'https://i.ibb.co/Pv3tzBLJ/zyirklz8kotyzog8nqzy.png' },
                   { name: 'InCard', logo: 'https://i.ibb.co/KpWbTvHb/incardbiz-logo-1.jpg', scaleClass: 'scale-150' },
                   { name: 'Wego', logo: 'https://i.ibb.co/jNSsWqK/images-2.jpg', scaleClass: 'scale-150' },
                   { name: 'Firegroup', logo: 'https://i.ibb.co/WNbK3HVk/Logo-full-red-dung.png', scaleClass: 'scale-150' },
@@ -954,7 +952,6 @@ export default function Home() {
                   { name: 'ClassIn', logo: 'https://i.ibb.co/YBWK4q9n/Class-In200.webp' },
                   { name: 'Geek Up', logo: 'https://i.ibb.co/KpHM9R3N/gu-logo-general.png' },
                   { name: 'Buymed', logo: 'https://i.ibb.co/Kz2bN7ds/1680581461122-buymed-horizontal-green-1.png' },
-                  { name: 'Zimlog', logo: 'https://i.ibb.co/Pv3tzBLJ/zyirklz8kotyzog8nqzy.png' },
                   { name: 'InCard', logo: 'https://i.ibb.co/KpWbTvHb/incardbiz-logo-1.jpg', scaleClass: 'scale-150' },
                   { name: 'Wego', logo: 'https://i.ibb.co/jNSsWqK/images-2.jpg', scaleClass: 'scale-150' },
                   { name: 'Firegroup', logo: 'https://i.ibb.co/WNbK3HVk/Logo-full-red-dung.png', scaleClass: 'scale-150' },

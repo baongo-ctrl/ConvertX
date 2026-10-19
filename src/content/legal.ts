@@ -201,7 +201,7 @@ const terms: Record<Language, LegalDocument> = {
       {
         heading: 'Packages and prices',
         paragraphs: [
-          'Service names, inclusions, and prices on the site are the current package menu, shown in VND. A range is an indication, not a quote. The fee you pay is the fee in the written proposal. Combo prices apply only to the combinations listed with them.',
+          'Service names and inclusions on the site are the current package menu. The prices are set in VND. The English page shows those same ranges in USD. A range is an indication, not a quote. The fee you pay is the fee in the written proposal. Combo prices apply only to the combinations listed with them.',
         ],
       },
       {
