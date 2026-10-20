@@ -3,7 +3,7 @@
     {
       "source": "/",
       "has": [{ "type": "query", "key": "lang", "value": "en" }],
-      "destination": "/en",
+      "destination": "/en?",
       "permanent": true
     },
     {
