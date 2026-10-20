@@ -84,7 +84,8 @@ const translations = {
       badge: 'ConvertX Solutions',
       title: 'Everything you need to scale',
       desc: 'Comprehensive services tailored for B2B SaaS, B2B eCommerce, Edtech, and Professional Services.',
-      learnMore: 'Learn more'
+      learnMore: 'Learn more',
+      vsAgency: 'ConvertX vs traditional agencies'
     },
     serviceModal: {
       included: 'What\'s Included',
@@ -190,7 +191,8 @@ const translations = {
       address: 'District 3, Ho Chi Minh City',
       rights: 'All rights reserved.',
       privacy: 'Privacy Policy',
-      terms: 'Terms of Service'
+      terms: 'Terms of Service',
+      vsAgency: 'ConvertX vs traditional agencies'
     }
   },
   vi: {
@@ -235,7 +237,8 @@ const translations = {
       badge: 'Giải Pháp ConvertX',
       title: 'Mọi thứ bạn cần để mở rộng quy mô',
       desc: 'Các dịch vụ toàn diện được thiết kế riêng cho lĩnh vực B2B SaaS, B2B eCommerce, Edtech và Dịch vụ Chuyên nghiệp.',
-      learnMore: 'Tìm hiểu thêm'
+      learnMore: 'Tìm hiểu thêm',
+      vsAgency: 'ConvertX khác gì agency truyền thống?'
     },
     serviceModal: {
       included: 'Những gì bao gồm',
@@ -341,7 +344,8 @@ const translations = {
       address: 'Quận 3, TP. Hồ Chí Minh',
       rights: 'Bảo lưu mọi quyền.',
       privacy: 'Chính sách bảo mật',
-      terms: 'Điều khoản dịch vụ'
+      terms: 'Điều khoản dịch vụ',
+      vsAgency: 'ConvertX khác gì agency truyền thống?'
     }
   }
 };
@@ -1037,6 +1041,15 @@ export default function Home() {
             <h2 className="text-emerald-500 font-semibold tracking-wide uppercase text-sm mb-3">{t.servicesSection.badge}</h2>
             <h3 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">{t.servicesSection.title}</h3>
             <p className="text-lg text-slate-600">{t.servicesSection.desc}</p>
+            <p className="mt-6">
+              <a
+                href={lang === 'en' ? '/convertx-vs-agency/en' : '/convertx-vs-agency'}
+                className="inline-flex items-center text-emerald-600 font-semibold hover:text-emerald-700 transition-colors"
+              >
+                {t.servicesSection.vsAgency}
+                <ArrowRight className="w-4 h-4 ml-1" />
+              </a>
+            </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -1672,6 +1685,7 @@ export default function Home() {
               <h4 className="text-white font-semibold mb-4">{t.footer.company}</h4>
               <ul className="space-y-3">
                 <li><Link to="/about" className="hover:text-white transition-colors">{t.footer.c1}</Link></li>
+                <li><a href={lang === 'en' ? '/convertx-vs-agency/en' : '/convertx-vs-agency'} className="hover:text-white transition-colors">{t.footer.vsAgency}</a></li>
                 <li><a href="/#case-studies" className="hover:text-white transition-colors">{t.footer.c2}</a></li>
                 <li><a href="/#contact" className="hover:text-white transition-colors">{t.footer.c5}</a></li>
               </ul>
