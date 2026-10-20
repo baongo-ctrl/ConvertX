@@ -1,15 +1,17 @@
 {
   "redirects": [
     {
-      "source": "/",
-      "has": [{ "type": "query", "key": "lang", "value": "en" }],
-      "destination": "/en?",
-      "permanent": true
-    },
-    {
       "source": "/:path((?!convertx-vs-agency/?$|convertx-vs-agency/en/?$).*)/",
       "destination": "/:path",
       "permanent": true
+    }
+  ],
+  "routes": [
+    {
+      "src": "^/$",
+      "has": [{ "type": "query", "key": "lang", "value": "en" }],
+      "status": 308,
+      "headers": { "Location": "/en" }
     }
   ],
   "rewrites": [
