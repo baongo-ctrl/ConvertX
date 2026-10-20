@@ -1,6 +1,16 @@
 {
-  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/:path((?!convertx-vs-agency/?$|convertx-vs-agency/en/?$).*)/",
+      "destination": "/:path",
+      "permanent": true
+    }
+  ],
   "rewrites": [
+    { "source": "/convertx-vs-agency", "destination": "/convertx-vs-agency/index.html" },
+    { "source": "/convertx-vs-agency/", "destination": "/convertx-vs-agency/index.html" },
+    { "source": "/convertx-vs-agency/en", "destination": "/convertx-vs-agency/en/index.html" },
+    { "source": "/convertx-vs-agency/en/", "destination": "/convertx-vs-agency/en/index.html" },
     { "source": "/about", "destination": "/index.html" },
     { "source": "/privacy", "destination": "/index.html" },
     { "source": "/terms", "destination": "/index.html" },

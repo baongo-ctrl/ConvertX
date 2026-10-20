@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- BẢN NHÁP (DRAFT) để Bao Ngo duyệt. Chưa deploy, chưa publish. -->
+<title>ConvertX vs Agency truyền thống | Một hệ thống tăng trưởng B2B trọn vẹn</title>
+<meta name="description" content="Agency truyền thống bán từng tác vụ rời rạc. ConvertX xây một hệ thống tăng trưởng B2B trọn vẹn cho doanh nghiệp SaaS B2B, kết nối Content, Inbound, AI Automation và CRM, đo bằng kết quả kinh doanh.">
+<meta property="og:title" content="ConvertX vs Agency truyền thống: Một hệ thống tăng trưởng B2B trọn vẹn">
+<meta property="og:description" content="So sánh mô hình hệ thống tăng trưởng B2B của ConvertX với agency truyền thống: phạm vi, KPI, sàng lọc lead, follow-up, CRM và hành trình mua B2B tại Việt Nam.">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:locale:alternate" content="en_US">
+<link rel="alternate" hreflang="vi" href="https://convertx.biz/convertx-vs-agency">
+<link rel="alternate" hreflang="en" href="https://convertx.biz/convertx-vs-agency/en">
+<link rel="alternate" hreflang="x-default" href="https://convertx.biz/convertx-vs-agency">
+<link rel="icon" type="image/png" href="/convertx-vs-agency/convertx-mark-circle.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap&subset=vietnamese" rel="stylesheet">
+<style>
+  :root{
+    --green:#10B981; --green-dark:#059669; --green-soft:#D1FAE5;
+    --ink:#0B1410; --ink-2:#14211B; --text:#0F172A; --muted:#475569; --line:#E2E8F0;
+    --bg-grey:#F6F8F7; --white:#FFFFFF; --bad:#94A3B8;
+    --radius:16px; --max:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  [hidden]{display:none!important}
+  html{scroll-behavior:smooth}
+  body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);background:var(--white);line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  section{padding:96px 0}
+  .grey{background:var(--bg-grey)}
+  .dark{background:var(--ink);color:#E7EFEA}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--green-dark)}
+  .dark .eyebrow{color:var(--green)}
+  h1,h2,h3{line-height:1.2;letter-spacing:-.02em;font-weight:800}
+  h2{font-size:clamp(28px,3.6vw,42px);margin:12px 0 16px;color:var(--text)}
+  .dark h2{color:#fff}
+  h3{font-size:20px;font-weight:700;letter-spacing:-.01em}
+  .lead{font-size:clamp(17px,1.6vw,19px);color:var(--muted);max-width:720px}
+  .dark .lead{color:#A7B8AF}
+  .center{text-align:center}.center .lead{margin:0 auto}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-weight:600;font-size:16px;padding:15px 26px;border-radius:12px;transition:.2s;border:1px solid transparent;cursor:pointer;font-family:inherit}
+  .btn-primary{background:var(--green);color:#fff}
+  .btn-primary:hover{background:var(--green-dark)}
+  .btn-ghost{border-color:rgba(255,255,255,.22);color:#fff}
+  .btn-ghost:hover{border-color:var(--green);color:var(--green)}
+  .icon{width:22px;height:22px;flex:none}
+
+  /* NAV */
+  .nav{position:sticky;top:0;z-index:50;background:rgba(11,20,16,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.06)}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .nav img{height:36px;width:auto;border-radius:8px}
+  .nav ul{display:flex;gap:28px;list-style:none;font-size:15px;color:#B9C8C0}
+  .nav ul a:hover{color:#fff}
+  .nav .btn{padding:10px 18px;font-size:15px}
+  .nav .right{display:flex;align-items:center;gap:18px}
+  .lang{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:#6F857A}
+  .lang a{padding:4px 6px;border-radius:6px;color:#B9C8C0}
+  .lang a:hover{color:#fff}
+  .lang a[aria-current]{color:var(--green)}
+
+  /* HERO */
+  .hero{background:radial-gradient(1000px 500px at 85% -10%,rgba(16,185,129,.18),transparent 60%),var(--ink);color:#fff;padding:96px 0 104px}
+  .hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+  .hero h1{font-size:clamp(38px,5.4vw,64px);margin:18px 0 22px}
+  .hero h1 span{color:var(--green)}
+  .hero p.sub{font-size:clamp(17px,1.7vw,20px);color:#B3C4BB;max-width:620px}
+  .hero .ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+  .pill{display:inline-flex;gap:8px;align-items:center;padding:7px 14px;border-radius:999px;background:rgba(16,185,129,.12);color:var(--green);font-size:13px;font-weight:600;border:1px solid rgba(16,185,129,.3)}
+  .hero-card{background:var(--ink-2);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:28px}
+  .hero-card .row{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
+  .hero-card .row:last-child{border-bottom:0}
+  .hero-card .num{width:34px;height:34px;border-radius:10px;background:rgba(16,185,129,.15);color:var(--green);display:grid;place-items:center;font-weight:700;font-size:14px;flex:none}
+  .hero-card b{display:block;color:#fff;font-size:16px}
+  .hero-card small{color:#8FA59A;font-size:14px}
+  .hero-card .label{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8FA59A;margin-bottom:6px}
+
+  /* PROBLEM */
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px}
+  .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:48px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px}
+  .card p{color:var(--muted);margin-top:8px;font-size:16px}
+  .card .ic{width:46px;height:46px;border-radius:12px;background:var(--green-soft);color:var(--green-dark);display:grid;place-items:center;margin-bottom:18px}
+  .card.warn .ic{background:#F1F5F9;color:#64748B}
+  .callout{margin-top:40px;padding:24px 28px;border-left:4px solid var(--green);background:#fff;border-radius:0 12px 12px 0;font-size:18px;font-weight:600}
+
+  /* COMPARE TABLE */
+  .compare{margin-top:48px;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:#fff}
+  .compare table{width:100%;border-collapse:collapse}
+  .compare th,.compare td{padding:20px 24px;text-align:left;vertical-align:top;font-size:16px}
+  .compare thead th{font-size:15px;font-weight:700;background:#F8FAFC;border-bottom:1px solid var(--line)}
+  .compare thead th.cx{background:var(--ink);color:#fff}
+  .compare thead th.cx span{color:var(--green)}
+  .compare tbody tr+tr td{border-top:1px solid var(--line)}
+  .compare td.crit{font-weight:700;width:22%;color:var(--text)}
+  .compare td.ag{color:var(--muted);width:36%}
+  .compare td.cx{background:rgba(16,185,129,.06);width:42%;color:var(--text)}
+  .cell{display:flex;gap:10px;align-items:flex-start}
+  .cell svg{margin-top:3px;width:18px;height:18px;flex:none}
+  .ag svg{color:var(--bad)} .cx svg{color:var(--green)}
+  .mlabel{display:none}
+  .note{font-size:14px;color:var(--muted);margin-top:18px}
+
+  /* STEPS */
+  .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:52px;counter-reset:s}
+  .step{position:relative;background:var(--ink-2);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:26px 22px}
+  .step .n{font-size:13px;font-weight:700;color:var(--green);letter-spacing:.06em}
+  .step h3{color:#fff;margin:10px 0 8px;font-size:19px}
+  .step p{color:#9FB2A8;font-size:15px}
+  .step .ic{color:var(--green);margin-bottom:14px}
+  .step:not(:last-child)::after{content:"";position:absolute;right:-13px;top:44px;width:10px;height:10px;border-top:2px solid var(--green);border-right:2px solid var(--green);transform:rotate(45deg);opacity:.7}
+
+  /* HYBRID */
+  .hybrid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .journey{display:grid;gap:14px}
+  .jstep{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px}
+  .jstep .tag{font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--green-soft);color:var(--green-dark);white-space:nowrap}
+  .jstep .tag.off{background:#E0E7FF;color:#3730A3}
+  .jstep p{color:var(--muted);font-size:15px;margin-top:4px}
+  .checks{list-style:none;margin-top:24px;display:grid;gap:12px}
+  .checks li{display:flex;gap:12px;align-items:flex-start}
+  .checks svg{color:var(--green);margin-top:3px;width:20px;height:20px;flex:none}
+
+  /* SEGMENTS */
+  .seg h3{font-size:24px;margin:6px 0 10px}
+  .seg .kicker{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green-dark)}
+  .seg ul{margin-top:18px!important}
+  .seg .block b{font-size:14px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  .seg ul{list-style:none;margin-top:10px;display:grid;gap:10px}
+  .seg li{display:flex;gap:10px;font-size:16px}
+  .seg li svg{color:var(--green);width:18px;height:18px;margin-top:4px;flex:none}
+  .seg.featured{border:2px solid var(--green)}
+
+  /* PROCESS */
+  .process{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:48px}
+  .pstep .n{width:44px;height:44px;border-radius:50%;background:var(--green);color:#fff;font-weight:700;display:grid;place-items:center;margin-bottom:18px}
+  .pstep p{color:var(--muted);font-size:16px;margin-top:8px}
+
+  /* TRUST */
+  .trust{padding:56px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .trust .trust-row{display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap}
+  .trust .t{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .logo-ph{min-width:160px;height:56px;border:1px dashed #CBD5E1;border-radius:12px;display:grid;place-items:center;font-weight:700;color:#334155;font-size:18px;padding:0 20px}
+  .ph{background:#FEF3C7;color:#92400E;padding:2px 6px;border-radius:6px;font-weight:600}
+
+  /* FAQ */
+  .faq{max-width:820px;margin:44px auto 0}
+  details{background:#fff;border:1px solid var(--line);border-radius:14px;padding:4px 24px;margin-bottom:12px}
+  summary{cursor:pointer;list-style:none;font-weight:700;font-size:18px;padding:18px 0;display:flex;justify-content:space-between;gap:16px;align-items:center}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-size:24px;color:var(--green);font-weight:500;flex:none}
+  details[open] summary::after{content:"–"}
+  details p{color:var(--muted);padding:0 0 20px;font-size:16px}
+
+  /* CONTACT */
+  .contact{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
+  form{background:#fff;color:var(--text);border-radius:20px;padding:32px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  form .full{grid-column:1/-1}
+  label{font-size:14px;font-weight:600;display:block;margin-bottom:6px;color:#334155}
+  input,textarea,select{width:100%;font:inherit;font-size:16px;padding:13px 14px;border:1px solid #CBD5E1;border-radius:10px;background:#fff;color:var(--text)}
+  input:focus,textarea:focus{outline:2px solid var(--green);border-color:transparent}
+  textarea{min-height:120px;resize:vertical}
+  form .btn{width:100%}
+  .fine{font-size:13px;color:#64748B}
+  .hp{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
+  form{position:relative}
+  .form-title{font-size:22px;color:var(--text)}
+  .form-err{color:#DC2626;font-size:14px;font-weight:500}
+  form .btn[disabled]{opacity:.7;cursor:not-allowed}
+  .form-ok{background:#fff;color:var(--text);border-radius:20px;padding:40px 32px;text-align:center}
+  .form-ok h3{font-size:24px;margin-bottom:10px}
+  .form-ok p{color:var(--muted)}
+
+  /* FOOTER */
+  footer{background:#070D0A;color:#8FA59A;padding:48px 0;font-size:14px}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+  footer img{height:40px;width:auto;border-radius:8px}
+  footer .tag{color:#C9D6CF;margin-top:10px}
+
+  /* RESPONSIVE */
+  @media (max-width:1024px){
+    .steps{grid-template-columns:repeat(2,1fr)}
+    .step::after{display:none}
+    .process{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:860px){
+    section{padding:72px 0}
+    .nav ul{display:none}
+    .hero{padding:64px 0 72px}
+    .hero .wrap,.hybrid,.contact{grid-template-columns:1fr;gap:40px}
+    .grid-3,.grid-2{grid-template-columns:1fr}
+    /* Comparison table stacks into cards */
+    .compare{border:0;background:transparent;border-radius:0;overflow:visible}
+    .compare thead{display:none}
+    .compare table,.compare tbody,.compare tr,.compare td{display:block;width:100%!important}
+    .compare tr{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:16px}
+    .compare tbody tr+tr td{border-top:0}
+    .compare td{padding:16px 20px}
+    .compare td.crit{background:#F8FAFC;font-size:17px;border-bottom:1px solid var(--line)}
+    .compare td.cx{border-top:1px solid var(--line)!important}
+    .mlabel{display:block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+    .ag .mlabel{color:#94A3B8}.cx .mlabel{color:var(--green-dark)}
+  }
+  @media (max-width:560px){
+    body{font-size:16px}
+    .wrap{padding:0 20px}
+    .steps,.process{grid-template-columns:1fr}
+    form{grid-template-columns:1fr;padding:24px}
+    .nav .btn{display:none}
+    .hero .ctas .btn{width:100%}
+    .trust .trust-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .trust .t{grid-column:1/-1;text-align:center}
+    .logo-ph{min-width:0}
+    footer .wrap>div{text-align:left!important}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap">
+    <a href="#top" aria-label="ConvertX"><img src="/convertx-vs-agency/convertx-logo-lockup-green-rounded.png" alt="ConvertX"></a>
+    <ul>
+      <li><a href="#so-sanh">So sánh</a></li>
+      <li><a href="#he-thong">Hệ thống</a></li>
+      <li><a href="#phu-hop">Phù hợp với ai</a></li>
+      <li><a href="#faq">Câu hỏi</a></li>
+    </ul>
+    <div class="right">
+      <nav class="lang" aria-label="Ngôn ngữ"><a href="/convertx-vs-agency" hreflang="vi" lang="vi" aria-current="page">VI</a><span aria-hidden="true">|</span><a href="/convertx-vs-agency/en" hreflang="en" lang="en">EN</a></nav>
+      <a class="btn btn-primary" href="#lien-he">Cùng trao đổi về tăng trưởng</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ 1. HERO ============ -->
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="pill">ConvertX vs Agency truyền thống</span>
+      <h1>Một hệ thống tăng trưởng <span>B2B trọn vẹn</span></h1>
+      <p class="sub">Agency truyền thống bán từng tác vụ. ConvertX xây một hệ thống kết nối Content, Inbound, AI Automation và CRM, đo bằng kết quả kinh doanh và thiết kế theo đúng cách doanh nghiệp Việt Nam ra quyết định mua.</p>
+      <div class="ctas">
+        <a class="btn btn-primary" href="#lien-he">Cùng trao đổi về tăng trưởng
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-ghost" href="#so-sanh">Xem bảng so sánh</a>
+      </div>
+    </div>
+    <div class="hero-card" aria-label="Hệ thống tăng trưởng ConvertX">
+      <div class="label">Một pipeline, năm bước kết nối</div>
+      <div class="row"><div class="num">01</div><div><b>Thu hút</b><small>Content &amp; inbound đúng người ra quyết định</small></div></div>
+      <div class="row"><div class="num">02</div><div><b>Sàng lọc</b><small>AI lead scoring trước khi đến tay sales</small></div></div>
+      <div class="row"><div class="num">03</div><div><b>Follow-up</b><small>Tự động, đúng lúc sau mỗi demo</small></div></div>
+      <div class="row"><div class="num">04</div><div><b>Đồng bộ CRM</b><small>Marketing &amp; sales cùng nhìn một pipeline</small></div></div>
+      <div class="row"><div class="num">05</div><div><b>Đo lường</b><small>SQL · chu kỳ bán hàng · CAC</small></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. PROBLEM ============ -->
+<section class="grey" id="van-de">
+  <div class="wrap">
+    <span class="eyebrow">Vấn đề</span>
+    <h2>Nhiều lead hơn chưa chắc đã nhiều hợp đồng hơn</h2>
+    <p class="lead">Nhiều doanh nghiệp B2B vẫn đăng content đều, chạy chiến dịch đều, form vẫn có người điền. Nhưng cuối tháng nhìn lại, số hợp đồng không tăng tương xứng. Chỗ rò thường nằm ở khoảng giữa marketing và sales.</p>
+    <div class="grid-2">
+      <div class="card warn"><div class="ic"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <h3>Không biết nên gọi lead nào trước</h3><p>Lead đổ về một danh sách chung, người ra quyết định thật bị lẫn với sinh viên, freelancer và tài khoản rất nhỏ.</p></div>
+      <div class="card warn"><div class="ic"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 11h-6"/></svg></div>
+        <h3>Sales mất thời gian với sai người</h3><p>Cả tuần dành cho những cuộc gọi vốn không thể chốt, trong khi deal nhiều bên liên quan chững lại ngay sau buổi demo.</p></div>
+      <div class="card warn"><div class="ic"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg></div>
+        <h3>Follow-up phụ thuộc vào trí nhớ</h3><p>Không có quy trình tự động, việc chăm sóc sau demo hay sau mỗi yêu cầu tư vấn tùy vào việc ai còn nhớ.</p></div>
+      <div class="card warn"><div class="ic"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></div>
+        <h3>Không đo được kênh nào tạo ra doanh thu</h3><p>Báo cáo đầy reach và lượt thích, nhưng không ai trả lời được hoạt động nào thật sự đưa pipeline tiến lên.</p></div>
+    </div>
+    <div class="callout">Đổ thêm lead vào một pipeline đang rò chỉ khiến chỗ rò lớn hơn. Vấn đề không nằm ở số lượng lead, mà ở việc thiếu một hệ thống.</div>
+  </div>
+</section>
+
+<!-- ============ 3. COMPARISON ============ -->
+<section id="so-sanh">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">So sánh mô hình</span>
+      <h2>Agency truyền thống vs ConvertX</h2>
+      <p class="lead">Hai cách tiếp cận khác nhau cho cùng một mục tiêu: tăng trưởng. Một bên tập trung vào đầu ra của từng tác vụ, một bên tập trung vào kết quả của cả pipeline.</p>
+    </div>
+    <div class="compare">
+      <table>
+        <thead>
+          <tr><th>Tiêu chí</th><th>Agency truyền thống</th><th class="cx">Con<span>vert</span>X</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="crit">Phạm vi công việc</td>
+            <td class="ag"><span class="mlabel">Agency truyền thống</span><div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg><span>Bán tác vụ rời rạc: bài đăng, quảng cáo, thiết kế. Mỗi hạng mục là một đầu việc riêng.</span></div></td>
+            <td class="cx"><span class="mlabel">ConvertX</span><div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><span>Một hệ thống end-to-end kết hợp chiến lược, Content, Inbound, AI Automation và CRM.</span></div></td>
+          </tr>
+          <tr>
+            <td class="crit">KPI</td>
+            <td class="ag"><span class="mlabel">Agency truyền thống</span><div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg><span>Reach, lượt thích, lượt hiển thị: những con số đẹp nhưng xa doanh thu.</span></div></td>
+            <td class="cx"><span class="mlabel">ConvertX</span><div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><span>Kết quả kinh doanh: số SQL, độ dài chu kỳ bán hàng, chi phí thu hút khách hàng (CAC).</span></div></td>
+          </tr>
+          <tr>
+            <td class="crit">Marketing – Sales</td>
+            <td class="ag"><span class="mlabel">Agency truyền thống</span><div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg><span>Hai đội vận hành tách rời. Marketing giao lead xong là hết phần việc.</span></div></td>
+            <td class="cx"><span class="mlabel">ConvertX</span><div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><span>Marketing và sales cùng nhìn một pipeline, cùng chịu trách nhiệm về kết quả.</span></div></td>
+          </tr>
+          <tr>
+            <td class="crit">Sàng lọc lead</td>
+            <td class="ag"><span class="mlabel">Agency truyền thống</span><div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg><span>Thường không có. Mọi lead được chuyển thẳng cho sales.</span></div></td>
+            <td class="cx"><span class="mlabel">ConvertX</span><div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><span>AI lead scoring theo mức độ phù hợp và hành vi, để sales biết nên gọi ai trước.</span></div></td>
+          </tr>
+          <tr>
+            <td class="crit">Follow-up</td>
+            <td class="ag"><span class="mlabel">Agency truyền thống</span><div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg><span>Thủ công, phụ thuộc vào việc ai còn nhớ.</span></div></td>
+            <td class="cx"><span class="mlabel">ConvertX</span><div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><span>Tự động và đúng lúc, sau mỗi buổi demo hoặc mỗi yêu cầu tư vấn.</span></div></td>
+          </tr>
+          <tr>
+            <td class="crit">Dữ liệu &amp; CRM</td>
+            <td class="ag"><span class="mlabel">Agency truyền thống</span><div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg><span>Dữ liệu nằm rải rác trên từng nền tảng và từng file báo cáo.</span></div></td>
+            <td class="cx"><span class="mlabel">ConvertX</span><div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><span>Dữ liệu được đồng bộ về CRM, theo dõi được lead đi từ kênh nào đến hợp đồng nào.</span></div></td>
+          </tr>
+          <tr>
+            <td class="crit">Hành trình mua B2B Việt Nam</td>
+            <td class="ag"><span class="mlabel">Agency truyền thống</span><div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg><span>Áp dụng playbook chung, ít tính đến cách doanh nghiệp Việt ra quyết định.</span></div></td>
+            <td class="cx"><span class="mlabel">ConvertX</span><div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><span>Thiết kế theo hành trình kết hợp: tìm hiểu online trước, rồi quyết định qua mối quan hệ và niềm tin.</span></div></td>
+          </tr>
+          <tr>
+            <td class="crit">Minh bạch báo cáo</td>
+            <td class="ag"><span class="mlabel">Agency truyền thống</span><div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg><span>Báo cáo hoạt động: đã đăng bao nhiêu bài, chạy bao nhiêu chiến dịch.</span></div></td>
+            <td class="cx"><span class="mlabel">ConvertX</span><div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><span>Báo cáo theo pipeline: mỗi hoạt động được gắn với tác động lên SQL, chu kỳ bán hàng và CAC.</span></div></td>
+          </tr>
+          <tr>
+            <td class="crit">Công nghệ &amp; AI</td>
+            <td class="ag"><span class="mlabel">Agency truyền thống</span><div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg><span>Công cụ dùng lẻ cho từng tác vụ, không kết nối với nhau.</span></div></td>
+            <td class="cx"><span class="mlabel">ConvertX</span><div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><span>AI và automation là lõi của hệ thống, kèm playbook chuyên sâu cho SaaS B2B.</span></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note center">Bảng so sánh mô tả mô hình agency làm theo tác vụ phổ biến trên thị trường, không nhằm vào bất kỳ đơn vị cụ thể nào. Nhiều agency vẫn làm rất tốt phần việc của mình. Khác biệt nằm ở cách tiếp cận: tác vụ hay hệ thống.</p>
+    <div class="center" style="margin-top:32px"><a class="btn btn-primary" href="#lien-he">Cùng trao đổi về tăng trưởng</a></div>
+  </div>
+</section>
+
+<!-- ============ 4. 5-STEP SYSTEM ============ -->
+<section class="dark" id="he-thong">
+  <div class="wrap">
+    <span class="eyebrow">Hệ thống 5 bước</span>
+    <h2>Một hệ thống, từ lượt tiếp cận đầu tiên đến hợp đồng</h2>
+    <p class="lead">Thay vì từng tác vụ rời rạc, mỗi bước trong hệ thống của ConvertX nối tiếp bước trước, cùng phục vụ một mục tiêu: chuyển đổi nhiều lead thành hợp đồng hơn.</p>
+    <div class="steps">
+      <div class="step"><svg class="icon ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg>
+        <div class="n">BƯỚC 01</div><h3>Thu hút</h3><p>Content và inbound đưa đúng người ra quyết định đến với bạn, không chỉ thu về một địa chỉ email.</p></div>
+      <div class="step"><svg class="icon ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 5h18l-7 8v6l-4-2v-4z"/></svg>
+        <div class="n">BƯỚC 02</div><h3>Sàng lọc</h3><p>AI lead scoring dựa trên mức độ phù hợp và hành vi, để thời gian của sales dành cho người mua thật.</p></div>
+      <div class="step"><svg class="icon ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16v12H5.2L4 17.2z"/><path d="M8 9h8M8 12h5"/></svg>
+        <div class="n">BƯỚC 03</div><h3>Follow-up</h3><p>Follow-up tự động và đúng lúc sau mỗi buổi demo hay yêu cầu tư vấn, đến được cả những bên liên quan không có mặt.</p></div>
+      <div class="step"><svg class="icon ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg>
+        <div class="n">BƯỚC 04</div><h3>Đồng bộ CRM</h3><p>Mọi lead và tương tác được đồng bộ về CRM, để marketing và sales cùng nhìn một pipeline.</p></div>
+      <div class="step"><svg class="icon ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 6-6"/></svg>
+        <div class="n">BƯỚC 05</div><h3>Đo lường</h3><p>Đo bằng kết quả kinh doanh: số SQL, độ dài chu kỳ bán hàng và chi phí thu hút khách hàng.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. VIETNAM BUYING JOURNEY ============ -->
+<section class="grey" id="hanh-trinh">
+  <div class="wrap hybrid">
+    <div>
+      <span class="eyebrow">Hành trình mua B2B tại Việt Nam</span>
+      <h2>Thiết kế theo đúng cách doanh nghiệp Việt Nam ra quyết định mua</h2>
+      <p class="lead">Người mua doanh nghiệp tại Việt Nam tìm hiểu và kiểm chứng giải pháp online trước khi gặp sales, rồi chốt quyết định dựa trên mối quan hệ và niềm tin. Một hệ thống tốt phải phục vụ được cả hai nửa của hành trình đó.</p>
+      <!-- Tuỳ chọn: KB có một số liệu thị trường về hành trình mua kết hợp, nhưng chỉ dẫn về tài liệu nội bộ, không có nguồn nghiên cứu gốc. Chưa đưa lên trang. Chỉ thêm khi Bao xác nhận được nguồn. -->
+      <ul class="checks">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><span>Sự hiện diện online đủ tin cậy để giành được cuộc gặp đầu tiên.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><span>Trải nghiệm thực tế giữ đúng lời hứa mà kênh online đã đưa ra.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><span>Chiến lược go-to-market quốc tế và địa phương được điều chỉnh cho thực tế mua hàng tại Việt Nam.</span></li>
+      </ul>
+    </div>
+    <div class="journey">
+      <div class="jstep"><span class="tag">Online</span><div><b>Tìm hiểu &amp; kiểm chứng</b><p>Người mua đọc content, so sánh giải pháp và đánh giá độ tin cậy trước khi liên hệ.</p></div></div>
+      <div class="jstep"><span class="tag">Online</span><div><b>Cuộc gặp đầu tiên</b><p>Inbound đưa đúng người ra quyết định đến với đội sales, đã được sàng lọc.</p></div></div>
+      <div class="jstep"><span class="tag off">Offline</span><div><b>Mối quan hệ &amp; niềm tin</b><p>Demo, gặp mặt, trao đổi với nhiều bên liên quan, được hỗ trợ bằng follow-up đúng lúc.</p></div></div>
+      <div class="jstep"><span class="tag off">Offline</span><div><b>Quyết định mua</b><p>Hợp đồng được chốt khi trải nghiệm thực tế khớp với những gì người mua thấy online.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. WHO IT'S FOR (SaaS B2B) ============ -->
+<section id="phu-hop">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">Phù hợp với ai</span>
+      <h2>Được xây cho doanh nghiệp SaaS B2B</h2>
+      <p class="lead">Lõi hệ thống gồm AI lead scoring, inbound capture và đồng bộ CRM, được thiết kế cho cách doanh nghiệp SaaS B2B tạo lead, demo và chốt hợp đồng.</p>
+    </div>
+    <div class="grid-2">
+      <div class="card seg">
+        <div class="kicker">Dấu hiệu bạn cần một hệ thống</div>
+        <h3>Điểm nghẽn thường gặp</h3>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Nhiều lượt đăng ký, yêu cầu demo và người dùng thử, nhưng ít người mua đủ điều kiện</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Sales mất thời gian với sinh viên, freelancer và tài khoản rất nhỏ</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Deal nhiều bên liên quan chững lại ngay sau buổi demo</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Marketing và sales vận hành tách rời, không cùng nhìn một pipeline</li>
+        </ul>
+      </div>
+      <div class="card seg featured">
+        <div class="kicker">ConvertX xây cho SaaS B2B</div>
+        <h3>Hệ thống đi kèm</h3>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Ghi nhận đúng người ra quyết định ngay từ form đăng ký</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>AI lead scoring cho lead dùng thử và demo</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Tự động hóa follow-up sau demo và gửi proposal</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Đồng bộ CRM cho toàn bộ pipeline</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST ============ -->
+<section class="trust grey" aria-label="Đối tác tin dùng">
+  <div class="wrap trust-row">
+    <span class="t">Đối tác tin dùng</span>
+    <!-- PLACEHOLDER: đang hiển thị tên dạng chữ. Có thể thay bằng logo ClassIn và cirCO (homepage convertx.biz đang dùng) khi Bao xác nhận. Không kèm số liệu. -->
+    <div class="logo-ph">ClassIn</div>
+    <div class="logo-ph">cirCO</div>
+  </div>
+</section>
+
+<!-- ============ 7. HOW WE WORK ============ -->
+<section id="cach-lam-viec">
+  <div class="wrap">
+    <span class="eyebrow">Cách ConvertX làm việc</span>
+    <h2>Chiến lược, công nghệ và triển khai trong cùng một nhóm</h2>
+    <p class="lead">Mỗi dự án kết hợp tư vấn chiến lược, công nghệ / AI và đội triển khai, để hệ thống tạo ra kết quả kinh doanh chứ không dừng ở bản kế hoạch.</p>
+    <div class="process">
+      <div class="pstep"><div class="n">1</div><h3>Trao đổi &amp; hiểu pipeline</h3><p>Cùng nhìn lại ICP, hành trình mua của khách hàng và điểm đang rò giữa marketing và sales.</p></div>
+      <div class="pstep"><div class="n">2</div><h3>Thiết kế hệ thống</h3><p>Định vị, kênh, tiêu chí sàng lọc lead, kịch bản follow-up và cấu trúc CRM theo đặc thù sản phẩm và hành trình mua của khách hàng bạn.</p></div>
+      <div class="pstep"><div class="n">3</div><h3>Triển khai &amp; kết nối</h3><p>Content, inbound, AI automation và CRM được dựng và kết nối thành một luồng, kèm hướng dẫn cho đội của bạn.</p></div>
+      <div class="pstep"><div class="n">4</div><h3>Đo lường &amp; tối ưu</h3><p>Theo dõi SQL, chu kỳ bán hàng và CAC trên cùng một dashboard, rồi tối ưu liên tục dựa trên dữ liệu.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. FAQ ============ -->
+<section class="grey" id="faq">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">Câu hỏi thường gặp</span>
+      <h2>Những điều bạn có thể đang băn khoăn</h2>
+    </div>
+    <div class="faq">
+      <details open>
+        <summary>ConvertX khác gì agency truyền thống?</summary>
+        <p>Agency truyền thống thường nhận từng tác vụ như bài đăng, quảng cáo hay thiết kế, và báo cáo bằng reach, lượt thích. ConvertX là đối tác tăng trưởng định hướng công nghệ: chúng tôi xây một hệ thống kết nối Content, Inbound, AI Automation và CRM, và đo bằng kết quả kinh doanh như số SQL, độ dài chu kỳ bán hàng và CAC.</p>
+      </details>
+      <details>
+        <summary>Có cần thay đổi đội sales không?</summary>
+        <p>Không. Hệ thống được xây để hỗ trợ đội sales hiện tại: lead đến tay sales đã được sàng lọc, follow-up được tự động hóa, và mọi người cùng làm việc trên một pipeline trong CRM. ConvertX hướng dẫn đội của bạn sử dụng workflow mới để sales tập trung vào việc quan trọng nhất là gặp và thuyết phục đúng người ra quyết định.</p>
+      </details>
+      <details>
+        <summary>Doanh nghiệp đã có CRM rồi thì sao?</summary>
+        <p>ConvertX làm việc với các CRM phổ biến như HubSpot, Zoho và ClickUp. Chúng tôi rà soát cách CRM đang được dùng, thiết lập automation và lead scoring, rồi kết nối với các kênh marketing để dữ liệu chảy về một nơi.</p>
+      </details>
+      <details>
+        <summary>AI có thay con người trong việc bán hàng không?</summary>
+        <p>Không. Ở thị trường B2B Việt Nam, quyết định mua vẫn dựa trên mối quan hệ và niềm tin. AI đảm nhận phần sàng lọc lead và follow-up lặp lại, để đội của bạn có nhiều thời gian hơn cho những cuộc trò chuyện thật sự quan trọng.</p>
+      </details>
+      <details>
+        <summary>ConvertX phù hợp với doanh nghiệp nào?</summary>
+        <p>ConvertX tập trung vào doanh nghiệp SaaS B2B. Đặc biệt phù hợp nếu bạn đã có lead nhưng tỷ lệ chuyển thành hợp đồng chưa như kỳ vọng, hoặc marketing và sales đang vận hành tách rời.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 9. FINAL CTA + CONTACT ============ -->
+<section class="dark" id="lien-he">
+  <div class="wrap contact">
+    <div>
+      <span class="eyebrow">Liên hệ</span>
+      <h2>Pipeline của bạn cần một hệ thống, không chỉ thêm lead</h2>
+      <p class="lead">Kể cho chúng tôi về pipeline hiện tại của bạn. ConvertX sẽ liên hệ lại để cùng trao đổi về cách xây một hệ thống tăng trưởng B2B trọn vẹn.</p>
+      <ul class="checks" style="color:#C9D6CF">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><span>Trao đổi với người hiểu cả marketing, sales và công nghệ</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><span>Tập trung vào pipeline và kết quả kinh doanh của bạn</span></li>
+      </ul>
+      <p style="margin-top:28px;color:#8FA59A">Hoặc ghé <a href="https://convertx.biz" style="color:var(--green);font-weight:600">convertx.biz</a></p>
+    </div>
+    <!-- FORM LIÊN HỆ = form homepage convertx.biz (section #contact, "Đặt Lịch Tư Vấn Chiến Lược").
+         Công nghệ: homepage là React/Vite SPA trên Vercel; form gửi bằng fetch POST (multipart FormData, mode "no-cors")
+         tới Google Apps Script web app (biến VITE_CONTACT_SCRIPT_URL, giá trị fallback trong bundle):
+         https://script.google.com/macros/s/AKfycbzx3HtLaLphdm4kx81FhY7-nwm_pCQT0eQY6EQisBz5b-DtnlMiOfDfNG56fhEUoXim4w/exec
+         Field gửi đi giống hệt homepage: name, email, phone, company, challenge. Honeypot zx_hp (không gửi đi; có giá trị thì bỏ qua).
+         Chống spam giống homepage: điền tối thiểu 3 giây, cách nhau 30 giây, tối đa 4 lần/giờ (localStorage key "cx-submit:contact").
+         Khi đưa lên convertx.biz: nếu site đã đổi VITE_CONTACT_SCRIPT_URL trên Vercel thì cập nhật CX_CONTACT_URL bên dưới cho khớp,
+         hoặc dùng lại component form của homepage. Chưa gửi bất kỳ bản ghi test nào. -->
+    <form id="cx-contact" novalidate aria-label="Đặt lịch tư vấn chiến lược">
+      <div class="hp" aria-hidden="true"><label for="contact-zx-hp">Fax</label><input type="text" id="contact-zx-hp" name="zx_hp" tabindex="-1" autocomplete="off" value=""></div>
+      <h3 class="full form-title">Đặt lịch tư vấn chiến lược</h3>
+      <div class="full"><label for="name">Họ và tên</label><input required maxlength="120" type="text" id="name" name="name" placeholder="Nguyễn Văn A" autocomplete="name"></div>
+      <div><label for="email">Email công việc</label><input required maxlength="100" type="email" id="email" name="email" placeholder="ten@congty.com" autocomplete="email"></div>
+      <div><label for="phone">Số điện thoại</label><input required maxlength="30" type="tel" id="phone" name="phone" placeholder="+84..." autocomplete="tel"></div>
+      <div class="full"><label for="company">Tên công ty &amp; Website</label><input required maxlength="200" type="text" id="company" name="company" placeholder="Công ty Acme - acme.com" autocomplete="organization"></div>
+      <div class="full"><label for="challenge">Thách thức chính</label><textarea required maxlength="2000" id="challenge" name="challenge" rows="3" placeholder="Thách thức tăng trưởng chính mà bạn đang đối mặt hiện nay là gì?"></textarea></div>
+      <p class="full form-err" role="alert" hidden></p>
+      <div class="full"><button class="btn btn-primary" type="submit">Cùng trao đổi về tăng trưởng</button></div>
+      <p class="full fine">ConvertX chỉ dùng thông tin này để liên hệ lại với bạn. Xem <a href="https://convertx.biz/privacy" style="color:var(--green-dark);text-decoration:underline">Chính sách bảo mật</a>.</p>
+    </form>
+    <div id="cx-success" class="form-ok" hidden>
+      <h3>Đã nhận yêu cầu!</h3>
+      <p>Cảm ơn bạn đã liên hệ. Một trong những chuyên gia chiến lược tăng trưởng của chúng tôi sẽ phản hồi trong vòng 24 giờ để sắp xếp lịch hẹn.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ 10. FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div>
+      <img src="/convertx-vs-agency/convertx-logo-lockup-green-rounded.png" alt="ConvertX">
+      <p class="tag">Một hệ thống tăng trưởng B2B trọn vẹn · Content · Inbound · AI Automation</p>
+    </div>
+    <div style="text-align:right">
+      <p>Đối tác tăng trưởng B2B định hướng công nghệ tại TP. Hồ Chí Minh</p>
+      <p><a href="https://convertx.biz" style="color:var(--green)">convertx.biz</a> · <a href="https://convertx.biz/privacy">Chính sách bảo mật</a> · © 2026 ConvertX</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Logic gửi form: sao chép từ homepage convertx.biz (validate + chống spam + POST no-cors tới Apps Script). */
+(function(){
+  var CX_CONTACT_URL="https://script.google.com/macros/s/AKfycbzx3HtLaLphdm4kx81FhY7-nwm_pCQT0eQY6EQisBz5b-DtnlMiOfDfNG56fhEUoXim4w/exec";
+  var KEY="cx-submit:contact", HOUR=3600*1000, MIN_FILL=3000, MIN_GAP=30000, MAX_PER_HOUR=4;
+  var MSG={tooFast:"Vui lòng đợi vài giây rồi gửi lại.",throttled:"Bạn vừa gửi biểu mẫu này. Vui lòng đợi một lát rồi thử lại.",
+    name:"Nhập họ tên không quá 120 ký tự.",email:"Nhập email hợp lệ, không quá 100 ký tự.",phone:"Nhập số điện thoại hợp lệ.",
+    company:"Nhập tên công ty không quá 200 ký tự.",challenge:"Mô tả thách thức không quá 2.000 ký tự."};
+  var form=document.getElementById("cx-contact"); if(!form) return;
+  var err=form.querySelector(".form-err"), btn=form.querySelector("button[type=submit]"), ok=document.getElementById("cx-success");
+  var startedAt=Date.now();
+  var CTRL=/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/, EMAIL=/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  function line(v,max){v=String(v==null?"":v).replace(/\s+/g," ").trim();return(!v||v.length>max||CTRL.test(v))?null:v;}
+  function text(v,max){v=String(v==null?"":v).replace(/\r\n/g,"\n").trim();return(!v||v.length>max||CTRL.test(v))?null:v;}
+  function phoneOk(t){if(t.length<8||t.length>30||!/^\+?[0-9][0-9\s().-]*$/.test(t))return false;var d=t.replace(/\D/g,"").length;return d>=8&&d<=15;}
+  function stamps(now){try{var r=JSON.parse(localStorage.getItem(KEY)||"null");return r&&Array.isArray(r.stamps)?r.stamps.filter(function(x){return typeof x=="number"&&now-x<HOUR;}):[];}catch(e){return[];}}
+  function stamp(now){try{var a=stamps(now);a.push(now);localStorage.setItem(KEY,JSON.stringify({stamps:a}));}catch(e){}}
+  function show(m){err.textContent=m;err.hidden=!m;}
+  form.addEventListener("submit",async function(e){
+    e.preventDefault(); show("");
+    var fd=new FormData(form), now=Date.now();
+    if(String(fd.get("zx_hp")||"").trim()){form.hidden=true;ok.hidden=false;return;}
+    if(now-startedAt<MIN_FILL){show(MSG.tooFast);return;}
+    var st=stamps(now), last=st.length?Math.max.apply(null,st):0;
+    if((last&&now-last<MIN_GAP)||st.length>=MAX_PER_HOUR){show(MSG.throttled);return;}
+    var name=line(fd.get("name"),120), email=line(fd.get("email"),100), phone=line(fd.get("phone"),30),
+        company=line(fd.get("company"),200), challenge=text(fd.get("challenge"),2000);
+    if(!name){show(MSG.name);return;}
+    if(!email||email.length>100||!EMAIL.test(email)){show(MSG.email);return;}
+    if(!phone||!phoneOk(phone)){show(MSG.phone);return;}
+    if(!company){show(MSG.company);return;}
+    if(!challenge){show(MSG.challenge);return;}
+    var body=new FormData(); body.append("name",name); body.append("email",email); body.append("phone",phone);
+    body.append("company",company); body.append("challenge",challenge);
+    btn.disabled=true; btn.textContent="Đang gửi..."; stamp(now);
+    try{await fetch(CX_CONTACT_URL,{method:"POST",mode:"no-cors",body:body});}catch(ex){console.error("Error submitting form:",ex);}
+    form.hidden=true; ok.hidden=false; /* homepage cũng hiển thị thành công cả khi lỗi mạng (no-cors) */
+  });
+})();
+</script>
+</body>
+</html>
