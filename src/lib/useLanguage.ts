@@ -1,59 +1,81 @@
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 
 export type Language = 'en' | 'vi';
 
 const STORAGE_KEY = 'cx-lang';
+const ENGLISH_HOME = '/en';
 
 function queryLanguage(): Language | null {
-  const value = new URLSearchParams(window.location.search).get('lang');
-  return value === 'en' || value === 'vi' ? value : null;
+  try {
+    const value = new URLSearchParams(window.location.search).get('lang');
+    return value === 'en' || value === 'vi' ? value : null;
+  } catch {
+    return null;
+  }
+}
+
+function readStoredLanguage(): Language | null {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved === 'en' || saved === 'vi' ? saved : null;
+  } catch {
+    return null;
+  }
 }
 
 function readLanguage(): Language {
+  return queryLanguage() ?? readStoredLanguage() ?? 'vi';
+}
+
+function remember(language: Language) {
   try {
-    const fromQuery = queryLanguage();
-    if (fromQuery) return fromQuery;
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved === 'en' || saved === 'vi') return saved;
+    localStorage.setItem(STORAGE_KEY, language);
   } catch {
-    // Private mode can block storage. Vietnamese stays the default.
+    // Private mode can block storage.
   }
-  return 'vi';
+}
+
+function onVietnameseHome(): boolean {
+  const path = window.location.pathname;
+  return path === '/' || path === '';
+}
+
+/** The English homepage is the static /en page. Keep the SPA preference Vietnamese so VI → / stays there. */
+function leaveForEnglishHome() {
+  remember('vi');
+  window.location.assign(ENGLISH_HOME);
 }
 
 export function useLanguage(): [Language, () => void] {
   const [lang, setLang] = useState<Language>(readLanguage);
 
-  useEffect(() => {
-    let fromQuery: Language | null = null;
-    try {
-      fromQuery = queryLanguage();
-    } catch {
+  useLayoutEffect(() => {
+    const fromQuery = queryLanguage();
+
+    if (onVietnameseHome() && (fromQuery === 'en' || (fromQuery !== 'vi' && lang === 'en'))) {
+      remember('vi');
+      window.location.replace(ENGLISH_HOME);
       return;
     }
+
     if (!fromQuery) return;
-    try {
-      localStorage.setItem(STORAGE_KEY, fromQuery);
-    } catch {
-      // The query still selects the language for this visit.
-    }
+    remember(fromQuery);
     setLang(fromQuery);
     const params = new URLSearchParams(window.location.search);
     params.delete('lang');
     const search = params.toString();
     const next = window.location.pathname + (search ? `?${search}` : '') + window.location.hash;
     window.history.replaceState(null, '', next);
-  }, []);
+  }, [lang]);
 
   const toggle = () => {
     setLang((prev) => {
-      const next: Language = prev === 'en' ? 'vi' : 'en';
-      try {
-        localStorage.setItem(STORAGE_KEY, next);
-      } catch {
-        // Ignore quota and private-mode failures.
+      if (prev !== 'en') {
+        leaveForEnglishHome();
+        return prev;
       }
-      return next;
+      remember('vi');
+      return 'vi';
     });
   };
 
