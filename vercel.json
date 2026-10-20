@@ -6,6 +6,14 @@
       "permanent": true
     }
   ],
+  "routes": [
+    {
+      "src": "^/$",
+      "has": [{ "type": "query", "key": "lang", "value": "en" }],
+      "status": 308,
+      "headers": { "Location": "/en" }
+    }
+  ],
   "rewrites": [
     { "source": "/en", "destination": "/en/index.html" },
     { "source": "/en/vietnam-saas-market-entry", "destination": "/en/vietnam-saas-market-entry/index.html" },
