@@ -56,6 +56,7 @@ export default function SiteChrome({ lang, onToggleLang, children }: SiteChromeP
             <div className="hidden md:flex items-center gap-8">
               <Link to="/" className="text-slate-600 hover:text-emerald-600 font-medium transition-colors">{t.home}</Link>
               <Link to="/about" className="text-slate-600 hover:text-emerald-600 font-medium transition-colors">{t.about}</Link>
+              {lang === 'en' && <a href="/en/pricing" className="text-slate-600 hover:text-emerald-600 font-medium transition-colors">Pricing</a>}
               <Link to="/webinar" className="text-slate-600 hover:text-emerald-600 font-medium transition-colors">{t.events}</Link>
               <Link to="/resources" className="text-slate-600 hover:text-emerald-600 font-medium transition-colors">{t.resources}</Link>
               <button
@@ -92,6 +93,7 @@ export default function SiteChrome({ lang, onToggleLang, children }: SiteChromeP
             <div className="px-4 py-3 space-y-1">
               <Link to="/" onClick={close} className="block px-3 py-2 text-slate-600 font-medium hover:text-emerald-600 rounded-md">{t.home}</Link>
               <Link to="/about" onClick={close} className="block px-3 py-2 text-slate-600 font-medium hover:text-emerald-600 rounded-md">{t.about}</Link>
+              {lang === 'en' && <a href="/en/pricing" onClick={close} className="block px-3 py-2 text-slate-600 font-medium hover:text-emerald-600 rounded-md">Pricing</a>}
               <Link to="/webinar" onClick={close} className="block px-3 py-2 text-slate-600 font-medium hover:text-emerald-600 rounded-md">{t.events}</Link>
               <Link to="/resources" onClick={close} className="block px-3 py-2 text-slate-600 font-medium hover:text-emerald-600 rounded-md">{t.resources}</Link>
               <button type="button" onClick={() => { onToggleLang(); close(); }} className="w-full text-left px-3 py-2 text-slate-600 font-medium hover:text-emerald-600 rounded-md">
@@ -116,6 +118,7 @@ export default function SiteChrome({ lang, onToggleLang, children }: SiteChromeP
             </div>
             <ul className="space-y-3 text-sm">
               <li><Link to="/about" className="hover:text-white transition-colors">{t.about}</Link></li>
+              {lang === 'en' && <li><a href="/en/pricing" className="hover:text-white transition-colors">Pricing</a></li>}
               <li><a href="/#contact" className="hover:text-white transition-colors">{t.contact}</a></li>
               <li><Link to="/privacy" className="hover:text-white transition-colors">{t.privacy}</Link></li>
               <li><Link to="/terms" className="hover:text-white transition-colors">{t.terms}</Link></li>

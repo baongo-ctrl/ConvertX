@@ -16,6 +16,7 @@
   ],
   "rewrites": [
     { "source": "/en", "destination": "/en/index.html" },
+    { "source": "/en/pricing", "destination": "/en/pricing/index.html" },
     { "source": "/en/vietnam-saas-market-entry", "destination": "/en/vietnam-saas-market-entry/index.html" },
     { "source": "/en/saas-marketing-agency-vietnam", "destination": "/en/saas-marketing-agency-vietnam/index.html" },
     { "source": "/en/services/zalo-automation-crm", "destination": "/en/services/zalo-automation-crm/index.html" },
