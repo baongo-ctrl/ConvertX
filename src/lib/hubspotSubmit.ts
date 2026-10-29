@@ -205,7 +205,8 @@ async function postHubSpot(formKey: HubSpotFormKey, fields: HsField[]): Promise<
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ fields, context }),
-        keepalive: true,
+        // Avoid keepalive: Chromium can close hsforms (ERR_CONNECTION_CLOSED)
+        // while we still await this fetch before showing success UI.
         signal: controller.signal,
       },
     );
