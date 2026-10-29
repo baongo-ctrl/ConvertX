@@ -280,7 +280,7 @@
       </div>
       <div>
         <p class="outcome"><strong>Outcome:</strong> You know where your funnel leaks before you spend anything.</p>
-        <a class="btn btn-primary" href="#contact" data-interest="Free Funnel Audit">Book your free Funnel Audit →</a>
+        <a class="btn btn-primary" href="#contact" data-interest="Free Funnel Audit" data-cx-package="undecided">Book your free Funnel Audit →</a>
       </div>
     </article>
   </div>
@@ -305,7 +305,7 @@
         </ul>
         <div class="tail">
           <p class="outcome"><strong>Target outcomes:</strong> 40% less time spent on follow-up and a 15–25% increase in deal closing rate.</p>
-          <a class="btn btn-primary" href="#contact" data-interest="CRM + Automation Optimization">Fix my CRM →</a>
+          <a class="btn btn-primary" href="#contact" data-interest="CRM + Automation Optimization" data-cx-package="crm">Fix my CRM →</a>
         </div>
       </article>
 
@@ -324,7 +324,7 @@
         </ul>
         <div class="tail">
           <p class="outcome"><strong>Target outcomes:</strong> A professional brand and website, a sales deck ready to use, a first lead-generation system in place, and at least 30% better response rates.</p>
-          <a class="btn btn-primary" href="#contact" data-interest="B2B Launch Kit">Plan my launch →</a>
+          <a class="btn btn-primary" href="#contact" data-interest="B2B Launch Kit" data-cx-package="launch">Plan my launch →</a>
         </div>
       </article>
 
@@ -345,7 +345,7 @@
         <div class="tail">
           <p class="outcome"><strong>Target outcomes:</strong> Qualified pipeline first: a steady flow of scored, decision-maker leads, at ≥20% lower cost per lead. Volume second: ≥100 MQLs per month and +200% website traffic after 3 months.</p>
           <p class="fine-note">Ad spend is not included. Your ad budget is paid separately, directly to the ad platforms (LinkedIn and Google).</p>
-          <a class="btn btn-primary" href="#contact" data-interest="Growth Engine">Build my pipeline →</a>
+          <a class="btn btn-primary" href="#contact" data-interest="Growth Engine" data-cx-package="growth">Build my pipeline →</a>
         </div>
       </article>
 
@@ -363,13 +363,13 @@
         <div class="tail">
           <p class="outcome"><strong>Target outcomes:</strong> More qualified leads reaching sales, faster follow-up, and higher closing rates, tracked on one dashboard.</p>
           <p class="fine-note">Ad spend is not included. Your ad budget is paid separately, directly to the ad platforms (LinkedIn and Google).</p>
-          <a class="btn btn-primary" href="#contact" data-interest="Growth Loop">Scale my lead-to-deal system →</a>
+          <a class="btn btn-primary" href="#contact" data-interest="Growth Loop" data-cx-package="growth">Scale my lead-to-deal system →</a>
         </div>
       </article>
     </div>
 
     <div class="offers">
-      <p class="offer">Entering a new market or repositioning? <strong>Market Intelligence &amp; Brand Strategy</strong> starts from $2,750 / project (4–6 weeks): industry report, competitor mapping, brand audit, and a ready-to-deploy strategy deck. <a href="#contact" data-interest="Market Intelligence &amp; Brand Strategy">Talk to us →</a></p>
+      <p class="offer">Entering a new market or repositioning? <strong>Market Intelligence &amp; Brand Strategy</strong> starts from $2,750 / project (4–6 weeks): industry report, competitor mapping, brand audit, and a ready-to-deploy strategy deck. <a href="#contact" data-interest="Market Intelligence &amp; Brand Strategy" data-cx-package="intelligence">Talk to us →</a></p>
       <p class="offer">We also work with B2B wholesale and distribution businesses on quoting, onboarding, and lead qualification. Ask us during your audit.</p>
     </div>
   </div>
@@ -419,7 +419,7 @@
     <div>
       <h2>Not sure which package fits?</h2>
       <p class="lead">Start with the free Funnel Audit. We’ll show you where qualified buyers drop out of your funnel and what to fix first. No commitment.</p>
-      <p style="margin-top:28px"><a class="btn btn-primary" href="#cx-contact" data-interest="Free Funnel Audit">Book your free Funnel Audit →</a></p>
+      <p style="margin-top:28px"><a class="btn btn-primary" href="#cx-contact" data-interest="Free Funnel Audit" data-cx-package="undecided">Book your free Funnel Audit →</a></p>
       <p class="contact-links">Email <a href="mailto:bao.ngo@convertx.biz">bao.ngo@convertx.biz</a> · Call <a href="tel:+84908734657">+84 908 734 657</a></p>
     </div>
     <form id="cx-contact" novalidate aria-label="Book a strategy call">
@@ -430,7 +430,18 @@
       <div><label for="phone">Phone number</label><input required maxlength="30" type="tel" id="phone" name="phone" placeholder="+84..." autocomplete="tel"></div>
       <div class="full"><label for="company">Company name &amp; website</label><input required maxlength="200" type="text" id="company" name="company" placeholder="Acme Corp - acme.com" autocomplete="organization"></div>
       <div class="full"><label for="challenge">Primary challenge</label><textarea required maxlength="2000" id="challenge" name="challenge" rows="3" placeholder="What is the main growth challenge you're facing right now?"></textarea></div>
-      <p class="full form-err" role="alert" hidden></p>
+            <div class="full"><label for="convertx_segment">Your business type</label>
+        <select id="convertx_segment" name="convertx_segment">
+          <option value="">Select (optional)</option>
+          <option value="b2b_saas">B2B SaaS</option>
+          <option value="b2b_professional_services">B2B Professional Services (outsourcing, consulting…)</option>
+        </select>
+      </div>
+      <label class="full" for="zalo_oa_opt_in" style="display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--muted);cursor:pointer">
+        <input type="checkbox" id="zalo_oa_opt_in" name="zalo_oa_opt_in" value="true" style="margin-top:3px">
+        <span>I agree to receive consultations and useful content from ConvertX via Zalo OA. You can opt out anytime.</span>
+      </label>
+<p class="full form-err" role="alert" hidden></p>
       <div class="full"><button class="btn btn-primary" type="submit">Let’s talk growth</button></div>
       <p class="full fine">ConvertX only uses this information to get back to you. See our <a href="https://convertx.biz/privacy" style="color:var(--green-dark);text-decoration:underline">Privacy Policy</a>.</p>
     </form>
@@ -470,6 +481,7 @@
   });
 })();
 </script>
+<script defer src="/js/cx-hubspot.js"></script>
 <script>
 /* Form logic copied from the convertx.biz homepage (validation + anti-spam + no-cors POST to Apps Script). */
 (function(){
@@ -505,7 +517,7 @@
     var body=new FormData(); body.append("name",name); body.append("email",email); body.append("phone",phone);
     body.append("company",company); body.append("challenge",challenge);
     btn.disabled=true; btn.textContent="Sending..."; stamp(now);
-    try{await fetch(CX_CONTACT_URL,{method:"POST",mode:"no-cors",body:body});}catch(ex){console.error("Error submitting form:",ex);}
+    try{await fetch(CX_CONTACT_URL,{method:"POST",mode:"no-cors",body:body});}catch(ex){console.error("Error submitting form:",ex);} try{if(window.CXHubSpot)await window.CXHubSpot.submit("contact",form);}catch(ex){console.warn("[HubSpot]",ex);}
     form.hidden=true; ok.hidden=false;
   });
 })();

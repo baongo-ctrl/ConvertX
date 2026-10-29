@@ -36,32 +36,32 @@ const privacy: Record<Language, LegalDocument> = {
       {
         heading: 'Data the site collects',
         paragraphs: [
-          'Strategy-call form: full name, work email, phone number, company name and website, and the challenge you describe.',
-          'Event forms: name, work email, phone number, company, and role.',
+          'Strategy-call form: full name, work email, phone number, company name and website, the challenge you describe, an optional business-type selection (B2B SaaS or B2B professional services), and an optional Zalo OA messaging opt-in.',
+          'Event forms: name, work email, phone number, company, role, optional business type, and optional Zalo OA opt-in.',
           'Resource downloads: work email, and the title of the resource you request.',
           'Chat: email address and the message you send.',
           'Cookie preference: your analytics and marketing choice, stored in this browser by the cookie banner.',
-          'Usage data: the site loads Google Tag Manager, container GTM-PLMJ498. Tags inside that container may collect pages viewed and general device or browser data. The container itself is configured outside this website repository, so this draft cannot list every tag.',
+          'Usage data: the site loads Google Tag Manager, container GTM-PLMJ498. Tags inside that container may collect pages viewed and general device or browser data, and may load the HubSpot tracking script (hubspotutk cookie) used to attribute form submissions. The container itself is configured outside this website repository, so this draft cannot list every tag.',
         ],
       },
       {
         heading: 'Why it is used',
         paragraphs: [
-          'Lead, event, download, and chat data are used to reply to you, register you for an event you asked to join, provide the resource you requested, and keep a record of that request. Analytics, where a tag is enabled, are used to understand how the site is used. ConvertX does not sell personal data.',
+          'Lead, event, download, and chat data are used to reply to you, register you for an event you asked to join, provide the resource you requested, and keep a record of that request. The same form data is also stored in HubSpot CRM (HubSpot, Inc.) so ConvertX can manage consultations and marketing communications. Zalo OA messages are sent only when you opt in on a form, and you can opt out anytime. Analytics, where a tag is enabled, are used to understand how the site is used. ConvertX does not sell personal data.',
         ],
       },
       {
         heading: 'Where it is stored',
         paragraphs: [
-          'Form submissions are sent from your browser to a Google Apps Script web app and are expected to be stored in Google Sheets. Chat messages are written to Google Firebase Firestore, in the support_messages collection. Resource-download records are written to Firebase Firestore, in the resource_downloads collection. The cookie choice stays in localStorage on your device.',
-          'Google may process this data on servers outside Vietnam. Firebase web configuration is public by design; access to stored messages and download records is limited by Firestore security rules to a verified ConvertX admin account.',
+          'Form submissions are sent from your browser to a Google Apps Script web app and are expected to be stored in Google Sheets. The same submissions are also sent to HubSpot Forms (portal 247838082) and stored in HubSpot CRM for managing consultations and marketing. Chat messages are written to Google Firebase Firestore, in the support_messages collection, and may also be mirrored to HubSpot. Resource-download records are written to Firebase Firestore, in the resource_downloads collection, and may also be mirrored to HubSpot. The cookie choice stays in localStorage on your device.',
+          'Google and HubSpot may process this data on servers outside Vietnam. Firebase web configuration is public by design; access to stored messages and download records is limited by Firestore security rules to a verified ConvertX admin account.',
         ],
       },
       {
         heading: 'Cookies and the banner',
         paragraphs: [
           'The banner lets you accept all cookies, reject all, or save analytics and marketing separately. The preference itself is stored so the banner does not ask again. Strictly necessary storage cannot be switched off.',
-          'The Tag Manager snippet is currently loaded on every page and is not switched off by the banner. Before this draft is published as final, ConvertX needs to make the tags follow that choice, or stop describing the banner as a control over analytics and marketing tags.',
+          'The Tag Manager snippet is currently loaded on every page and is not switched off by the banner. Through Tag Manager the site may set a HubSpot tracking cookie (hubspotutk) used only to attribute later form submissions to earlier visits. Before this draft is published as final, ConvertX needs to make the tags follow the banner choice, or stop describing the banner as a control over analytics and marketing tags.',
         ],
       },
       {
@@ -73,7 +73,7 @@ const privacy: Record<Language, LegalDocument> = {
       {
         heading: 'Who it is shared with',
         paragraphs: [
-          'Data is shared with Google (Apps Script, Sheets, Firebase, and Tag Manager) so the site can receive and answer requests. ConvertX does not sell or rent personal data. Staff who reply to inquiries can see the fields you submitted.',
+          'Data is shared with Google (Apps Script, Sheets, Firebase, and Tag Manager) and with HubSpot, Inc. (CRM and Forms) so the site can receive and answer requests and manage consultations. If you opt in, ConvertX may also contact you on Zalo OA. ConvertX does not sell or rent personal data. Staff who reply to inquiries can see the fields you submitted.',
         ],
       },
       {
@@ -117,32 +117,32 @@ const privacy: Record<Language, LegalDocument> = {
       {
         heading: 'Dữ liệu website thu thập',
         paragraphs: [
-          'Biểu mẫu đặt lịch tư vấn: họ tên, email công việc, số điện thoại, tên công ty và website, cùng thách thức bạn mô tả.',
-          'Biểu mẫu sự kiện: họ tên, email công việc, số điện thoại, công ty và chức vụ.',
+          'Biểu mẫu đặt lịch tư vấn: họ tên, email công việc, số điện thoại, tên công ty và website, thách thức bạn mô tả, lựa chọn lĩnh vực (không bắt buộc: B2B SaaS hoặc dịch vụ chuyên nghiệp B2B), và tùy chọn nhận tin qua Zalo OA.',
+          'Biểu mẫu sự kiện: họ tên, email công việc, số điện thoại, công ty, chức vụ, lĩnh vực (không bắt buộc) và tùy chọn Zalo OA.',
           'Tải tài nguyên: email công việc và tên tài nguyên bạn yêu cầu.',
           'Chat: địa chỉ email và nội dung tin nhắn.',
           'Lựa chọn cookie: lựa chọn phân tích và tiếp thị của bạn, được banner cookie lưu trên trình duyệt này.',
-          'Dữ liệu sử dụng: website tải Google Tag Manager, container GTM-PLMJ498. Các thẻ trong container đó có thể ghi nhận trang đã xem và thông tin chung về thiết bị hoặc trình duyệt. Container được cấu hình bên ngoài kho mã website này, nên bản nháp không liệt kê được từng thẻ.',
+          'Dữ liệu sử dụng: website tải Google Tag Manager, container GTM-PLMJ498. Các thẻ trong container đó có thể ghi nhận trang đã xem và thông tin chung về thiết bị hoặc trình duyệt, và có thể tải script theo dõi HubSpot (cookie hubspotutk) dùng để gắn attribution cho biểu mẫu. Container được cấu hình bên ngoài kho mã website này, nên bản nháp không liệt kê được từng thẻ.',
         ],
       },
       {
         heading: 'Mục đích sử dụng',
         paragraphs: [
-          'Dữ liệu lead, sự kiện, lượt tải và chat được dùng để trả lời bạn, ghi danh sự kiện bạn yêu cầu, gửi tài nguyên bạn yêu cầu và lưu lại yêu cầu đó. Phân tích, nếu một thẻ được bật, được dùng để hiểu cách website được sử dụng. ConvertX không bán dữ liệu cá nhân.',
+          'Dữ liệu lead, sự kiện, lượt tải và chat được dùng để trả lời bạn, ghi danh sự kiện bạn yêu cầu, gửi tài nguyên bạn yêu cầu và lưu lại yêu cầu đó. Cùng dữ liệu biểu mẫu cũng được lưu trong HubSpot CRM (HubSpot, Inc.) để ConvertX quản lý tư vấn và truyền thông marketing. Tin nhắn Zalo OA chỉ được gửi khi bạn đồng ý trên biểu mẫu và bạn có thể hủy bất cứ lúc nào. Phân tích, nếu một thẻ được bật, được dùng để hiểu cách website được sử dụng. ConvertX không bán dữ liệu cá nhân.',
         ],
       },
       {
         heading: 'Nơi lưu trữ',
         paragraphs: [
-          'Biểu mẫu được gửi từ trình duyệt của bạn tới một ứng dụng web Google Apps Script và dự kiến được lưu trong Google Sheets. Tin nhắn chat được ghi vào Google Firebase Firestore, collection support_messages. Bản ghi lượt tải tài nguyên được ghi vào Firebase Firestore, collection resource_downloads. Lựa chọn cookie nằm trong localStorage trên thiết bị của bạn.',
-          'Google có thể xử lý dữ liệu này trên máy chủ ngoài Việt Nam. Cấu hình web của Firebase vốn được thiết kế để công khai; quyền đọc tin nhắn và bản ghi lượt tải bị giới hạn bởi security rules của Firestore cho tài khoản quản trị ConvertX đã xác minh.',
+          'Biểu mẫu được gửi từ trình duyệt của bạn tới một ứng dụng web Google Apps Script và dự kiến được lưu trong Google Sheets. Cùng các lần gửi cũng được gửi tới HubSpot Forms (portal 247838082) và lưu trong HubSpot CRM để quản lý tư vấn và marketing. Tin nhắn chat được ghi vào Google Firebase Firestore, collection support_messages, và có thể được đồng bộ sang HubSpot. Bản ghi lượt tải tài nguyên được ghi vào Firebase Firestore, collection resource_downloads, và có thể được đồng bộ sang HubSpot. Lựa chọn cookie nằm trong localStorage trên thiết bị của bạn.',
+          'Google và HubSpot có thể xử lý dữ liệu này trên máy chủ ngoài Việt Nam. Cấu hình web của Firebase vốn được thiết kế để công khai; quyền đọc tin nhắn và bản ghi lượt tải bị giới hạn bởi security rules của Firestore cho tài khoản quản trị ConvertX đã xác minh.',
         ],
       },
       {
         heading: 'Cookie và banner',
         paragraphs: [
           'Banner cho phép chấp nhận tất cả, từ chối tất cả, hoặc lưu riêng phân tích và tiếp thị. Chính lựa chọn đó được lưu để banner không hỏi lại. Phần lưu trữ thực sự cần thiết không tắt được.',
-          'Đoạn mã Tag Manager hiện được tải trên mọi trang và banner không tắt đoạn mã đó. Trước khi bản nháp này được ban hành, ConvertX cần làm cho các thẻ tuân theo lựa chọn đó, hoặc ngừng mô tả banner như một công tắc cho thẻ phân tích và tiếp thị.',
+          'Đoạn mã Tag Manager hiện được tải trên mọi trang và banner không tắt đoạn mã đó. Qua Tag Manager, website có thể đặt cookie theo dõi HubSpot (hubspotutk) chỉ để gắn attribution cho các lần gửi biểu mẫu sau này. Trước khi bản nháp này được ban hành, ConvertX cần làm cho các thẻ tuân theo lựa chọn banner, hoặc ngừng mô tả banner như một công tắc cho thẻ phân tích và tiếp thị.',
         ],
       },
       {
@@ -154,7 +154,7 @@ const privacy: Record<Language, LegalDocument> = {
       {
         heading: 'Bên được chia sẻ',
         paragraphs: [
-          'Dữ liệu được chia sẻ với Google (Apps Script, Sheets, Firebase và Tag Manager) để website nhận và trả lời yêu cầu. ConvertX không bán hoặc cho thuê dữ liệu cá nhân. Nhân sự trả lời yêu cầu có thể xem các trường bạn đã gửi.',
+          'Dữ liệu được chia sẻ với Google (Apps Script, Sheets, Firebase và Tag Manager) và với HubSpot, Inc. (CRM và Forms) để website nhận và trả lời yêu cầu cũng như quản lý tư vấn. Nếu bạn đồng ý, ConvertX cũng có thể liên hệ qua Zalo OA. ConvertX không bán hoặc cho thuê dữ liệu cá nhân. Nhân sự trả lời yêu cầu có thể xem các trường bạn đã gửi.',
         ],
       },
       {

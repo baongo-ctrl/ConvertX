@@ -514,7 +514,18 @@
       <div><label for="phone">Số điện thoại</label><input required maxlength="30" type="tel" id="phone" name="phone" placeholder="+84..." autocomplete="tel"></div>
       <div class="full"><label for="company">Tên công ty &amp; Website</label><input required maxlength="200" type="text" id="company" name="company" placeholder="Công ty Acme - acme.com" autocomplete="organization"></div>
       <div class="full"><label for="challenge">Thách thức chính</label><textarea required maxlength="2000" id="challenge" name="challenge" rows="3" placeholder="Thách thức tăng trưởng chính mà bạn đang đối mặt hiện nay là gì?"></textarea></div>
-      <p class="full form-err" role="alert" hidden></p>
+            <div class="full"><label for="convertx_segment">Lĩnh vực của bạn</label>
+        <select id="convertx_segment" name="convertx_segment">
+          <option value="">Chọn (không bắt buộc)</option>
+          <option value="b2b_saas">B2B SaaS</option>
+          <option value="b2b_professional_services">Dịch vụ chuyên nghiệp B2B (outsourcing, tư vấn…)</option>
+        </select>
+      </div>
+      <label class="full" for="zalo_oa_opt_in" style="display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--muted);cursor:pointer">
+        <input type="checkbox" id="zalo_oa_opt_in" name="zalo_oa_opt_in" value="true" style="margin-top:3px">
+        <span>Tôi đồng ý nhận tư vấn và nội dung hữu ích từ ConvertX qua Zalo OA. Có thể hủy bất cứ lúc nào.</span>
+      </label>
+<p class="full form-err" role="alert" hidden></p>
       <div class="full"><button class="btn btn-primary" type="submit">Cùng trao đổi về tăng trưởng</button></div>
       <p class="full fine">ConvertX chỉ dùng thông tin này để liên hệ lại với bạn. Xem <a href="https://convertx.biz/privacy" style="color:var(--green-dark);text-decoration:underline">Chính sách bảo mật</a>.</p>
     </form>
@@ -541,6 +552,7 @@
   </div>
 </footer>
 
+<script defer src="/js/cx-hubspot.js"></script>
 <script>
 /* Logic gửi form: sao chép từ homepage convertx.biz (validate + chống spam + POST no-cors tới Apps Script). */
 (function(){
@@ -576,7 +588,7 @@
     var body=new FormData(); body.append("name",name); body.append("email",email); body.append("phone",phone);
     body.append("company",company); body.append("challenge",challenge);
     btn.disabled=true; btn.textContent="Đang gửi..."; stamp(now);
-    try{await fetch(CX_CONTACT_URL,{method:"POST",mode:"no-cors",body:body});}catch(ex){console.error("Error submitting form:",ex);}
+    try{await fetch(CX_CONTACT_URL,{method:"POST",mode:"no-cors",body:body});}catch(ex){console.error("Error submitting form:",ex);} try{if(window.CXHubSpot)await window.CXHubSpot.submit("contact",form);}catch(ex){console.warn("[HubSpot]",ex);}
     form.hidden=true; ok.hidden=false; /* homepage cũng hiển thị thành công cả khi lỗi mạng (no-cors) */
   });
 })();

@@ -512,7 +512,18 @@
       <div><label for="phone">Phone number</label><input required maxlength="30" type="tel" id="phone" name="phone" placeholder="+84..." autocomplete="tel"></div>
       <div class="full"><label for="company">Company name &amp; website</label><input required maxlength="200" type="text" id="company" name="company" placeholder="Acme Corp - acme.com" autocomplete="organization"></div>
       <div class="full"><label for="challenge">Primary challenge</label><textarea required maxlength="2000" id="challenge" name="challenge" rows="3" placeholder="What is the main growth challenge you're facing right now?"></textarea></div>
-      <p class="full form-err" role="alert" hidden></p>
+            <div class="full"><label for="convertx_segment">Your business type</label>
+        <select id="convertx_segment" name="convertx_segment">
+          <option value="">Select (optional)</option>
+          <option value="b2b_saas">B2B SaaS</option>
+          <option value="b2b_professional_services">B2B Professional Services (outsourcing, consulting…)</option>
+        </select>
+      </div>
+      <label class="full" for="zalo_oa_opt_in" style="display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--muted);cursor:pointer">
+        <input type="checkbox" id="zalo_oa_opt_in" name="zalo_oa_opt_in" value="true" style="margin-top:3px">
+        <span>I agree to receive consultations and useful content from ConvertX via Zalo OA. You can opt out anytime.</span>
+      </label>
+<p class="full form-err" role="alert" hidden></p>
       <div class="full"><button class="btn btn-primary" type="submit">Let’s talk growth</button></div>
       <p class="full fine">ConvertX only uses this information to get back to you. See our <a href="https://convertx.biz/privacy" style="color:var(--green-dark);text-decoration:underline">Privacy Policy</a>.</p>
     </form>
@@ -536,6 +547,7 @@
     </div>
   </div>
 </footer>
+<script defer src="/js/cx-hubspot.js"></script>
 <script>
 /* Form logic copied from the convertx.biz homepage (validation + anti-spam + no-cors POST to Apps Script). */
 (function(){
@@ -571,7 +583,7 @@
     var body=new FormData(); body.append("name",name); body.append("email",email); body.append("phone",phone);
     body.append("company",company); body.append("challenge",challenge);
     btn.disabled=true; btn.textContent="Sending..."; stamp(now);
-    try{await fetch(CX_CONTACT_URL,{method:"POST",mode:"no-cors",body:body});}catch(ex){console.error("Error submitting form:",ex);}
+    try{await fetch(CX_CONTACT_URL,{method:"POST",mode:"no-cors",body:body});}catch(ex){console.error("Error submitting form:",ex);} try{if(window.CXHubSpot)await window.CXHubSpot.submit("contact",form);}catch(ex){console.warn("[HubSpot]",ex);}
     form.hidden=true; ok.hidden=false; /* the homepage also shows success on network errors (no-cors) */
   });
 })();

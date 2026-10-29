@@ -7,6 +7,7 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import Seo from '../components/Seo';
 import HoneypotField from '../components/HoneypotField';
 import { gateSubmission, parseResourceEmail, recordSubmission } from '../lib/formGuard';
+import { submitHubSpotResource } from '../lib/hubspotSubmit';
 
 const resources = [
   {
@@ -115,7 +116,11 @@ export default function Resources() {
         resourceTitle,
         createdAt: serverTimestamp()
       });
-      
+      await submitHubSpotResource({
+        email: parsed.email,
+        resourceTitle,
+      });
+
       setIsSuccess(true);
       window.open(selectedResource.link, '_blank', 'noopener,noreferrer');
       
