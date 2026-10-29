@@ -21,11 +21,25 @@ const PORTAL_ID = '247838082';
 const OBJECT_CONTACT = '0-1';
 const TIMEOUT_MS = 8000;
 
+/** Public form GUIDs (also appear in HubSpot embed code). Env vars override. */
+const DEFAULT_FORM_GUIDS: Record<HubSpotFormKey, string> = {
+  contact: '98c275d7-4f86-491b-8680-75e745f6dd13',
+  event: '75ffdf25-ce73-4a8b-ada0-67c0f20f2b77',
+  resource: '852bb154-4735-4c5a-9df2-6e83a2c8dac7',
+  chat: '46a3cbed-64d9-4c4e-b2d5-b0dbc7ef9ad8',
+};
+
+function resolveGuid(key: HubSpotFormKey, envValue: string | undefined): string {
+  const trimmed = (envValue || '').trim();
+  if (trimmed && trimmed !== 'REPLACE_ME') return trimmed;
+  return DEFAULT_FORM_GUIDS[key];
+}
+
 const FORM_GUIDS: Record<HubSpotFormKey, string> = {
-  contact: (import.meta.env.VITE_HS_FORM_CONTACT || '').trim(),
-  event: (import.meta.env.VITE_HS_FORM_EVENT || '').trim(),
-  resource: (import.meta.env.VITE_HS_FORM_RESOURCE || '').trim(),
-  chat: (import.meta.env.VITE_HS_FORM_CHAT || '').trim(),
+  contact: resolveGuid('contact', import.meta.env.VITE_HS_FORM_CONTACT),
+  event: resolveGuid('event', import.meta.env.VITE_HS_FORM_EVENT),
+  resource: resolveGuid('resource', import.meta.env.VITE_HS_FORM_RESOURCE),
+  chat: resolveGuid('chat', import.meta.env.VITE_HS_FORM_CHAT),
 };
 
 function isPlaceholderGuid(guid: string): boolean {
@@ -87,6 +101,8 @@ export type EventHsPayload = {
 export type ResourceHsPayload = {
   email: string;
   resourceTitle: string;
+  /** Optional; resource UI has no segment today — only sent when present. */
+  segment?: string;
 };
 
 export type ChatHsPayload = {
@@ -133,7 +149,6 @@ function buildEventFields(p: EventHsPayload): HsField[] {
     field('convertx_intent', 'consideration'),
     field('convertx_offer', 'event_webinar'),
     field('convertx_lead_source_detail', mapLeadSource()),
-    field('convertx_package_interest', getPackageInterest()),
     p.segment ? field('convertx_segment', p.segment) : null,
     field('zalo_oa_opt_in', p.zaloOptIn ? 'true' : 'false'),
   ]);
@@ -148,8 +163,7 @@ function buildResourceFields(p: ResourceHsPayload): HsField[] {
     field('convertx_intent', 'awareness'),
     field('convertx_offer', offerForResource(p.resourceTitle)),
     field('convertx_lead_source_detail', mapLeadSource()),
-    field('convertx_package_interest', getPackageInterest()),
-    field('zalo_oa_opt_in', 'false'),
+    p.segment ? field('convertx_segment', p.segment) : null,
   ]);
 }
 
@@ -160,10 +174,7 @@ function buildChatFields(p: ChatHsPayload): HsField[] {
     field('message', appendRawToMessage(p.message, raw)),
     field('hs_language', detectHsLanguage()),
     field('convertx_intent', 'consideration'),
-    field('convertx_offer', 'other'),
     field('convertx_lead_source_detail', mapLeadSource()),
-    field('convertx_package_interest', getPackageInterest()),
-    field('zalo_oa_opt_in', 'false'),
   ]);
 }
 

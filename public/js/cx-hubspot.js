@@ -1,6 +1,6 @@
 /**
  * ConvertX HubSpot dual-write + attribution for static HTML pages.
- * Soft-fails when form GUIDs are REPLACE_ME / empty.
+ * Soft-fails when form GUIDs are missing / REPLACE_ME.
  * Apps Script payloads must stay unchanged — call CXHubSpot.submit after that POST.
  */
 (function (window, document) {
@@ -15,10 +15,10 @@
   window.CX_HS = window.CX_HS || {
     portalId: PORTAL_ID,
     forms: {
-      contact: 'REPLACE_ME',
-      event: 'REPLACE_ME',
-      resource: 'REPLACE_ME',
-      chat: 'REPLACE_ME'
+      contact: '98c275d7-4f86-491b-8680-75e745f6dd13',
+      event: '75ffdf25-ce73-4a8b-ada0-67c0f20f2b77',
+      resource: '852bb154-4735-4c5a-9df2-6e83a2c8dac7',
+      chat: '46a3cbed-64d9-4c4e-b2d5-b0dbc7ef9ad8'
     }
   };
 
