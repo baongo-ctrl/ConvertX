@@ -39,6 +39,13 @@ import {
   postToAppsScript,
   recordSubmission,
 } from '../lib/formGuard';
+import { setPackageInterest } from '../lib/attribution';
+import {
+  readSegment,
+  readZaloOptIn,
+  submitHubSpotContact,
+} from '../lib/hubspotSubmit';
+import HubSpotExtraFields from '../components/HubSpotExtraFields';
 import { useLanguage, type Language } from '../lib/useLanguage';
 
 const translations = {
@@ -743,6 +750,17 @@ export default function Home() {
     recordSubmission('contact');
     try {
       await postToAppsScript(CONTACT_SCRIPT_URL, parsed.lead);
+      // HubSpot dual-write: soft-fail, never changes success UX. Extra fields HubSpot-only.
+      await submitHubSpotContact({
+        name: parsed.lead.name,
+        email: parsed.lead.email,
+        phone: parsed.lead.phone,
+        company: parsed.lead.company,
+        challenge: parsed.lead.challenge,
+        segment: readSegment(formData),
+        zaloOptIn: readZaloOptIn(formData),
+        language: lang,
+      });
       setFormStatus('success');
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -1429,7 +1447,12 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
-                <a href="#contact" className={`block text-center py-3 rounded-lg font-semibold transition-colors ${pkg.featured ? 'bg-emerald-500 text-white hover:bg-emerald-600' : 'bg-slate-100 text-slate-900 hover:bg-slate-200'}`}>
+                <a
+                  href="#contact"
+                  data-cx-package={pkg.id}
+                  onClick={() => setPackageInterest(pkg.id)}
+                  className={`block text-center py-3 rounded-lg font-semibold transition-colors ${pkg.featured ? 'bg-emerald-500 text-white hover:bg-emerald-600' : 'bg-slate-100 text-slate-900 hover:bg-slate-200'}`}
+                >
                   {t.packages.getDetails}
                 </a>
               </div>
@@ -1615,6 +1638,7 @@ export default function Home() {
                       <label htmlFor="challenge" className="block text-sm font-medium text-slate-700 mb-2">{t.contact.labelChallenge}</label>
                       <textarea required maxLength={2000} id="challenge" name="challenge" rows={3} className="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all" placeholder={t.contact.placeholderChallenge}></textarea>
                     </div>
+                    <HubSpotExtraFields lang={lang} idPrefix="contact" />
                     {formError && (
                       <p role="alert" className="text-sm text-red-600">{formError}</p>
                     )}

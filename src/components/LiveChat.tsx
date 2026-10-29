@@ -4,6 +4,7 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase';
 import HoneypotField from './HoneypotField';
 import { gateSubmission, parseChat, recordSubmission } from '../lib/formGuard';
+import { submitHubSpotChat } from '../lib/hubspotSubmit';
 
 export default function LiveChat() {
   const [isOpen, setIsOpen] = useState(false);
@@ -64,7 +65,11 @@ export default function LiveChat() {
           createdAt: serverTimestamp(),
           status: 'new'
         });
-        
+        await submitHubSpotChat({
+          email: parsed.email,
+          message: parsed.message,
+        });
+
         setIsSent(true);
         // Reset after a delay
         setTimeout(() => {

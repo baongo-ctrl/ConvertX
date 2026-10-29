@@ -11,6 +11,12 @@ import {
   postToAppsScript,
   recordSubmission,
 } from '../lib/formGuard';
+import {
+  readSegment,
+  readZaloOptIn,
+  submitHubSpotEvent,
+} from '../lib/hubspotSubmit';
+import HubSpotExtraFields from '../components/HubSpotExtraFields';
 
 export default function Webinar() {
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
@@ -101,6 +107,17 @@ export default function Webinar() {
         phone: parsed.lead.phone,
         company: parsed.lead.company,
         challenge: `Role: ${parsed.lead.role} - Webinar Registration`,
+        formType: 'webinar_registration',
+      });
+      await submitHubSpotEvent({
+        formFirstName: String(formData.get('firstName') ?? ''),
+        formLastName: String(formData.get('lastName') ?? ''),
+        email: parsed.lead.email,
+        phone: parsed.lead.phone,
+        company: parsed.lead.company,
+        role: parsed.lead.role,
+        segment: readSegment(formData),
+        zaloOptIn: readZaloOptIn(formData),
         formType: 'webinar_registration',
       });
       setFormStatus('success');
@@ -470,6 +487,7 @@ export default function Webinar() {
                   </select>
                 </div>
 
+                <HubSpotExtraFields lang="vi" idPrefix="event-hub" />
                 {formError && (
                   <p role="alert" className="text-sm text-red-600">{formError}</p>
                 )}

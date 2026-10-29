@@ -11,6 +11,12 @@ import {
   postToAppsScript,
   recordSubmission,
 } from '../lib/formGuard';
+import {
+  readSegment,
+  readZaloOptIn,
+  submitHubSpotEvent,
+} from '../lib/hubspotSubmit';
+import HubSpotExtraFields from '../components/HubSpotExtraFields';
 
 export default function WebinarB2B() {
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
@@ -79,6 +85,17 @@ export default function WebinarB2B() {
         phone: parsed.lead.phone,
         company: parsed.lead.company,
         challenge: `Role: ${parsed.lead.role} - Tải tài liệu Webinar Xây Dựng Cỗ Máy Tăng Trưởng B2B`,
+        formType: 'webinar_b2b_document_download',
+      });
+      await submitHubSpotEvent({
+        formFirstName: String(formData.get('firstName') ?? ''),
+        formLastName: String(formData.get('lastName') ?? ''),
+        email: parsed.lead.email,
+        phone: parsed.lead.phone,
+        company: parsed.lead.company,
+        role: parsed.lead.role,
+        segment: readSegment(formData),
+        zaloOptIn: readZaloOptIn(formData),
         formType: 'webinar_b2b_document_download',
       });
       setFormStatus('success');
@@ -386,6 +403,7 @@ export default function WebinarB2B() {
                   </select>
                 </div>
 
+                <HubSpotExtraFields lang="vi" idPrefix="event-b2b" />
                 {formError && (
                   <p role="alert" className="text-sm text-red-600">{formError}</p>
                 )}
