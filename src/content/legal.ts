@@ -23,7 +23,7 @@ const privacy: Record<Language, LegalDocument> = {
     kicker: 'Draft — needs legal review',
     title: 'Privacy Policy',
     draft:
-      'This is a working draft for a Vietnam-based B2B agency website. It is not final legal advice and should be reviewed by the owner’s counsel before it is treated as the published policy. In particular, confirm the registered legal name, the retention period, and that Google Tag Manager actually follows the cookie banner.',
+      'This is a working draft for a Vietnam-based B2B agency website. It is not final legal advice and should be reviewed by the owner’s counsel before it is treated as the published policy. In particular, confirm the registered legal name and the retention period.',
     updated: 'Draft date: 2 November 2026',
     sections: [
       {
@@ -40,7 +40,7 @@ const privacy: Record<Language, LegalDocument> = {
           'Event forms: name, work email, phone number, company, role, optional business type, and optional Zalo OA opt-in.',
           'Resource downloads: work email, and the title of the resource you request.',
           'Chat: email address and the message you send.',
-          'Cookie preference: your analytics and marketing choice, stored in this browser by the cookie banner.',
+          'Cookie preference: a preference the cookie banner may store in this browser so it does not ask again.',
           'Usage data: the site loads Google Tag Manager, container GTM-PLMJ498. Tags inside that container may collect pages viewed and general device or browser data, and may load the HubSpot tracking script (hubspotutk cookie) used to attribute form submissions. Through Tag Manager or related scripts the site also uses Apollo.io (Apollo.io, Inc.) website visitor tracking, which may identify the company a visitor works for and the pages they view, using cookies and IP-based enrichment for B2B sales and marketing, and the LinkedIn Insight Tag (LinkedIn Corporation) for conversion tracking, retargeting, and audience insights. The container itself is configured outside this website repository, so this draft cannot list every tag.',
         ],
       },
@@ -60,8 +60,8 @@ const privacy: Record<Language, LegalDocument> = {
       {
         heading: 'Cookies and the banner',
         paragraphs: [
-          'The banner lets you accept all cookies, reject all, or save analytics and marketing separately. The preference itself is stored so the banner does not ask again. Strictly necessary storage cannot be switched off.',
-          'The Tag Manager snippet is currently loaded on every page and is not switched off by the banner. Through Tag Manager the site may set a HubSpot tracking cookie (hubspotutk) used only to attribute later form submissions to earlier visits, and may also load Apollo.io and LinkedIn Insight Tag scripts that set their own cookies or use IP-based enrichment. You can block these tools with browser cookie settings or an ad blocker. For LinkedIn ad personalization you can use LinkedIn’s guest controls at https://www.linkedin.com/psettings/guest-controls. Apollo’s own privacy policy is at https://www.apollo.io/privacy-policy. Before this draft is published as final, ConvertX needs to make the tags follow the banner choice, or stop describing the banner as a control over analytics and marketing tags.',
+          'The site shows a cookie banner and may store a preference in this browser so the banner does not ask again. Strictly necessary storage cannot be switched off.',
+          'Google Tag Manager and related scripts, including HubSpot tracking, Apollo.io, and the LinkedIn Insight Tag, load on every page. Through these scripts the site may set a HubSpot tracking cookie (hubspotutk) used to attribute later form submissions to earlier visits, and Apollo.io and LinkedIn Insight Tag scripts may set their own cookies or use IP-based enrichment. Visitors can control these tools via browser cookie settings or an ad blocker. For LinkedIn ad personalization you can use LinkedIn’s guest controls at https://www.linkedin.com/psettings/guest-controls. Apollo’s own privacy policy is at https://www.apollo.io/privacy-policy.',
         ],
       },
       {
@@ -104,7 +104,7 @@ const privacy: Record<Language, LegalDocument> = {
     kicker: 'Bản nháp — cần được xem xét pháp lý',
     title: 'Chính sách bảo mật',
     draft:
-      'Đây là bản nháp cho website của một agency B2B tại Việt Nam. Đây không phải tư vấn pháp lý cuối cùng và cần được chủ sở hữu cùng luật sư rà soát trước khi xem là chính sách đã ban hành. Đặc biệt cần xác nhận tên pháp lý đã đăng ký, thời gian lưu trữ, và việc Google Tag Manager có thực sự tuân theo banner cookie hay không.',
+      'Đây là bản nháp cho website của một agency B2B tại Việt Nam. Đây không phải tư vấn pháp lý cuối cùng và cần được chủ sở hữu cùng luật sư rà soát trước khi xem là chính sách đã ban hành. Đặc biệt cần xác nhận tên pháp lý đã đăng ký và thời gian lưu trữ.',
     updated: 'Ngày bản nháp: 02/11/2026',
     sections: [
       {
@@ -121,7 +121,7 @@ const privacy: Record<Language, LegalDocument> = {
           'Biểu mẫu sự kiện: họ tên, email công việc, số điện thoại, công ty, chức vụ, lĩnh vực (không bắt buộc) và tùy chọn Zalo OA.',
           'Tải tài nguyên: email công việc và tên tài nguyên bạn yêu cầu.',
           'Chat: địa chỉ email và nội dung tin nhắn.',
-          'Lựa chọn cookie: lựa chọn phân tích và tiếp thị của bạn, được banner cookie lưu trên trình duyệt này.',
+          'Lựa chọn cookie: một lựa chọn mà banner cookie có thể lưu trên trình duyệt này để không hỏi lại.',
           'Dữ liệu sử dụng: website tải Google Tag Manager, container GTM-PLMJ498. Các thẻ trong container đó có thể ghi nhận trang đã xem và thông tin chung về thiết bị hoặc trình duyệt, và có thể tải script theo dõi HubSpot (cookie hubspotutk) dùng để gắn attribution cho biểu mẫu. Qua Tag Manager hoặc các script liên quan, website cũng dùng Apollo.io (Apollo.io, Inc.) để theo dõi khách truy cập — có thể nhận diện công ty mà khách đang làm việc và các trang họ xem, qua cookie và làm giàu dữ liệu theo IP, phục vụ bán hàng và marketing B2B — và LinkedIn Insight Tag (LinkedIn Corporation) cho đo lường chuyển đổi, retargeting và insight đối tượng. Container được cấu hình bên ngoài kho mã website này, nên bản nháp không liệt kê được từng thẻ.',
         ],
       },
@@ -141,8 +141,8 @@ const privacy: Record<Language, LegalDocument> = {
       {
         heading: 'Cookie và banner',
         paragraphs: [
-          'Banner cho phép chấp nhận tất cả, từ chối tất cả, hoặc lưu riêng phân tích và tiếp thị. Chính lựa chọn đó được lưu để banner không hỏi lại. Phần lưu trữ thực sự cần thiết không tắt được.',
-          'Đoạn mã Tag Manager hiện được tải trên mọi trang và banner không tắt đoạn mã đó. Qua Tag Manager, website có thể đặt cookie theo dõi HubSpot (hubspotutk) chỉ để gắn attribution cho các lần gửi biểu mẫu sau này, và cũng có thể tải script Apollo.io cùng LinkedIn Insight Tag — các script này đặt cookie riêng hoặc dùng làm giàu dữ liệu theo IP. Bạn có thể chặn các công cụ này bằng cài đặt cookie của trình duyệt hoặc trình chặn quảng cáo. Với cá nhân hóa quảng cáo LinkedIn, hãy dùng trang kiểm soát khách của LinkedIn tại https://www.linkedin.com/psettings/guest-controls. Chính sách bảo mật của Apollo nằm tại https://www.apollo.io/privacy-policy. Trước khi bản nháp này được ban hành, ConvertX cần làm cho các thẻ tuân theo lựa chọn banner, hoặc ngừng mô tả banner như một công tắc cho thẻ phân tích và tiếp thị.',
+          'Website hiển thị banner cookie và có thể lưu một lựa chọn trên trình duyệt này để banner không hỏi lại. Phần lưu trữ thực sự cần thiết không tắt được.',
+          'Google Tag Manager và các script liên quan, gồm theo dõi HubSpot, Apollo.io và LinkedIn Insight Tag, được tải trên mọi trang. Qua các script này, website có thể đặt cookie theo dõi HubSpot (hubspotutk) để gắn attribution cho các lần gửi biểu mẫu sau này, và script Apollo.io cùng LinkedIn Insight Tag có thể đặt cookie riêng hoặc dùng làm giàu dữ liệu theo IP. Khách truy cập có thể kiểm soát các công cụ này qua cài đặt cookie của trình duyệt hoặc trình chặn quảng cáo. Với cá nhân hóa quảng cáo LinkedIn, hãy dùng trang kiểm soát khách của LinkedIn tại https://www.linkedin.com/psettings/guest-controls. Chính sách bảo mật của Apollo nằm tại https://www.apollo.io/privacy-policy.',
         ],
       },
       {
