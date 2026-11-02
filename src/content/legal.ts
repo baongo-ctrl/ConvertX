@@ -19,12 +19,12 @@ const privacy: Record<Language, LegalDocument> = {
   en: {
     seoTitle: 'Privacy Policy | ConvertX',
     seoDescription:
-      'Draft privacy policy for convertx.biz: lead forms, event registration, resource downloads, Firebase chat, and Google Tag Manager.',
+      'Draft privacy policy for convertx.biz: lead forms, event registration, resource downloads, Firebase chat, Google Tag Manager, Apollo.io visitor tracking, and the LinkedIn Insight Tag.',
     kicker: 'Draft — needs legal review',
     title: 'Privacy Policy',
     draft:
       'This is a working draft for a Vietnam-based B2B agency website. It is not final legal advice and should be reviewed by the owner’s counsel before it is treated as the published policy. In particular, confirm the registered legal name, the retention period, and that Google Tag Manager actually follows the cookie banner.',
-    updated: 'Draft date: 19 October 2026',
+    updated: 'Draft date: 2 November 2026',
     sections: [
       {
         heading: 'Who this covers',
@@ -41,27 +41,27 @@ const privacy: Record<Language, LegalDocument> = {
           'Resource downloads: work email, and the title of the resource you request.',
           'Chat: email address and the message you send.',
           'Cookie preference: your analytics and marketing choice, stored in this browser by the cookie banner.',
-          'Usage data: the site loads Google Tag Manager, container GTM-PLMJ498. Tags inside that container may collect pages viewed and general device or browser data, and may load the HubSpot tracking script (hubspotutk cookie) used to attribute form submissions. The container itself is configured outside this website repository, so this draft cannot list every tag.',
+          'Usage data: the site loads Google Tag Manager, container GTM-PLMJ498. Tags inside that container may collect pages viewed and general device or browser data, and may load the HubSpot tracking script (hubspotutk cookie) used to attribute form submissions. Through Tag Manager or related scripts the site also uses Apollo.io (Apollo.io, Inc.) website visitor tracking, which may identify the company a visitor works for and the pages they view, using cookies and IP-based enrichment for B2B sales and marketing, and the LinkedIn Insight Tag (LinkedIn Corporation) for conversion tracking, retargeting, and audience insights. The container itself is configured outside this website repository, so this draft cannot list every tag.',
         ],
       },
       {
         heading: 'Why it is used',
         paragraphs: [
-          'Lead, event, download, and chat data are used to reply to you, register you for an event you asked to join, provide the resource you requested, and keep a record of that request. The same form data is also stored in HubSpot CRM (HubSpot, Inc.) so ConvertX can manage consultations and marketing communications. Zalo OA messages are sent only when you opt in on a form, and you can opt out anytime. Analytics, where a tag is enabled, are used to understand how the site is used. ConvertX does not sell personal data.',
+          'Lead, event, download, and chat data are used to reply to you, register you for an event you asked to join, provide the resource you requested, and keep a record of that request. The same form data is also stored in HubSpot CRM (HubSpot, Inc.) so ConvertX can manage consultations and marketing communications. Zalo OA messages are sent only when you opt in on a form, and you can opt out anytime. Analytics, where a tag is enabled, are used to understand how the site is used. Apollo.io visitor tracking is used for B2B sales and marketing outreach to companies that visit the site. The LinkedIn Insight Tag is used for LinkedIn conversion measurement, retargeting, and audience insights. ConvertX does not sell personal data.',
         ],
       },
       {
         heading: 'Where it is stored',
         paragraphs: [
           'Form submissions are sent from your browser to a Google Apps Script web app and are expected to be stored in Google Sheets. The same submissions are also sent to HubSpot Forms (portal 247838082) and stored in HubSpot CRM for managing consultations and marketing. Chat messages are written to Google Firebase Firestore, in the support_messages collection, and may also be mirrored to HubSpot. Resource-download records are written to Firebase Firestore, in the resource_downloads collection, and may also be mirrored to HubSpot. The cookie choice stays in localStorage on your device.',
-          'Google and HubSpot may process this data on servers outside Vietnam. Firebase web configuration is public by design; access to stored messages and download records is limited by Firestore security rules to a verified ConvertX admin account.',
+          'Google, HubSpot, Apollo.io, and LinkedIn may process this data on servers outside Vietnam. Firebase web configuration is public by design; access to stored messages and download records is limited by Firestore security rules to a verified ConvertX admin account.',
         ],
       },
       {
         heading: 'Cookies and the banner',
         paragraphs: [
           'The banner lets you accept all cookies, reject all, or save analytics and marketing separately. The preference itself is stored so the banner does not ask again. Strictly necessary storage cannot be switched off.',
-          'The Tag Manager snippet is currently loaded on every page and is not switched off by the banner. Through Tag Manager the site may set a HubSpot tracking cookie (hubspotutk) used only to attribute later form submissions to earlier visits. Before this draft is published as final, ConvertX needs to make the tags follow the banner choice, or stop describing the banner as a control over analytics and marketing tags.',
+          'The Tag Manager snippet is currently loaded on every page and is not switched off by the banner. Through Tag Manager the site may set a HubSpot tracking cookie (hubspotutk) used only to attribute later form submissions to earlier visits, and may also load Apollo.io and LinkedIn Insight Tag scripts that set their own cookies or use IP-based enrichment. You can block these tools with browser cookie settings or an ad blocker. For LinkedIn ad personalization you can use LinkedIn’s guest controls at https://www.linkedin.com/psettings/guest-controls. Apollo’s own privacy policy is at https://www.apollo.io/privacy-policy. Before this draft is published as final, ConvertX needs to make the tags follow the banner choice, or stop describing the banner as a control over analytics and marketing tags.',
         ],
       },
       {
@@ -73,7 +73,7 @@ const privacy: Record<Language, LegalDocument> = {
       {
         heading: 'Who it is shared with',
         paragraphs: [
-          'Data is shared with Google (Apps Script, Sheets, Firebase, and Tag Manager) and with HubSpot, Inc. (CRM and Forms) so the site can receive and answer requests and manage consultations. If you opt in, ConvertX may also contact you on Zalo OA. ConvertX does not sell or rent personal data. Staff who reply to inquiries can see the fields you submitted.',
+          'Data is shared with Google (Apps Script, Sheets, Firebase, and Tag Manager) and with HubSpot, Inc. (CRM and Forms) so the site can receive and answer requests and manage consultations. Visitor and advertising data may also be processed by Apollo.io, Inc. (website visitor identification) and LinkedIn Corporation (Insight Tag). If you opt in, ConvertX may also contact you on Zalo OA. ConvertX does not sell or rent personal data. Staff who reply to inquiries can see the fields you submitted.',
         ],
       },
       {
@@ -100,12 +100,12 @@ const privacy: Record<Language, LegalDocument> = {
   vi: {
     seoTitle: 'Chính sách bảo mật | ConvertX',
     seoDescription:
-      'Bản nháp chính sách bảo mật của convertx.biz: biểu mẫu lead, đăng ký sự kiện, tải tài nguyên, chat Firebase và Google Tag Manager.',
+      'Bản nháp chính sách bảo mật của convertx.biz: biểu mẫu lead, đăng ký sự kiện, tải tài nguyên, chat Firebase, Google Tag Manager, theo dõi khách truy cập Apollo.io và LinkedIn Insight Tag.',
     kicker: 'Bản nháp — cần được xem xét pháp lý',
     title: 'Chính sách bảo mật',
     draft:
       'Đây là bản nháp cho website của một agency B2B tại Việt Nam. Đây không phải tư vấn pháp lý cuối cùng và cần được chủ sở hữu cùng luật sư rà soát trước khi xem là chính sách đã ban hành. Đặc biệt cần xác nhận tên pháp lý đã đăng ký, thời gian lưu trữ, và việc Google Tag Manager có thực sự tuân theo banner cookie hay không.',
-    updated: 'Ngày bản nháp: 19/10/2026',
+    updated: 'Ngày bản nháp: 02/11/2026',
     sections: [
       {
         heading: 'Phạm vi',
@@ -122,27 +122,27 @@ const privacy: Record<Language, LegalDocument> = {
           'Tải tài nguyên: email công việc và tên tài nguyên bạn yêu cầu.',
           'Chat: địa chỉ email và nội dung tin nhắn.',
           'Lựa chọn cookie: lựa chọn phân tích và tiếp thị của bạn, được banner cookie lưu trên trình duyệt này.',
-          'Dữ liệu sử dụng: website tải Google Tag Manager, container GTM-PLMJ498. Các thẻ trong container đó có thể ghi nhận trang đã xem và thông tin chung về thiết bị hoặc trình duyệt, và có thể tải script theo dõi HubSpot (cookie hubspotutk) dùng để gắn attribution cho biểu mẫu. Container được cấu hình bên ngoài kho mã website này, nên bản nháp không liệt kê được từng thẻ.',
+          'Dữ liệu sử dụng: website tải Google Tag Manager, container GTM-PLMJ498. Các thẻ trong container đó có thể ghi nhận trang đã xem và thông tin chung về thiết bị hoặc trình duyệt, và có thể tải script theo dõi HubSpot (cookie hubspotutk) dùng để gắn attribution cho biểu mẫu. Qua Tag Manager hoặc các script liên quan, website cũng dùng Apollo.io (Apollo.io, Inc.) để theo dõi khách truy cập — có thể nhận diện công ty mà khách đang làm việc và các trang họ xem, qua cookie và làm giàu dữ liệu theo IP, phục vụ bán hàng và marketing B2B — và LinkedIn Insight Tag (LinkedIn Corporation) cho đo lường chuyển đổi, retargeting và insight đối tượng. Container được cấu hình bên ngoài kho mã website này, nên bản nháp không liệt kê được từng thẻ.',
         ],
       },
       {
         heading: 'Mục đích sử dụng',
         paragraphs: [
-          'Dữ liệu lead, sự kiện, lượt tải và chat được dùng để trả lời bạn, ghi danh sự kiện bạn yêu cầu, gửi tài nguyên bạn yêu cầu và lưu lại yêu cầu đó. Cùng dữ liệu biểu mẫu cũng được lưu trong HubSpot CRM (HubSpot, Inc.) để ConvertX quản lý tư vấn và truyền thông marketing. Tin nhắn Zalo OA chỉ được gửi khi bạn đồng ý trên biểu mẫu và bạn có thể hủy bất cứ lúc nào. Phân tích, nếu một thẻ được bật, được dùng để hiểu cách website được sử dụng. ConvertX không bán dữ liệu cá nhân.',
+          'Dữ liệu lead, sự kiện, lượt tải và chat được dùng để trả lời bạn, ghi danh sự kiện bạn yêu cầu, gửi tài nguyên bạn yêu cầu và lưu lại yêu cầu đó. Cùng dữ liệu biểu mẫu cũng được lưu trong HubSpot CRM (HubSpot, Inc.) để ConvertX quản lý tư vấn và truyền thông marketing. Tin nhắn Zalo OA chỉ được gửi khi bạn đồng ý trên biểu mẫu và bạn có thể hủy bất cứ lúc nào. Phân tích, nếu một thẻ được bật, được dùng để hiểu cách website được sử dụng. Theo dõi khách truy cập của Apollo.io được dùng cho tiếp cận bán hàng và marketing B2B với các công ty đã vào website. LinkedIn Insight Tag được dùng để đo chuyển đổi trên LinkedIn, retargeting và insight đối tượng. ConvertX không bán dữ liệu cá nhân.',
         ],
       },
       {
         heading: 'Nơi lưu trữ',
         paragraphs: [
           'Biểu mẫu được gửi từ trình duyệt của bạn tới một ứng dụng web Google Apps Script và dự kiến được lưu trong Google Sheets. Cùng các lần gửi cũng được gửi tới HubSpot Forms (portal 247838082) và lưu trong HubSpot CRM để quản lý tư vấn và marketing. Tin nhắn chat được ghi vào Google Firebase Firestore, collection support_messages, và có thể được đồng bộ sang HubSpot. Bản ghi lượt tải tài nguyên được ghi vào Firebase Firestore, collection resource_downloads, và có thể được đồng bộ sang HubSpot. Lựa chọn cookie nằm trong localStorage trên thiết bị của bạn.',
-          'Google và HubSpot có thể xử lý dữ liệu này trên máy chủ ngoài Việt Nam. Cấu hình web của Firebase vốn được thiết kế để công khai; quyền đọc tin nhắn và bản ghi lượt tải bị giới hạn bởi security rules của Firestore cho tài khoản quản trị ConvertX đã xác minh.',
+          'Google, HubSpot, Apollo.io và LinkedIn có thể xử lý dữ liệu này trên máy chủ ngoài Việt Nam. Cấu hình web của Firebase vốn được thiết kế để công khai; quyền đọc tin nhắn và bản ghi lượt tải bị giới hạn bởi security rules của Firestore cho tài khoản quản trị ConvertX đã xác minh.',
         ],
       },
       {
         heading: 'Cookie và banner',
         paragraphs: [
           'Banner cho phép chấp nhận tất cả, từ chối tất cả, hoặc lưu riêng phân tích và tiếp thị. Chính lựa chọn đó được lưu để banner không hỏi lại. Phần lưu trữ thực sự cần thiết không tắt được.',
-          'Đoạn mã Tag Manager hiện được tải trên mọi trang và banner không tắt đoạn mã đó. Qua Tag Manager, website có thể đặt cookie theo dõi HubSpot (hubspotutk) chỉ để gắn attribution cho các lần gửi biểu mẫu sau này. Trước khi bản nháp này được ban hành, ConvertX cần làm cho các thẻ tuân theo lựa chọn banner, hoặc ngừng mô tả banner như một công tắc cho thẻ phân tích và tiếp thị.',
+          'Đoạn mã Tag Manager hiện được tải trên mọi trang và banner không tắt đoạn mã đó. Qua Tag Manager, website có thể đặt cookie theo dõi HubSpot (hubspotutk) chỉ để gắn attribution cho các lần gửi biểu mẫu sau này, và cũng có thể tải script Apollo.io cùng LinkedIn Insight Tag — các script này đặt cookie riêng hoặc dùng làm giàu dữ liệu theo IP. Bạn có thể chặn các công cụ này bằng cài đặt cookie của trình duyệt hoặc trình chặn quảng cáo. Với cá nhân hóa quảng cáo LinkedIn, hãy dùng trang kiểm soát khách của LinkedIn tại https://www.linkedin.com/psettings/guest-controls. Chính sách bảo mật của Apollo nằm tại https://www.apollo.io/privacy-policy. Trước khi bản nháp này được ban hành, ConvertX cần làm cho các thẻ tuân theo lựa chọn banner, hoặc ngừng mô tả banner như một công tắc cho thẻ phân tích và tiếp thị.',
         ],
       },
       {
@@ -154,7 +154,7 @@ const privacy: Record<Language, LegalDocument> = {
       {
         heading: 'Bên được chia sẻ',
         paragraphs: [
-          'Dữ liệu được chia sẻ với Google (Apps Script, Sheets, Firebase và Tag Manager) và với HubSpot, Inc. (CRM và Forms) để website nhận và trả lời yêu cầu cũng như quản lý tư vấn. Nếu bạn đồng ý, ConvertX cũng có thể liên hệ qua Zalo OA. ConvertX không bán hoặc cho thuê dữ liệu cá nhân. Nhân sự trả lời yêu cầu có thể xem các trường bạn đã gửi.',
+          'Dữ liệu được chia sẻ với Google (Apps Script, Sheets, Firebase và Tag Manager) và với HubSpot, Inc. (CRM và Forms) để website nhận và trả lời yêu cầu cũng như quản lý tư vấn. Dữ liệu khách truy cập và quảng cáo cũng có thể được Apollo.io, Inc. (nhận diện khách truy cập website) và LinkedIn Corporation (Insight Tag) xử lý. Nếu bạn đồng ý, ConvertX cũng có thể liên hệ qua Zalo OA. ConvertX không bán hoặc cho thuê dữ liệu cá nhân. Nhân sự trả lời yêu cầu có thể xem các trường bạn đã gửi.',
         ],
       },
       {
