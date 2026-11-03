@@ -11,6 +11,7 @@ import {
   postToAppsScript,
   recordSubmission,
 } from '../lib/formGuard';
+import { withAttributionInText, attributionExportFields } from '../lib/attribution';
 import {
   readSegment,
   readZaloOptIn,
@@ -84,7 +85,8 @@ export default function WebinarB2B() {
         email: parsed.lead.email,
         phone: parsed.lead.phone,
         company: parsed.lead.company,
-        challenge: `Role: ${parsed.lead.role} - Tải tài liệu Webinar Xây Dựng Cỗ Máy Tăng Trưởng B2B`,
+        challenge: withAttributionInText(`Role: ${parsed.lead.role} - Tải tài liệu Webinar Xây Dựng Cỗ Máy Tăng Trưởng B2B`),
+        ...attributionExportFields(),
         formType: 'webinar_b2b_document_download',
       });
       await submitHubSpotEvent({

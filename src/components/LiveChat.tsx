@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MessageCircle, X, Send } from 'lucide-react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { attributionExportFields, withAttributionInText } from '../lib/attribution';
 import { db } from '../firebase';
 import HoneypotField from './HoneypotField';
 import { gateSubmission, parseChat, recordSubmission } from '../lib/formGuard';
@@ -61,7 +62,8 @@ export default function LiveChat() {
       try {
         await addDoc(collection(db, 'support_messages'), {
           email: parsed.email,
-          message: parsed.message,
+          message: withAttributionInText(parsed.message),
+          ...attributionExportFields(),
           createdAt: serverTimestamp(),
           status: 'new'
         });

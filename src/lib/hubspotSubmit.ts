@@ -8,6 +8,7 @@ import {
   offerForResource,
   roleToJobtitle,
   splitPersonName,
+  utmFieldValues,
   webinarNameToHubspot,
   type ConvertxOffer,
   type PackageInterest,
@@ -63,6 +64,18 @@ function field(name: string, value: string | undefined | null): HsField | null {
 
 function collect(fields: Array<HsField | null>): HsField[] {
   return fields.filter((f): f is HsField => Boolean(f));
+}
+
+
+function utmHsFields(): Array<HsField | null> {
+  const utm = utmFieldValues();
+  return [
+    field('utm_source', utm.utm_source),
+    field('utm_medium', utm.utm_medium),
+    field('utm_campaign', utm.utm_campaign),
+    field('utm_content', utm.utm_content),
+    field('utm_term', utm.utm_term),
+  ];
 }
 
 function appendRawToMessage(message: string | undefined, raw: string): string {
@@ -127,6 +140,7 @@ function buildContactFields(p: ContactHsPayload): HsField[] {
     field('convertx_intent', 'decision'),
     field('convertx_offer', offer),
     field('convertx_lead_source_detail', mapLeadSource()),
+    ...utmHsFields(),
     field('convertx_package_interest', pkg),
     p.segment ? field('convertx_segment', p.segment) : null,
     field('zalo_oa_opt_in', p.zaloOptIn ? 'true' : 'false'),
@@ -149,6 +163,7 @@ function buildEventFields(p: EventHsPayload): HsField[] {
     field('convertx_intent', 'consideration'),
     field('convertx_offer', 'event_webinar'),
     field('convertx_lead_source_detail', mapLeadSource()),
+    ...utmHsFields(),
     p.segment ? field('convertx_segment', p.segment) : null,
     field('zalo_oa_opt_in', p.zaloOptIn ? 'true' : 'false'),
   ]);
@@ -163,6 +178,7 @@ function buildResourceFields(p: ResourceHsPayload): HsField[] {
     field('convertx_intent', 'awareness'),
     field('convertx_offer', offerForResource(p.resourceTitle)),
     field('convertx_lead_source_detail', mapLeadSource()),
+    ...utmHsFields(),
     p.segment ? field('convertx_segment', p.segment) : null,
   ]);
 }
@@ -175,6 +191,7 @@ function buildChatFields(p: ChatHsPayload): HsField[] {
     field('hs_language', detectHsLanguage()),
     field('convertx_intent', 'consideration'),
     field('convertx_lead_source_detail', mapLeadSource()),
+    ...utmHsFields(),
   ]);
 }
 
