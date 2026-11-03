@@ -4,6 +4,7 @@ import { FileText, Download, ArrowRight, BookOpen, FileSpreadsheet, Presentation
 import { Link } from 'react-router-dom';
 import { db } from '../firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { attributionExportFields } from '../lib/attribution';
 import Seo from '../components/Seo';
 import HoneypotField from '../components/HoneypotField';
 import { gateSubmission, parseResourceEmail, recordSubmission } from '../lib/formGuard';
@@ -114,6 +115,7 @@ export default function Resources() {
       await addDoc(collection(db, 'resource_downloads'), {
         email: parsed.email,
         resourceTitle,
+        ...attributionExportFields(),
         createdAt: serverTimestamp()
       });
       await submitHubSpotResource({

@@ -11,6 +11,7 @@ import {
   postToAppsScript,
   recordSubmission,
 } from '../lib/formGuard';
+import { withAttributionInText, attributionExportFields } from '../lib/attribution';
 import {
   readSegment,
   readZaloOptIn,
@@ -106,7 +107,8 @@ export default function Webinar() {
         email: parsed.lead.email,
         phone: parsed.lead.phone,
         company: parsed.lead.company,
-        challenge: `Role: ${parsed.lead.role} - Webinar Registration`,
+        challenge: withAttributionInText(`Role: ${parsed.lead.role} - Webinar Registration`),
+        ...attributionExportFields(),
         formType: 'webinar_registration',
       });
       await submitHubSpotEvent({

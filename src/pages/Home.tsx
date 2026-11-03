@@ -39,7 +39,7 @@ import {
   postToAppsScript,
   recordSubmission,
 } from '../lib/formGuard';
-import { setPackageInterest } from '../lib/attribution';
+import { setPackageInterest, withAttributionInText, attributionExportFields } from '../lib/attribution';
 import {
   readSegment,
   readZaloOptIn,
@@ -749,7 +749,11 @@ export default function Home() {
     setFormStatus('submitting');
     recordSubmission('contact');
     try {
-      await postToAppsScript(CONTACT_SCRIPT_URL, parsed.lead);
+      await postToAppsScript(CONTACT_SCRIPT_URL, {
+        ...parsed.lead,
+        challenge: withAttributionInText(parsed.lead.challenge),
+        ...attributionExportFields(),
+      });
       // HubSpot dual-write: soft-fail, never changes success UX. Extra fields HubSpot-only.
       await submitHubSpotContact({
         name: parsed.lead.name,

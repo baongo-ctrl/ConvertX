@@ -1,7 +1,9 @@
 /**
  * ConvertX HubSpot dual-write + attribution for static HTML pages.
  * Soft-fails when form GUIDs are missing / REPLACE_ME.
- * Apps Script payloads must stay unchanged — call CXHubSpot.submit after that POST.
+ * Apps Script payloads must keep required fields — call CXHubSpot.enrichChallenge
+ * before appending challenge so Sheet rows get the [src] line + optional utm_* fields.
+ * Storage key cx-attr-v1 must stay in sync with src/lib/attribution.ts (localStorage).
  */
 (function (window, document) {
   'use strict';
@@ -11,6 +13,12 @@
   var PACKAGE_KEY = 'cx-package-interest';
   var OFFER_HINT_KEY = 'cx-offer-hint';
   var TIMEOUT_MS = 8000;
+
+  // Easy-to-edit mapping inputs (keep in sync with src/lib/attribution.ts)
+  var OUTBOUND_MEDIUMS = ['outreach', 'email', 'outbound'];
+  var OTHER_SOURCES = ['reddit', 'luma', 'upwork', 'freelancer', 'designrush'];
+  var OTHER_MEDIUMS = ['platform-msg', 'social-post'];
+  var WHATSAPP_OUTBOUND_CONTENT_PREFIXES = ['b2b-outreach', 'sales-'];
 
   window.CX_HS = window.CX_HS || {
     portalId: PORTAL_ID,
@@ -52,10 +60,16 @@
     undecided: 'undecided'
   };
 
-  function safeGet(key) {
+  function safeGetLocal(key) {
+    try { return localStorage.getItem(key); } catch (e) { return null; }
+  }
+  function safeSetLocal(key, value) {
+    try { localStorage.setItem(key, value); } catch (e) { /* ignore */ }
+  }
+  function safeGetSession(key) {
     try { return sessionStorage.getItem(key); } catch (e) { return null; }
   }
-  function safeSet(key, value) {
+  function safeSetSession(key, value) {
     try { sessionStorage.setItem(key, value); } catch (e) { /* ignore */ }
   }
 
@@ -63,26 +77,66 @@
     return (params.get(name) || '').trim().slice(0, 200);
   }
 
-  function captureAttribution() {
-    var existing = safeGet(ATTR_KEY);
-    if (existing) {
-      try { return JSON.parse(existing); } catch (e) { /* recapture */ }
-    }
+  function hasMarketingSignal(attr) {
+    return !!(attr.utm_source || attr.utm_medium || attr.utm_campaign ||
+      attr.utm_content || attr.utm_term || attr.gclid || attr.fbclid || attr.li_fat_id);
+  }
+
+  function normalizeSnapshot(raw) {
+    if (!raw || typeof raw !== 'object') return null;
+    return {
+      utm_source: String(raw.utm_source || ''),
+      utm_medium: String(raw.utm_medium || ''),
+      utm_campaign: String(raw.utm_campaign || ''),
+      utm_content: String(raw.utm_content || ''),
+      utm_term: String(raw.utm_term || ''),
+      gclid: String(raw.gclid || ''),
+      fbclid: String(raw.fbclid || ''),
+      li_fat_id: String(raw.li_fat_id || ''),
+      referrer: String(raw.referrer || ''),
+      landing: String(raw.landing || ''),
+      ts: typeof raw.ts === 'number' ? raw.ts : undefined
+    };
+  }
+
+  function readStored() {
+    var existing = safeGetLocal(ATTR_KEY);
+    if (!existing) return null;
+    try { return normalizeSnapshot(JSON.parse(existing)); } catch (e) { return null; }
+  }
+
+  function buildFromLocation() {
     var params = new URLSearchParams(window.location.search);
-    var snap = {
+    return {
       utm_source: param(params, 'utm_source'),
       utm_medium: param(params, 'utm_medium'),
       utm_campaign: param(params, 'utm_campaign'),
+      utm_content: param(params, 'utm_content'),
+      utm_term: param(params, 'utm_term'),
       gclid: param(params, 'gclid'),
       fbclid: param(params, 'fbclid'),
       li_fat_id: param(params, 'li_fat_id'),
       referrer: (document.referrer || '').slice(0, 500),
-      landing: (window.location.pathname + window.location.search).slice(0, 500)
+      landing: (window.location.pathname + window.location.search).slice(0, 500),
+      ts: Date.now()
     };
-    safeSet(ATTR_KEY, JSON.stringify(snap));
-    var pkgParam = param(params, 'package');
-    if (pkgParam) setPackageInterest(pkgParam);
-    return snap;
+  }
+
+  function captureAttribution() {
+    var stored = readStored();
+    var current = buildFromLocation();
+    if (stored && hasMarketingSignal(stored)) return stored;
+    if (hasMarketingSignal(current)) {
+      safeSetLocal(ATTR_KEY, JSON.stringify(current));
+      var pkgParam = param(new URLSearchParams(window.location.search), 'package');
+      if (pkgParam) setPackageInterest(pkgParam);
+      return current;
+    }
+    if (stored) return stored;
+    safeSetLocal(ATTR_KEY, JSON.stringify(current));
+    var pkgParam2 = param(new URLSearchParams(window.location.search), 'package');
+    if (pkgParam2) setPackageInterest(pkgParam2);
+    return current;
   }
 
   function resolvePackageInterest(raw) {
@@ -99,18 +153,18 @@
   }
 
   function setPackageInterest(raw) {
-    safeSet(PACKAGE_KEY, resolvePackageInterest(raw));
+    safeSetSession(PACKAGE_KEY, resolvePackageInterest(raw));
     if (String(raw).toLowerCase().indexOf('funnel audit') !== -1) {
-      safeSet(OFFER_HINT_KEY, 'funnel_audit');
+      safeSetSession(OFFER_HINT_KEY, 'funnel_audit');
     }
   }
 
   function getPackageInterest() {
-    return resolvePackageInterest(safeGet(PACKAGE_KEY) || 'undecided');
+    return resolvePackageInterest(safeGetSession(PACKAGE_KEY) || 'undecided');
   }
 
   function getOfferHint() {
-    var v = safeGet(OFFER_HINT_KEY);
+    var v = safeGetSession(OFFER_HINT_KEY);
     return v || null;
   }
 
@@ -118,17 +172,27 @@
     attr = attr || captureAttribution();
     var src = (attr.utm_source || '').toLowerCase();
     var med = (attr.utm_medium || '').toLowerCase();
+    var content = (attr.utm_content || '').toLowerCase();
     var ref = (attr.referrer || '').toLowerCase();
     var landing = (attr.landing || '').toLowerCase();
+
     if (attr.gclid || (src.indexOf('google') !== -1 && /^(cpc|ppc|paid|paidsearch)$/.test(med))) return 'google_ads';
     if (attr.li_fat_id || src.indexOf('linkedin') !== -1 || ref.indexOf('linkedin.com') !== -1) return 'linkedin';
     if (src.indexOf('zalo') !== -1 || med.indexOf('zalo') !== -1 || ref.indexOf('zalo') !== -1) return 'zalo_oa';
     if (med === 'partner' || src === 'partner') return 'partner';
     if (med === 'referral') return 'referral';
-    if (med === 'email' || med === 'outbound' || src === 'outbound') return 'outbound';
+    if (OUTBOUND_MEDIUMS.indexOf(med) !== -1 || src === 'gmail' || src === 'outbound') return 'outbound';
+    if (src === 'whatsapp' && med === 'chat') {
+      for (var i = 0; i < WHATSAPP_OUTBOUND_CONTENT_PREFIXES.length; i++) {
+        if (content.indexOf(WHATSAPP_OUTBOUND_CONTENT_PREFIXES[i]) === 0) return 'outbound';
+      }
+      return 'other';
+    }
+    if (OTHER_SOURCES.indexOf(src) !== -1 || OTHER_MEDIUMS.indexOf(med) !== -1) return 'other';
+
     var hosts = ['google.', 'bing.', 'coccoc.', 'yahoo.', 'duckduckgo.'];
-    for (var i = 0; i < hosts.length; i++) {
-      if (ref.indexOf(hosts[i]) !== -1) return 'organic_blog';
+    for (var h = 0; h < hosts.length; h++) {
+      if (ref.indexOf(hosts[h]) !== -1) return 'organic_blog';
     }
     if (landing.indexOf('/blog') !== -1) return 'organic_blog';
     if (ref && ref.indexOf(window.location.hostname) === -1) return 'referral';
@@ -140,9 +204,26 @@
     return '[src] utm_source=' + (attr.utm_source || '-') +
       '|utm_medium=' + (attr.utm_medium || '-') +
       '|utm_campaign=' + (attr.utm_campaign || '-') +
+      '|utm_content=' + (attr.utm_content || '-') +
+      '|utm_term=' + (attr.utm_term || '-') +
       '|gclid=' + (attr.gclid || '-') +
       '|ref=' + (attr.referrer || '-') +
       '|landing=' + (attr.landing || '-');
+  }
+
+  function enrichChallenge(challenge) {
+    var raw = attributionRawLine();
+    var base = String(challenge || '').trim();
+    var combined = base ? base + '\n\n' + raw : raw;
+    return combined.length > 65000 ? combined.slice(0, 65000) : combined;
+  }
+
+  function appendUtmFields(body) {
+    var attr = captureAttribution();
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function (k) {
+      if (attr[k]) body.append(k, attr[k]);
+    });
+    body.append('convertx_lead_source_detail', mapLeadSource(attr));
   }
 
   function detectHsLanguage(pathname) {
@@ -211,7 +292,8 @@
     var segment = String(fd.get('convertx_segment') || '').trim();
     var zalo = fd.get('zalo_oa_opt_in') === 'true' || fd.get('zalo_oa_opt_in') === 'on';
     var offer = getOfferHint() || 'other';
-    var raw = attributionRawLine();
+    var attr = captureAttribution();
+    var raw = attributionRawLine(attr);
     return collect([
       field('email', fd.get('email')),
       field('firstname', names.firstname),
@@ -222,7 +304,12 @@
       field('hs_language', lang),
       field('convertx_intent', 'decision'),
       field('convertx_offer', offer),
-      field('convertx_lead_source_detail', mapLeadSource()),
+      field('convertx_lead_source_detail', mapLeadSource(attr)),
+      field('utm_source', attr.utm_source),
+      field('utm_medium', attr.utm_medium),
+      field('utm_campaign', attr.utm_campaign),
+      field('utm_content', attr.utm_content),
+      field('utm_term', attr.utm_term),
       field('convertx_package_interest', getPackageInterest()),
       (segment === 'b2b_saas' || segment === 'b2b_professional_services') ? field('convertx_segment', segment) : null,
       field('zalo_oa_opt_in', zalo ? 'true' : 'false')
@@ -248,8 +335,7 @@
     var opts = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ fields: fields, context: context }),
-      keepalive: true
+      body: JSON.stringify({ fields: fields, context: context })
     };
     if (controller) opts.signal = controller.signal;
 
@@ -301,6 +387,12 @@
     captureAttribution: captureAttribution,
     setPackageInterest: setPackageInterest,
     getPackageInterest: getPackageInterest,
-    mapLeadSource: mapLeadSource
+    mapLeadSource: mapLeadSource,
+    attributionRawLine: attributionRawLine,
+    enrichChallenge: enrichChallenge,
+    appendUtmFields: appendUtmFields,
+    /** Peek stored first-touch without side effects beyond normalize. */
+    getStoredAttribution: readStored,
+    ATTR_KEY: ATTR_KEY
   };
 })(window, document);

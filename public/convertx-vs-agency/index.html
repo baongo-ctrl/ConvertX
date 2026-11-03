@@ -585,8 +585,10 @@
     if(!phone||!phoneOk(phone)){show(MSG.phone);return;}
     if(!company){show(MSG.company);return;}
     if(!challenge){show(MSG.challenge);return;}
+    if(window.CXHubSpot&&window.CXHubSpot.enrichChallenge){challenge=window.CXHubSpot.enrichChallenge(challenge);}
     var body=new FormData(); body.append("name",name); body.append("email",email); body.append("phone",phone);
     body.append("company",company); body.append("challenge",challenge);
+    if(window.CXHubSpot&&window.CXHubSpot.appendUtmFields){window.CXHubSpot.appendUtmFields(body);}
     btn.disabled=true; btn.textContent="Đang gửi..."; stamp(now);
     try{await fetch(CX_CONTACT_URL,{method:"POST",mode:"no-cors",body:body});}catch(ex){console.error("Error submitting form:",ex);} try{if(window.CXHubSpot)await window.CXHubSpot.submit("contact",form);}catch(ex){console.warn("[HubSpot]",ex);}
     form.hidden=true; ok.hidden=false; /* homepage cũng hiển thị thành công cả khi lỗi mạng (no-cors) */
