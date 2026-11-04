@@ -81,4 +81,68 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://convertx.biz/giai-phap/saas-viet-nam</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://convertx.biz/giai-phap/saas-viet-nam"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://convertx.biz/en/solutions/vietnam-saas-growth"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://convertx.biz/giai-phap/saas-viet-nam"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://convertx.biz/en/solutions/vietnam-saas-growth</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://convertx.biz/giai-phap/saas-viet-nam"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://convertx.biz/en/solutions/vietnam-saas-growth"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://convertx.biz/giai-phap/saas-viet-nam"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://convertx.biz/giai-phap/saas-nuoc-ngoai-vao-viet-nam</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://convertx.biz/giai-phap/saas-nuoc-ngoai-vao-viet-nam"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://convertx.biz/en/saas-vietnam-entry"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://convertx.biz/giai-phap/saas-nuoc-ngoai-vao-viet-nam"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://convertx.biz/en/saas-vietnam-entry</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://convertx.biz/giai-phap/saas-nuoc-ngoai-vao-viet-nam"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://convertx.biz/en/saas-vietnam-entry"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://convertx.biz/giai-phap/saas-nuoc-ngoai-vao-viet-nam"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://convertx.biz/giai-phap/outsourcing-dich-vu-b2b</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://convertx.biz/giai-phap/outsourcing-dich-vu-b2b"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://convertx.biz/en/solutions/outsourcing-b2b-services"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://convertx.biz/giai-phap/outsourcing-dich-vu-b2b"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://convertx.biz/en/solutions/outsourcing-b2b-services</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://convertx.biz/giai-phap/outsourcing-dich-vu-b2b"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://convertx.biz/en/solutions/outsourcing-b2b-services"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://convertx.biz/giai-phap/outsourcing-dich-vu-b2b"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://convertx.biz/giai-phap/tu-van-chuyen-gia</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://convertx.biz/giai-phap/tu-van-chuyen-gia"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://convertx.biz/en/solutions/consultancy-expert-firms"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://convertx.biz/giai-phap/tu-van-chuyen-gia"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://convertx.biz/en/solutions/consultancy-expert-firms</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://convertx.biz/giai-phap/tu-van-chuyen-gia"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://convertx.biz/en/solutions/consultancy-expert-firms"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://convertx.biz/giai-phap/tu-van-chuyen-gia"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
 </urlset>
