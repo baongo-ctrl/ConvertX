@@ -572,11 +572,11 @@ const getCaseStudies = (lang: Language): CaseStudy[] => [
   },
   {
     company: 'cirCO',
-    metric: '200+',
-    metricLabel: lang === 'vi' ? 'Khách hàng tiềm năng chất lượng / Tháng' : 'Qualified Leads / Month',
+    metric: '+150%',
+    metricLabel: lang === 'vi' ? 'Lead B2B trong 6 tháng' : 'B2B Leads in 6 Months',
     description: lang === 'vi'
-      ? 'Đạt tỷ lệ chuyển đổi từ khách hàng tiềm năng sang khách hàng thực tế là 18% thông qua các chiến lược tiếp cận B2B mục tiêu.'
-      : 'Achieved an 18% lead-to-customer conversion rate through targeted B2B outreach strategies.',
+      ? 'Giảm 40% chi phí sở hữu khách hàng (CPA) thông qua chiến dịch LinkedIn ABM và tối ưu quy trình nuôi dưỡng lead.'
+      : 'Reduced Cost Per Acquisition (CPA) by 40% through targeted LinkedIn ABM campaigns and optimised lead nurturing.',
     tags: lang === 'vi' ? ['Tạo Lead', 'Chuyển đổi'] : ['Lead Gen', 'Conversion'],
     fullStory: {
       challenge: lang === 'vi'
@@ -587,11 +587,9 @@ const getCaseStudies = (lang: Language): CaseStudy[] => [
         : 'We developed targeted LinkedIn ABM campaigns and optimized the lead nurturing process to reach HR and Ops heads of growing tech firms.',
       results: lang === 'vi' ? [
         'Tăng lượng khách hàng tiềm năng B2B lên 150% trong 6 tháng',
-        'Duy trì tỷ lệ chuyển đổi ổn định ở mức 18%',
         'Giảm chi phí sở hữu khách hàng (CPA) xuống 40%'
       ] : [
         'Increased B2B lead volume by 150% in 6 months',
-        'Maintained a steady 18% conversion rate',
         'Reduced Cost Per Acquisition (CPA) by 40%'
       ]
     }
